@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import javax.swing.Action;
 
 public class inter extends JFrame {
-
+//hellllllllllllllllllllllllllooo
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField name1;
@@ -31,6 +31,7 @@ public class inter extends JFrame {
 	String url = "jdbc:postgresql://localhost:5432/postgres";
     String user = "postgres";
     String password = "123456";
+    //ssssssssssssssssssssssssssssssssssn
 
 	/**
 	 * Launch the application.
@@ -47,6 +48,7 @@ public class inter extends JFrame {
 			}
 		});
 	}
+	//ddddddddddddddddddddddddddddddddddddddddd
 
 	/**
 	 * Create the frame.

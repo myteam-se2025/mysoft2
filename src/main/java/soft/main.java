@@ -7,6 +7,7 @@ public class main {
 		inter interFrame = new inter();
 	      interFrame.setVisible(true);
 	      interFrame.setLocationRelativeTo(null);
+	      System.out.println("m");
 	     
 	}
 }
