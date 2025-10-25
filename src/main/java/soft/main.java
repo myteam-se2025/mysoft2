@@ -8,6 +8,7 @@ public class main {
 	      interFrame.setVisible(true);
 	      interFrame.setLocationRelativeTo(null);
 	      System.out.println("m");
+	      System.out.println("khadeja");
 	     
 	}
 }

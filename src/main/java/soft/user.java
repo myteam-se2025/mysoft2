@@ -42,6 +42,7 @@ public class user extends JFrame {
 		});
 	}
 
+	// my code 
 	/**
 	 * Create the frame.
 	 */
