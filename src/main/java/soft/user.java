@@ -63,7 +63,7 @@ public class user extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(85, 107, 47));
+		panel.setBackground(new Color(44, 116, 54));
 		panel.setBounds(0, 0, 797, 73);
 		contentPane.add(panel);
 		panel.setLayout(null);
