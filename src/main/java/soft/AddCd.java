@@ -50,7 +50,7 @@ public class AddCd extends JFrame {
 		JLabel lblNewLabel = new JLabel("Add CD");
 		lblNewLabel.setForeground(new Color(85, 107, 47));
 		lblNewLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel.setBounds(45, 22, 111, 14);
+		lblNewLabel.setBounds(111, 21, 111, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Tittle");
