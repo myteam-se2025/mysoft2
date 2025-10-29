@@ -1,6 +1,31 @@
 package soft;
 
-public class UserDAO {
-	
+import java.sql.SQLException;
 
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class UserDAO {
+   
+    private Connection con;
+
+    public UserDAO() throws SQLException {
+        con = Dbconnection.getConnection();
+    }
+
+    public void addUser(User user) {
+
+        String sql = "INSERT INTO public.users (name, email, phone, address, membership_date) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, user.getFull_name());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getPhone());
+            pstmt.setString(4, user.getAddress());
+            pstmt.setDate(5, new java.sql.Date(user.getMembership_date().getTime()));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
