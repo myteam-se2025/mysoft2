@@ -105,7 +105,17 @@ public class AddUser extends JFrame {
 		btnNewButton.setForeground(new Color(96, 77, 49));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				  User user = new User("John Doe", "John@gmail.com", "1234567890", "123 Main St", new java.sql.Date(System.currentTimeMillis()));    
+				    
+			        try {
+			            UserService userService = new UserService();
+			            userService.registerUser(user);
+			        } catch (Exception e1) {
+			            e1.printStackTrace();
 			}
+			    }
+			
 		});
 		btnNewButton.setBounds(393, 345, 172, 23);
 		contentPane.add(btnNewButton);

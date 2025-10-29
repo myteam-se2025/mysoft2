@@ -16,7 +16,7 @@ public class UserDAO {
 
     public void addUser(User user) {
 
-        String sql = "INSERT INTO public.users (name, email, phone, address, membership_date) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO public.users (full_name, email, phone, address,membership_date) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, user.getFull_name());
             pstmt.setString(2, user.getEmail());
