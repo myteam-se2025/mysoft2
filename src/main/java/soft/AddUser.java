@@ -53,7 +53,7 @@ public class AddUser extends JFrame {
 		JLabel lblNewLabel = new JLabel("Add User");
 		lblNewLabel.setForeground(new Color(202, 128, 53));
 		lblNewLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel.setBounds(10, 11, 123, 14);
+		lblNewLabel.setBounds(76, 25, 123, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("FullName");

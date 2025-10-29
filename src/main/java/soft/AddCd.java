@@ -48,7 +48,7 @@ public class AddCd extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Add CD");
-		lblNewLabel.setForeground(new Color(202, 128, 53));
+		lblNewLabel.setForeground(new Color(85, 107, 47));
 		lblNewLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
 		lblNewLabel.setBounds(45, 22, 111, 14);
 		contentPane.add(lblNewLabel);
