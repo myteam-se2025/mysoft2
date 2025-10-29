@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-public class user extends JFrame {
+public class Usermain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -33,7 +33,7 @@ public class user extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					user frame = new user();
+					Usermain frame = new Usermain();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class user extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public user() {
+	public Usermain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
@@ -63,7 +63,7 @@ public class user extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(44, 116, 54));
+		panel.setBackground(new Color(119, 136, 153));
 		panel.setBounds(0, 0, 797, 73);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -107,10 +107,10 @@ public class user extends JFrame {
 	        putValue(SHORT_DESCRIPTION, "Search for books");
 		}
 		public void actionPerformed(ActionEvent e) {
-			 user1 searchFrame = new user1();
+			 Usersearch searchFrame = new Usersearch();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
-			 user.this.dispose();
+			 Usermain.this.dispose();
 			
 		        
 		}
@@ -122,10 +122,10 @@ public class user extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			
-			 user2 searchFrame = new user2();
+			 Userborow searchFrame = new Userborow();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
-			 user.this.dispose();
+			 Usermain.this.dispose();
 		}
 	}
 	private class SwingAction_2 extends AbstractAction {
@@ -134,10 +134,10 @@ public class user extends JFrame {
 			putValue(SHORT_DESCRIPTION, "fines");
 		}
 		public void actionPerformed(ActionEvent e) {
-			 user3 searchFrame = new user3();
+			 Userfines searchFrame = new Userfines();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
-			 user.this.dispose();
+			 Usermain.this.dispose();
 		}
 	}
 }

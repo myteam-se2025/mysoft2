@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
 
-public class User8 extends JFrame {
+public class Adminaddbook extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -28,7 +28,7 @@ public class User8 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					User8 frame = new User8();
+					Adminaddbook frame = new Adminaddbook();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,11 +40,11 @@ public class User8 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public User8() {
+	public Adminaddbook() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(153, 181, 115));
+		contentPane.setBackground(new Color(143, 188, 143));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
