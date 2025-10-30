@@ -32,18 +32,23 @@ public class UserDAO {
     }
 
 
-    public boolean searchUserByemailandid( int id , String name)  {
+    public boolean searchUserByEmailAndId( int id , String email)  {
     	
     	
-        String sql = "SELECT * FROM public.users WHERE name = ? AND id = ?";
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setString(1, name);
-            pstmt.setInt(2, id);
-            ResultSet rs = pstmt.executeQuery();
+    	  boolean userFound = false;
+    	    String sql = "SELECT * FROM public.users WHERE user_id = ? AND email = ?";
+
+    	    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+    	        pstmt.setInt(1, id);
+    	        pstmt.setString(2, email.trim().toLowerCase());
+
+    	        ResultSet rs = pstmt.executeQuery();
+
             while (rs.next()) {
                 System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
                 uFound = true;
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
 }

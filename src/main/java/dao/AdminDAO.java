@@ -32,41 +32,30 @@ import modl.Admin;
 		            e.printStackTrace();
 		        }
 		    }
-		    public boolean searchAdminByemailandid( int id , String email)  {
+		    
+		    
+		    
+		    public boolean searchAdminByEmailAndId(int id, String email) {
+		        boolean aFound = false;
+		        
+		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email = ?";
 
-		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email =?";
 		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-		        	pstmt.setInt(1, id);
-		        	pstmt.setString(2, email);
+		            pstmt.setInt(1, id);
+		            pstmt.setString(2, email);
 
 		            ResultSet rs = pstmt.executeQuery();
-		            while (rs.next()) {
-		                System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+		            if (rs.next()) {
+		                System.out.println("Admin Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
 		                aFound = true;
 		            }
 		        } catch (SQLException e) {
 		            e.printStackTrace();
-		}
-		        return aFound;
-		}
-
-		    public Admin findByUsername(String username) {
-		        String sql = "SELECT * FROM admins WHERE username = ?";
-		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-		            pstmt.setString(1, username);
-		            ResultSet rs = pstmt.executeQuery();
-		            if (rs.next()) {
-		                return new Admin(
-		                    rs.getInt("admin_id"),
-		                    rs.getString("username"),
-		                    rs.getString("password"),
-		                    rs.getString("email")
-		                );
-		            }
-		        } catch (SQLException e) {
-		            e.printStackTrace();
 		        }
-		        return null;
+		        return aFound;
 		    }
+
+
+		   
 	}
 	/**/

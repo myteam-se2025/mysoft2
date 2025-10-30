@@ -6,10 +6,12 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -88,44 +90,19 @@ public class LogIn extends JFrame {
 				int idd = Integer.parseInt(pass.getText().trim());
 			
 				LogInService log = new LogInService();
-				log.login(idd , email);
+				 try {
+				        log.login(idd, email);
+				    } catch (SQLException ex) {
+				        JOptionPane.showMessageDialog(
+				            null,
+				            "Database error occurred while trying to log in.\nPlease try again later.",
+				            "Database Error",
+				            JOptionPane.ERROR_MESSAGE
+				        );
+				        ex.printStackTrace();
+				    }
           
 			}
-			/*public void actionPerformed(ActionEvent e) {
-
-
-		     	String username = name2.getText().trim();
-				String email = email2.getText().trim();
-
-				if (username.isEmpty() || email.isEmpty()) {
-					javax.swing.JOptionPane.showMessageDialog(LogIn.this, "Please fill all fields!");
-					return;
-				}
-
-				try {
-					service.AdminService adminService = new service.AdminService();
-					if (adminService.login(username, email)) {
-						soft.AdmiNname adminPage = new soft.AdmiNname(); // صححت الاسم هنا
-						adminPage.setVisible(true);
-						adminPage.setLocationRelativeTo(null);
-						LogIn.this.dispose();
-					} else {
-						service.UserService userService = new service.UserService();
-						if (userService.login(username, email) != null) {
-							soft.UserMain userPage = new soft.UserMain();
-							userPage.setVisible(true);
-							userPage.setLocationRelativeTo(null);
-							LogIn.this.dispose();
-						} else {
-							javax.swing.JOptionPane.showMessageDialog(LogIn.this, "Invalid credentials!");
-						}
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					javax.swing.JOptionPane.showMessageDialog(LogIn.this, "Database error: " + ex.getMessage());
-				}
-			}
-			*/
 		});
 		contentPane.add(login);
 
