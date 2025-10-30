@@ -33,7 +33,8 @@ public class UserDAO {
 
 
     public boolean searchUserByemailandid( int id , String name)  {
-
+    	
+    	
         String sql = "SELECT * FROM public.users WHERE name = ? AND id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, name);

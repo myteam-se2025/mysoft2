@@ -34,7 +34,7 @@ import modl.Admin;
 		    }
 		    public boolean searchAdminByemailandid( int id , String email)  {
 
-		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email";
+		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email =?";
 		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 		        	pstmt.setInt(1, id);
 		        	pstmt.setString(2, email);
