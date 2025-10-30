@@ -14,7 +14,7 @@ public class AdminService {
 	    }
 	    
 	    public void searchAdmina(String name, int id){
-	    	admindao.
+	    
 	    	
 	    }
 	    
