@@ -1,41 +1,23 @@
 package service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import dao.DbConnection;
 import modl.User;
+import dao.UserDAO;
 
 public class UserService {
 
-    private Connection con;
+    private UserDAO userdao;
 
     public UserService() throws SQLException {
-        con = DbConnection.getConnection();
+        userdao = new UserDAO();
     }
 
-    // ترجع User object اذا البيانات مطابقة
+    public void registerUser(User user) {
+        userdao.addUser(user);
+    }
+
+    // ✅ دالة login التي يتم استدعاؤها من Admin.java
     public User login(String username, String email) {
-        String sql = "SELECT * FROM users WHERE full_name = ? AND email = ?";
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            stmt.setString(2, email);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                User user = new User(
-                    rs.getString("full_name"),
-                    rs.getString("email"),
-                    rs.getString("phone"),
-                    rs.getString("address"),
-                    rs.getDate("membership_date")
-                );
-                return user;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null; // اذا ماوجد
+        return userdao.findUserByNameAndEmail(username, email);
     }
 }
