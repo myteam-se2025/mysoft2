@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-public class Usermain extends JFrame {
+public class UserMain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -33,7 +33,7 @@ public class Usermain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Usermain frame = new Usermain();
+					UserMain frame = new UserMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class Usermain extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Usermain() {
+	public UserMain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
@@ -107,10 +107,10 @@ public class Usermain extends JFrame {
 	        putValue(SHORT_DESCRIPTION, "Search for books");
 		}
 		public void actionPerformed(ActionEvent e) {
-			 Usersearch searchFrame = new Usersearch();
+			 UserSearch searchFrame = new UserSearch();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
-			 Usermain.this.dispose();
+			 UserMain.this.dispose();
 			
 		        
 		}
@@ -122,10 +122,10 @@ public class Usermain extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			
-			 Userborow searchFrame = new Userborow();
+			 UserBorow searchFrame = new UserBorow();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
-			 Usermain.this.dispose();
+			 UserMain.this.dispose();
 		}
 	}
 	private class SwingAction_2 extends AbstractAction {
@@ -134,10 +134,10 @@ public class Usermain extends JFrame {
 			putValue(SHORT_DESCRIPTION, "fines");
 		}
 		public void actionPerformed(ActionEvent e) {
-			 Userfines searchFrame = new Userfines();
+			 UserFines searchFrame = new UserFines();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
-			 Usermain.this.dispose();
+			 UserMain.this.dispose();
 		}
 	}
 }

@@ -12,7 +12,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 
-public class Userfines extends JFrame {
+public class UserFines extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -25,7 +25,7 @@ public class Userfines extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Userfines frame = new Userfines();
+					UserFines frame = new UserFines();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class Userfines extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Userfines() {
+	public UserFines() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
@@ -63,10 +63,10 @@ public class Userfines extends JFrame {
 			putValue(SHORT_DESCRIPTION, "get back");
 		}
 		public void actionPerformed(ActionEvent e) {
-			Usermain searchFrame = new Usermain();
+			UserMain searchFrame = new UserMain();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
-			 Userfines.this.dispose();
+			 UserFines.this.dispose();
 		}
 	}
 }

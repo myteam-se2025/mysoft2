@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-public class Usersearch extends JFrame {
+public class UserSearch extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -34,7 +34,7 @@ public class Usersearch extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Usersearch frame = new Usersearch();
+					UserSearch frame = new UserSearch();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class Usersearch extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Usersearch() {
+	public UserSearch() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
@@ -145,10 +145,10 @@ public class Usersearch extends JFrame {
 			putValue(SHORT_DESCRIPTION, "get back");
 		}
 		public void actionPerformed(ActionEvent e) {
-			 Usermain searchFrame = new Usermain();
+			 UserMain searchFrame = new UserMain();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
-			 Usersearch.this.dispose();
+			 UserSearch.this.dispose();
 		}
 	}
 }

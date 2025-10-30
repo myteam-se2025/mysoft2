@@ -12,7 +12,7 @@ public class UserDAO {
     private Connection con;
 
     public UserDAO() throws SQLException {
-        con = Dbconnection.getConnection();
+        con = DbConnection.getConnection();
     }
 
     public void addUser(User user) {

@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 import javax.swing.Action;
 
-public class inter extends JFrame {
+public class Inter extends JFrame {
 //hellllllllllllllllllllllllllooo
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,7 +40,7 @@ public class inter extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					inter frame = new inter();
+					Inter frame = new Inter();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +53,7 @@ public class inter extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public inter() {
+	public Inter() {
 		setTitle("welcom");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

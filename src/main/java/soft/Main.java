@@ -1,10 +1,10 @@
 package soft;
 
-public class main {
+public class Main {
 
 	public static void main(String []args)
 	{
-		inter interFrame = new inter();
+		Inter interFrame = new Inter();
 	      interFrame.setVisible(true);
 	      interFrame.setLocationRelativeTo(null);
 	      System.out.println("m");

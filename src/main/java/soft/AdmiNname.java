@@ -12,7 +12,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 
-public class Adminname extends JFrame {
+public class AdmiNname extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -24,7 +24,7 @@ public class Adminname extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Adminname frame = new Adminname();
+					AdmiNname frame = new AdmiNname();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class Adminname extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Adminname() {
+	public AdmiNname() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
@@ -58,7 +58,7 @@ public class Adminname extends JFrame {
 				 AddCd searchFrame = new  AddCd();
 				 searchFrame.setVisible(true);
 				 searchFrame.setLocationRelativeTo(null);
-				 Adminname.this.dispose();
+				 AdmiNname.this.dispose();
 			}
 		});
 		btnNewButton_3.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 15));
@@ -86,7 +86,7 @@ public class Adminname extends JFrame {
 				 AddUser searchFrame = new  AddUser();
 				 searchFrame.setVisible(true);
 				 searchFrame.setLocationRelativeTo(null);
-				 Adminname.this.dispose();
+				 AdmiNname.this.dispose();
 				 
 			}
 		});
@@ -95,10 +95,10 @@ public class Adminname extends JFrame {
 		btnNewButton_2.setBackground(new Color(143, 188, 143));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 Adminaddbook searchFrame = new  Adminaddbook();
+				 AdminAddBook searchFrame = new  AdminAddBook();
 				 searchFrame.setVisible(true);
 				 searchFrame.setLocationRelativeTo(null);
-				 Adminname.this.dispose();
+				 AdmiNname.this.dispose();
 			}
 		});
 

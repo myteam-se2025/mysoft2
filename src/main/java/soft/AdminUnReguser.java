@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 
-public class Adminunreguser extends JFrame {
+public class AdminUnReguser extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -22,7 +22,7 @@ public class Adminunreguser extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Adminunreguser frame = new Adminunreguser();
+					AdminUnReguser frame = new AdminUnReguser();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class Adminunreguser extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Adminunreguser() {
+	public AdminUnReguser() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
