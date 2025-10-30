@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import dao.DbConnection;
 import modl.User;
+import dao.UserDAO;
 
 public class UserService {
 
@@ -15,7 +16,16 @@ public class UserService {
     public UserService() throws SQLException {
         con = DbConnection.getConnection();
     }
-
+ 
+ private UserDAO userdao ;
+    
+    public void UoserService() throws SQLException {
+        userdao = new UserDAO();
+    }
+    public void registerUser(User user) {
+        userdao.addUser(user);
+    }
+    
     // ترجع User object اذا البيانات مطابقة
     public User login(String username, String email) {
         String sql = "SELECT * FROM users WHERE full_name = ? AND email = ?";
