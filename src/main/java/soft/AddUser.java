@@ -22,9 +22,9 @@ public class AddUser extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField name2;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField email;
+	private JTextField phone;
+	private JTextField addres;
 
 	/**
 	 * Launch the application.
@@ -89,20 +89,20 @@ public class AddUser extends JFrame {
 		contentPane.add(name2);
 		name2.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(147, 144, 166, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		email = new JTextField();
+		email.setBounds(147, 144, 166, 20);
+		contentPane.add(email);
+		email.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(147, 193, 166, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		phone = new JTextField();
+		phone.setBounds(147, 193, 166, 20);
+		contentPane.add(phone);
+		phone.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(147, 240, 166, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		addres = new JTextField();
+		addres.setBounds(147, 240, 166, 20);
+		contentPane.add(addres);
+		addres.setColumns(10);
 		
 		JButton btnNewButton = new JButton("AddUser");
 		btnNewButton.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
@@ -111,8 +111,11 @@ public class AddUser extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String name = name2.getText();
+				String email2 = email.getText();
+				String phone2 = phone.getText();
+				String addres2 = addres.getText();
 		
-				  User user = new User(name, "John@gmail.com", "1234567890", "123 Main St", new java.sql.Date(System.currentTimeMillis()));    
+				  User user = new User(name, email2, phone2, addres2, new java.sql.Date(System.currentTimeMillis()));    
 				    
 			        try {
 			            UserService userService = new UserService();
