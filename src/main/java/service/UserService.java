@@ -13,6 +13,7 @@ public class UserService {
     public UserService() throws SQLException {
         userdao = new UserDAO();
     }
+    
     public void registerUser(User user) {
         userdao.addUser(user);
     }

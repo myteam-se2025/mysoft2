@@ -21,7 +21,7 @@ public class AddUser extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField name2;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -84,10 +84,10 @@ public class AddUser extends JFrame {
 		lblNewLabel_4.setBounds(0, 240, 91, 14);
 		contentPane.add(lblNewLabel_4);
 		
-		textField = new JTextField();
-		textField.setBounds(147, 94, 166, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		name2 = new JTextField();
+		name2.setBounds(147, 94, 166, 20);
+		contentPane.add(name2);
+		name2.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(147, 144, 166, 20);
@@ -110,7 +110,9 @@ public class AddUser extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				  User user = new User("John Doe", "John@gmail.com", "1234567890", "123 Main St", new java.sql.Date(System.currentTimeMillis()));    
+				String name = name2.getText();
+		
+				  User user = new User(name, "John@gmail.com", "1234567890", "123 Main St", new java.sql.Date(System.currentTimeMillis()));    
 				    
 			        try {
 			            UserService userService = new UserService();
