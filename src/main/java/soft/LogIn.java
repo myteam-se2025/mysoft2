@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Admin extends JFrame {
+public class LogIn extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -23,7 +23,7 @@ public class Admin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Admin frame = new Admin();
+					LogIn frame = new LogIn();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,9 +32,9 @@ public class Admin extends JFrame {
 		});
 	}
 
-	public Admin() {
+	public LogIn() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 811, 569);
+		setBounds(100, 100, 558, 351);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(143, 188, 143));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,22 +42,22 @@ public class Admin extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel AdminLabel = new JLabel("        Login");
+		AdminLabel.setBounds(10, 11, 238, 25);
 		AdminLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
 		AdminLabel.setBackground(new Color(96, 77, 49));
 		AdminLabel.setForeground(new Color(96, 77, 49));
-		AdminLabel.setBounds(10, 11, 238, 25);
 		contentPane.add(AdminLabel);
 
 		JLabel lblNewLabel = new JLabel("User Name");
+		lblNewLabel.setBounds(10, 79, 118, 14);
 		lblNewLabel.setForeground(new Color(101, 64, 27));
 		lblNewLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel.setBounds(10, 79, 118, 14);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Email");
+		lblNewLabel_1.setBounds(10, 144, 124, 14);
 		lblNewLabel_1.setForeground(new Color(101, 64, 27));
 		lblNewLabel_1.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel_1.setBounds(10, 144, 124, 14);
 		contentPane.add(lblNewLabel_1);
 
 		name2 = new JTextField();
@@ -71,6 +71,7 @@ public class Admin extends JFrame {
 		email2.setColumns(10);
 
 		JButton login = new JButton("LogIn");
+		login.setBounds(316, 219, 154, 23);
 		login.setForeground(new Color(96, 77, 49));
 		login.setBackground(new Color(143, 188, 143));
 		login.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
@@ -80,7 +81,7 @@ public class Admin extends JFrame {
 				String email = email2.getText().trim();
 
 				if (username.isEmpty() || email.isEmpty()) {
-					javax.swing.JOptionPane.showMessageDialog(Admin.this, "Please fill all fields!");
+					javax.swing.JOptionPane.showMessageDialog(LogIn.this, "Please fill all fields!");
 					return;
 				}
 
@@ -90,25 +91,24 @@ public class Admin extends JFrame {
 						soft.AdmiNname adminPage = new soft.AdmiNname(); // صححت الاسم هنا
 						adminPage.setVisible(true);
 						adminPage.setLocationRelativeTo(null);
-						Admin.this.dispose();
+						LogIn.this.dispose();
 					} else {
 						service.UserService userService = new service.UserService();
 						if (userService.login(username, email) != null) {
 							soft.UserMain userPage = new soft.UserMain();
 							userPage.setVisible(true);
 							userPage.setLocationRelativeTo(null);
-							Admin.this.dispose();
+							LogIn.this.dispose();
 						} else {
-							javax.swing.JOptionPane.showMessageDialog(Admin.this, "Invalid credentials!");
+							javax.swing.JOptionPane.showMessageDialog(LogIn.this, "Invalid credentials!");
 						}
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
-					javax.swing.JOptionPane.showMessageDialog(Admin.this, "Database error: " + ex.getMessage());
+					javax.swing.JOptionPane.showMessageDialog(LogIn.this, "Database error: " + ex.getMessage());
 				}
 			}
 		});
-		login.setBounds(475, 343, 154, 23);
 		contentPane.add(login);
 	}
 }
