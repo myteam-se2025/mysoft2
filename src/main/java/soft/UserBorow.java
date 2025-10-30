@@ -1,20 +1,20 @@
 package soft;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 public class UserBorow extends JFrame {
 
@@ -28,6 +28,7 @@ public class UserBorow extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					UserBorow frame = new UserBorow();
@@ -43,20 +44,20 @@ public class UserBorow extends JFrame {
 	 * Create the frame.
 	 */
 	public UserBorow() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(143, 188, 143));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(210, 180, 140));
 		panel.setBounds(25, 90, 745, 411);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		txtInterIsbnHe = new JTextField();
 		txtInterIsbnHe.setHorizontalAlignment(SwingConstants.CENTER);
 		txtInterIsbnHe.setBackground(new Color(143, 188, 143));
@@ -66,20 +67,20 @@ public class UserBorow extends JFrame {
 		txtInterIsbnHe.setBounds(260, 63, 207, 30);
 		panel.add(txtInterIsbnHe);
 		txtInterIsbnHe.setColumns(10);
-		
+
 		JButton btnNewButton = new JButton("borow");
 		btnNewButton.setBackground(new Color(143, 188, 143));
 		btnNewButton.setForeground(new Color(85, 107, 47));
 		btnNewButton.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 12));
 		btnNewButton.setBounds(589, 150, 95, 20);
 		panel.add(btnNewButton);
-		
+
 		JLabel lblNewLabel = new JLabel("borow");
 		lblNewLabel.setForeground(new Color(85, 107, 47));
 		lblNewLabel.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 30));
 		lblNewLabel.setBounds(338, 25, 110, 30);
 		contentPane.add(lblNewLabel);
-		
+
 		JButton btnNewButton_1 = new JButton("<--");
 		btnNewButton_1.setAction(action);
 		btnNewButton_1.setBackground(new Color(143, 188, 143));
@@ -95,6 +96,7 @@ public class UserBorow extends JFrame {
 			putValue(NAME, "<--");
 			putValue(SHORT_DESCRIPTION, "get back");
 		}
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			UserMain searchFrame = new UserMain();
 			 searchFrame.setVisible(true);

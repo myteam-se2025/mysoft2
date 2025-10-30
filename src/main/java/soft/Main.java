@@ -9,6 +9,6 @@ public class Main {
 	      interFrame.setLocationRelativeTo(null);
 	      System.out.println("m");
 	      System.out.println("khadeja");
-	     
+
 	}
 }

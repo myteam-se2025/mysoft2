@@ -1,26 +1,30 @@
 package soft;
+import service.*;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 public class LogIn extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField name2;
-	private JTextField email2;
+	private JTextField email1;
+	private JTextField pass;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					LogIn frame = new LogIn();
@@ -33,7 +37,7 @@ public class LogIn extends JFrame {
 	}
 
 	public LogIn() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 558, 351);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(143, 188, 143));
@@ -42,33 +46,33 @@ public class LogIn extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel AdminLabel = new JLabel("        Login");
-		AdminLabel.setBounds(10, 11, 238, 25);
+		AdminLabel.setBounds(177, 10, 238, 25);
 		AdminLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
 		AdminLabel.setBackground(new Color(96, 77, 49));
 		AdminLabel.setForeground(new Color(96, 77, 49));
 		contentPane.add(AdminLabel);
 
-		JLabel lblNewLabel = new JLabel("User Name");
-		lblNewLabel.setBounds(10, 79, 118, 14);
+		JLabel lblNewLabel = new JLabel("passwprd");
+		lblNewLabel.setBounds(31, 132, 124, 20);
 		lblNewLabel.setForeground(new Color(101, 64, 27));
 		lblNewLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Email");
-		lblNewLabel_1.setBounds(10, 144, 124, 14);
+		lblNewLabel_1.setBounds(53, 76, 81, 25);
 		lblNewLabel_1.setForeground(new Color(101, 64, 27));
 		lblNewLabel_1.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
 		contentPane.add(lblNewLabel_1);
 
-		name2 = new JTextField();
-		name2.setBounds(176, 74, 202, 25);
-		contentPane.add(name2);
-		name2.setColumns(10);
+		email1 = new JTextField();
+		email1.setBounds(176, 74, 202, 25);
+		contentPane.add(email1);
+		email1.setColumns(10);
 
-		email2 = new JTextField();
-		email2.setBounds(176, 133, 202, 25);
-		contentPane.add(email2);
-		email2.setColumns(10);
+		pass = new JTextField();
+		pass.setBounds(176, 133, 202, 25);
+		contentPane.add(pass);
+		pass.setColumns(10);
 
 		JButton login = new JButton("LogIn");
 		login.setBounds(316, 219, 154, 23);
@@ -76,8 +80,20 @@ public class LogIn extends JFrame {
 		login.setBackground(new Color(143, 188, 143));
 		login.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
 		login.addActionListener(new ActionListener() {
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				String username = name2.getText().trim();
+            
+				String email = email1.getText().trim();
+				int idd = Integer.parseInt(pass.getText().trim());
+				LogInService log = new LogInService();
+				log.login(ABORT, getName());
+          
+			}
+			/*public void actionPerformed(ActionEvent e) {
+
+
+		     	String username = name2.getText().trim();
 				String email = email2.getText().trim();
 
 				if (username.isEmpty() || email.isEmpty()) {
@@ -108,7 +124,9 @@ public class LogIn extends JFrame {
 					javax.swing.JOptionPane.showMessageDialog(LogIn.this, "Database error: " + ex.getMessage());
 				}
 			}
+			*/
 		});
 		contentPane.add(login);
-	}
+
 }
+		}
