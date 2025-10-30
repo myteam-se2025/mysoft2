@@ -46,19 +46,23 @@ public class UserDAO {
             e.printStackTrace();
 }
 }
-    
-    public void searchUsetrByNameandid(String name, int id)  {
 
-        //some logic for conflect check
+
+    public void searchUserByNameandid2(String name, int id)  {
+
+        String sql = "SELECT * FROM public.users WHERE name = ? AND id = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setInt(2, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+}
 }
     
-    
-    //lkjdjflkjdflajdlkjd
-    //  jdfkljdflk;dkfj;aksj
-    //
-    //skjdflkasjdlfkjdlfj
-    //dlkjlassdjf;lsjljj;lf
-    //fjl;kdjljdflkdfkassjd;l
-    //
+ 
 }
 
