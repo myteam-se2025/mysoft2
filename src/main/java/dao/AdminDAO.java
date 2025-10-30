@@ -46,7 +46,7 @@ import modl.Admin;
 
 		            ResultSet rs = pstmt.executeQuery();
 		            if (rs.next()) {
-		                System.out.println("Admin Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+		              //  System.out.println("Admin Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
 		                aFound = true;
 		            }
 		        } catch (SQLException e) {

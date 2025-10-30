@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import modl.User;
 
 public class UserDAO {
@@ -44,16 +46,24 @@ public class UserDAO {
 
     	        ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+            if (rs.next()) {
+              //  System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
                 uFound = true;
+            }else {
+            	uFound = false;
             }
-            
         } catch (SQLException e) {
-            e.printStackTrace();
-}
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Database error occurred while searching for user.\nPlease try again later.",
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                e.printStackTrace();
+        }
         return uFound;
 }
+    
     public User findUserByNameAndEmail(String fullName, String email) {
         String sql = "SELECT * FROM users WHERE full_name = ? AND email = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
