@@ -11,7 +11,7 @@ import modl.User;
 
 public class UserDAO {
 
-	private static boolean uFound = false;
+	
     private Connection con;
 
     public UserDAO() throws SQLException {
@@ -35,10 +35,9 @@ public class UserDAO {
 
 
     public boolean searchUserByEmailAndId( int id , String email)  {
+    	 boolean uFound = false;
     	
-    	
-    	  boolean userFound = false;
-    	    String sql = "SELECT * FROM public.users WHERE user_id = ? AND email = ?";
+    	    String sql = "SELECT * FROM public.users WHERE user_id = ? AND LOWER(email) = ??";
 
     	    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
     	        pstmt.setInt(1, id);
@@ -74,7 +73,7 @@ public class UserDAO {
 
             while (rs.next()) {
                 System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
-                uFound = true;
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();
