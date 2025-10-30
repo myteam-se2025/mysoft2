@@ -1,22 +1,20 @@
 package soft;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JLayeredPane;
-import javax.swing.JLabel;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JFormattedTextField;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 public class UserMain extends JFrame {
 
@@ -31,6 +29,7 @@ public class UserMain extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					UserMain frame = new UserMain();
@@ -42,35 +41,36 @@ public class UserMain extends JFrame {
 		});
 	}
 
-	// my code 
+	// my code
 	/**
 	 * Create the frame.
 	 */
 	public UserMain() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(143, 188, 143));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Welcome to your library space — knowledge starts here.");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Traditional Arabic", Font.BOLD | Font.ITALIC, 28));
 		lblNewLabel.setForeground(new Color(139, 69, 19));
 		lblNewLabel.setBounds(28, 152, 737, 129);
 		contentPane.add(lblNewLabel);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(119, 136, 153));
 		panel.setBounds(0, 0, 797, 73);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("search new books ");
 		btnNewButton.setAction(action);
 		btnNewButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -79,9 +79,10 @@ public class UserMain extends JFrame {
 		btnNewButton.setBackground(new Color(143, 188, 143));
 		btnNewButton.setBounds(36, 10, 209, 37);
 		panel.add(btnNewButton);
-		
+
 		JButton btnBorow = new JButton("borow");
 		btnBorow.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -91,7 +92,7 @@ public class UserMain extends JFrame {
 		btnBorow.setBackground(new Color(143, 188, 143));
 		btnBorow.setBounds(302, 10, 197, 37);
 		panel.add(btnBorow);
-		
+
 		JButton btnFines = new JButton("fines");
 		btnFines.setAction(action_2);
 		btnFines.setForeground(Color.BLACK);
@@ -99,20 +100,21 @@ public class UserMain extends JFrame {
 		btnFines.setBackground(new Color(143, 188, 143));
 		btnFines.setBounds(544, 10, 197, 37);
 		panel.add(btnFines);
- 
+
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "Search");
 	        putValue(SHORT_DESCRIPTION, "Search for books");
 		}
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			 UserSearch searchFrame = new UserSearch();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
 			 UserMain.this.dispose();
-			
-		        
+
+
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {
@@ -120,8 +122,9 @@ public class UserMain extends JFrame {
 			putValue(NAME, "borrow ");
 			putValue(SHORT_DESCRIPTION, "borrow");
 		}
+		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			 UserBorow searchFrame = new UserBorow();
 			 searchFrame.setVisible(true);
 			 searchFrame.setLocationRelativeTo(null);
@@ -133,6 +136,7 @@ public class UserMain extends JFrame {
 			putValue(NAME, "fines");
 			putValue(SHORT_DESCRIPTION, "fines");
 		}
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			 UserFines searchFrame = new UserFines();
 			 searchFrame.setVisible(true);

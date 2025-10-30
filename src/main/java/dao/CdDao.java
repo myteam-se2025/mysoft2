@@ -1,9 +1,9 @@
 package dao;
 
-import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import modl.Cd;
 
@@ -38,8 +38,8 @@ public class CdDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                System.out.println("CD Found: " + rs.getString("title") + 
-                                   ", Artist: " + rs.getString("artist") + 
+                System.out.println("CD Found: " + rs.getString("title") +
+                                   ", Artist: " + rs.getString("artist") +
                                    ", Genre: " + rs.getString("genre"));
             }
         } catch (SQLException e) {

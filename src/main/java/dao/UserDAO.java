@@ -1,15 +1,15 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import modl.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 public class UserDAO {
-   
+
+	private static boolean uFound = false;
     private Connection con;
 
     public UserDAO() throws SQLException {
@@ -30,10 +30,11 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-    
-    
-    public void searchUserByNameanid(String name, int id)  {
 
+
+    public boolean searchUserByemailandid( int id , String name)  {
+    	
+    	
         String sql = "SELECT * FROM public.users WHERE name = ? AND id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, name);
@@ -41,10 +42,12 @@ public class UserDAO {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+                uFound = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
 }
+        return uFound;
 }
     public User findUserByNameAndEmail(String fullName, String email) {
         String sql = "SELECT * FROM users WHERE full_name = ? AND email = ?";
@@ -52,23 +55,20 @@ public class UserDAO {
             pstmt.setString(1, fullName);
             pstmt.setString(2, email);
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return new User(
-                    rs.getString("full_name"),
-                    rs.getString("email"),
-                    rs.getString("phone"),
-                    rs.getString("address"),
-                    rs.getDate("membership_date")
-                );
+
+
+            while (rs.next()) {
+                System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+                uFound = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+}
         return null;
     }
 
-  
-    
- 
+
+
+
 }
 

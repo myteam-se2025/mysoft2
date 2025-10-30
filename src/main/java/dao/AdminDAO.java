@@ -1,17 +1,16 @@
 package dao;
 
 
-import java.sql.SQLException;
-
-import modl.Admin;
-import modl.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import modl.Admin;
 
 	public class AdminDAO {
 
+		private static boolean aFound = false;
 		private Connection con;
 
 		    public AdminDAO() throws SQLException {
@@ -21,7 +20,7 @@ import java.sql.ResultSet;
 		    public  void addUser(Admin admin)  {
 
 		        String sql =  "INSERT INTO public.admins (int admin_id , String username , password ,email ) VALUES (?, ?, ?, ?)";
-		        
+
 		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 		            pstmt.setInt(1, admin.getAdmin_id());
 		            pstmt.setString(2, admin.getUsername());
@@ -33,20 +32,22 @@ import java.sql.ResultSet;
 		            e.printStackTrace();
 		        }
 		    }
-		    public void searchAdminByNameandid(String name, int id)  {
+		    public boolean searchAdminByemailandid( int id , String email)  {
 
-		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND username";
+		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email =?";
 		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 		        	pstmt.setInt(1, id);
-		        	pstmt.setString(2, name);
-		          
+		        	pstmt.setString(2, email);
+
 		            ResultSet rs = pstmt.executeQuery();
 		            while (rs.next()) {
 		                System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+		                aFound = true;
 		            }
 		        } catch (SQLException e) {
 		            e.printStackTrace();
 		}
+		        return aFound;
 		}
 
 		    public Admin findByUsername(String username) {

@@ -1,12 +1,19 @@
 package soft;
 
-import java.awt.EventQueue;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.Font;
 import java.awt.Color;
-import java.awt.event.ActionListener;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 import modl.Cd;
 import service.CdService;
@@ -25,6 +32,7 @@ public class AddCd extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					AddCd frame = new AddCd();
@@ -40,7 +48,7 @@ public class AddCd extends JFrame {
 	 * Create the frame.
 	 */
 	public AddCd() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 569);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(143, 188, 143));
@@ -102,6 +110,7 @@ public class AddCd extends JFrame {
 		btnAddCd.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
 		btnAddCd.setForeground(new Color(96, 77, 49));
 		btnAddCd.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				String title = title2.getText();
@@ -122,13 +131,13 @@ public class AddCd extends JFrame {
 					CdService cdService = new CdService();
 					cdService.addCd(cd);
 					JOptionPane.showMessageDialog(null, "CD added successfully!");
-					
+
 					// تفريغ الحقول بعد الإضافة
 					title2.setText("");
 					artist2.setText("");
 					genre2.setText("");
 					copies2.setText("");
-					
+
 				} catch (Exception e1) {
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Error adding CD: " + e1.getMessage());

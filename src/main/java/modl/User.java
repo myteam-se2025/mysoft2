@@ -7,7 +7,7 @@ import java.sql.Date;
  * @param User class to represent a user in the system
  * @param user_id int unique identifier for the user
  * @param full_name String full name of the user
- *@param email String email address of the user 
+ *@param email String email address of the user
 * @param phone String phone number of the user
 * @param address String physical address of the user
 * @param membership_date Date date when the user joined the system
@@ -21,7 +21,7 @@ public class User {
 	String phone="null";
 	String address="null";
 	Date membership_date=null;
-	
+
 	/* public User(int user_id, String full_name, String email, String phone, String address, Date membership_date) {
 	        this.user_id = user_id;
 	        this.full_name = full_name;
@@ -30,16 +30,16 @@ public class User {
 	        this.address = address;
 	        this.membership_date = membership_date;
 	    }*/
-	 
+
 	 public User(String full_name, String email, String phone, String address, Date membership_date) {
-		    
+
 	        this.full_name = full_name;
 	        this.email = email;
 	        this.phone = phone;
 	        this.address = address;
 	        this.membership_date = membership_date;
 	    }
-	 
+
 	    public int getUser_id() {
 	        return user_id;
 	    }
@@ -59,13 +59,13 @@ public class User {
 	        return membership_date;
 	    }
 
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+
+
+
+
+
+
+
 	    public void setUser_id(int user_id) {
 	        this.user_id = user_id;
 	    }
@@ -84,7 +84,7 @@ public class User {
 	    public void setMembership_date(Date membership_date) {
 	        this.membership_date = membership_date;
 	    }
-	    
-	    
-	    
+
+
+
 }

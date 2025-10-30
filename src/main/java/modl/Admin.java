@@ -11,9 +11,9 @@ package modl;
  * @methods: constructor to initialize all fields
  */
 public class Admin {
-	
-	
-	
+
+
+
 	 int admin_id;
 	    String username;
 	    String password;
