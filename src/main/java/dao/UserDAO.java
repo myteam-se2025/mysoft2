@@ -47,9 +47,18 @@ public class UserDAO {
 }
 }
     
+    public void searchUsetrByNameandid(String name, int id)  {
+
+        //some logic for conflect check
+}
     
     
-    
-    
+    //lkjdjflkjdflajdlkjd
+    //  jdfkljdflk;dkfj;aksj
+    //
+    //skjdflkasjdlfkjdlfj
+    //dlkjlassdjf;lsjljj;lf
+    //fjl;kdjljdflkdfkassjd;l
+    //
 }
 
