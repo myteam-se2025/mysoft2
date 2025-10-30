@@ -33,12 +33,13 @@ import java.sql.ResultSet;
 		            e.printStackTrace();
 		        }
 		    }
-		    public void searchUserByNameandid(String name, int id)  {
+		    public void searchAdminByNameandid(String name, int id)  {
 
-		        String sql = "SELECT * FROM public.users WHERE name = ? AND id = ?";
+		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND username";
 		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-		            pstmt.setString(1, name);
-		            pstmt.setInt(2, id);
+		        	pstmt.setInt(1, id);
+		        	pstmt.setString(2, name);
+		          
 		            ResultSet rs = pstmt.executeQuery();
 		            while (rs.next()) {
 		                System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));

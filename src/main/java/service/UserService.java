@@ -10,6 +10,7 @@ public class UserService {
  
     
     private UserDAO userdao ;
+    
     public UserService() throws SQLException {
         userdao = new UserDAO();
     }
@@ -18,7 +19,9 @@ public class UserService {
         userdao.addUser(user);
     }
 
-
+   public void searchUser(String name, int id) {
+	userdao.searchUserByNameanid(name, id);
+    }
 
     
 }
