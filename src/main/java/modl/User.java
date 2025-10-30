@@ -1,4 +1,4 @@
-package soft;
+package modl;
 
 import java.sql.Date;
 

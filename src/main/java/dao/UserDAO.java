@@ -1,7 +1,8 @@
-package soft;
+package dao;
 
 import java.sql.SQLException;
 
+import modl.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

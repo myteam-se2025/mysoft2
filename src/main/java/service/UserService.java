@@ -1,6 +1,9 @@
-package soft;
+package service;
 
 import java.sql.SQLException;
+
+import dao.UserDAO;
+import modl.User;
 
 public class UserService {
 
