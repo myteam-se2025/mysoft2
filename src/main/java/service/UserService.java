@@ -1,26 +1,41 @@
 package service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dao.UserDAO;
+import dao.DbConnection;
 import modl.User;
 
 public class UserService {
 
- 
-    
-    private UserDAO userdao ;
+    private Connection con;
+
     public UserService() throws SQLException {
-        userdao = new UserDAO();
-    }
-    
-    public void registerUser(User user) {
-        userdao.addUser(user);
+        con = DbConnection.getConnection();
     }
 
-    public User login(String fullName, String email) {
-        return userdao.findUserByNameAndEmail(fullName, email);
+    // ترجع User object اذا البيانات مطابقة
+    public User login(String username, String email) {
+        String sql = "SELECT * FROM users WHERE full_name = ? AND email = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setString(2, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                User user = new User(
+                    rs.getString("full_name"),
+                    rs.getString("email"),
+                    rs.getString("phone"),
+                    rs.getString("address"),
+                    rs.getDate("membership_date")
+                );
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // اذا ماوجد
     }
-
-    
 }

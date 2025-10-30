@@ -32,7 +32,7 @@ public class UserDAO {
     }
     
     
-    public void searchUserByNameandid(String name, int id)  {
+    public void searchUserByNameanid(String name, int id)  {
 
         String sql = "SELECT * FROM public.users WHERE name = ? AND id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
