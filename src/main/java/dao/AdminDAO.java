@@ -48,5 +48,23 @@ import java.sql.ResultSet;
 		}
 		}
 
+		    public Admin findByUsername(String username) {
+		        String sql = "SELECT * FROM admins WHERE username = ?";
+		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+		            pstmt.setString(1, username);
+		            ResultSet rs = pstmt.executeQuery();
+		            if (rs.next()) {
+		                return new Admin(
+		                    rs.getInt("admin_id"),
+		                    rs.getString("username"),
+		                    rs.getString("password"),
+		                    rs.getString("email")
+		                );
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		        return null;
+		    }
 	}
-	
+	/**/

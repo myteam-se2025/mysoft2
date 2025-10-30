@@ -18,7 +18,9 @@ public class UserService {
         userdao.addUser(user);
     }
 
-
+    public User login(String fullName, String email) {
+        return userdao.findUserByNameAndEmail(fullName, email);
+    }
 
     
 }

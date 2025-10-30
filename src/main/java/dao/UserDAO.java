@@ -46,7 +46,26 @@ public class UserDAO {
             e.printStackTrace();
 }
 }
-
+    public User findUserByNameAndEmail(String fullName, String email) {
+        String sql = "SELECT * FROM users WHERE full_name = ? AND email = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, fullName);
+            pstmt.setString(2, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new User(
+                    rs.getString("full_name"),
+                    rs.getString("email"),
+                    rs.getString("phone"),
+                    rs.getString("address"),
+                    rs.getDate("membership_date")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
   
     
