@@ -3,6 +3,7 @@ package service;
 import modl.*;
 import soft.*;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -10,7 +11,6 @@ import javax.swing.JOptionPane;
 import dao.*;
 
 public class LogInService {
-
 	
 	  public void login( int password, String email) throws SQLException {
 	        AdminDAO adminDAO = new AdminDAO() ;

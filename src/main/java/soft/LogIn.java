@@ -86,8 +86,8 @@ public class LogIn extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
             
-				String email = email1.getText();
-				int idd = Integer.parseInt(pass.getText());
+				String email = email1.getText().trim();
+				int idd = Integer.parseInt(pass.getText().trim());
 			
 				LogInService log = new LogInService();
 				 try {

@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import modl.Admin;
 
 	public class AdminDAO {
@@ -35,27 +37,32 @@ import modl.Admin;
 		    
 		    
 		    
-		    public boolean searchAdminByEmailAndId(int id, String email) {
+		    public boolean searchAdminByEmailAndId(int id, String email) throws SQLException{
 		        boolean aFound = false;
 		        
 		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email = ?";
 
 		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 		            pstmt.setInt(1, id);
-		            pstmt.setString(2, email);
+		            pstmt.setString(2, email.trim());
 
 		            ResultSet rs = pstmt.executeQuery();
 		            if (rs.next()) {
-		              //  System.out.println("Admin Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
-		                aFound = true;
-		            }
-		        } catch (SQLException e) {
-		            e.printStackTrace();
-		        }
-		        return aFound;
-		    }
-
-
-		   
+		                //  System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
+		                  aFound = true;
+		              }else {
+		              	aFound = false;
+		              }
+		          } catch (SQLException e) {
+		              JOptionPane.showMessageDialog(
+		                      null,
+		                      "Database error occurred while searching for user.\nPlease try again later.",
+		                      "Database Error",
+		                      JOptionPane.ERROR_MESSAGE
+		                  );
+		                  e.printStackTrace();
+		          }
+		          return aFound;
+		  }
 	}
 	/**/
