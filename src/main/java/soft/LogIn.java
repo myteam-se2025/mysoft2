@@ -81,11 +81,13 @@ public class LogIn extends JFrame {
 		login.setForeground(new Color(96, 77, 49));
 		login.setBackground(new Color(143, 188, 143));
 		login.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		login.addActionListener(new ActionListener() {
+		
+		/*login.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-            
+				
+            /*
 				String email = email1.getText().trim();
 				int idd = Integer.parseInt(pass.getText().trim());
 			
@@ -100,11 +102,63 @@ public class LogIn extends JFrame {
 				            JOptionPane.ERROR_MESSAGE
 				        );
 				        ex.printStackTrace();
-				    }
+				    } handleLogin();
           
+				
 			}
-		});
+		});*/
+		
 		contentPane.add(login);
 
-}
+	
+		
+		login.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                handleLogin();
+	            }
+
+				private void handleLogin() {
+					
+					String email = email1.getText().trim();
+					int idd;
+					try {
+				     idd = Integer.parseInt(pass.getText().trim());
+					 } catch (NumberFormatException ex) {
+				            JOptionPane.showMessageDialog(LogIn.this, "Invalid ID format.", "Error", JOptionPane.ERROR_MESSAGE);
+				            return;
+				        }
+					
+					 LogInService service = new LogInService();
+					 String result = null;
+					 try {
+						     result = service.login(idd, email);
+						    JOptionPane.showMessageDialog(LogIn.this, result);
+						} catch (SQLException ex) {
+						    JOptionPane.showMessageDialog(LogIn.this,
+						        "A database error occurred while trying to log in.",
+						        "Database Error",
+						        JOptionPane.ERROR_MESSAGE);
+						    ex.printStackTrace(); 
+						}
+				        switch (result) {
+				            case "ADMIN":
+				                new AdminMain().setVisible(true);
+				                dispose();
+				                break;
+				            case "USER":
+				                new UserMain().setVisible(true);
+				                dispose();
+				                break;
+				            case "NOT_FOUND":
+				                JOptionPane.showMessageDialog(LogIn.this, "No matching user or admin found.", "Login Failed", JOptionPane.WARNING_MESSAGE);
+				                break;
+				            default:
+				                JOptionPane.showMessageDialog(LogIn.this, "Unexpected error occurred.", "Error", JOptionPane.ERROR_MESSAGE);
+				        }
+				}
+	        });
+		
+		
 		}
+}
+	

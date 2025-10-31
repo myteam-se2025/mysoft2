@@ -24,7 +24,5 @@ public class UserService {
 
     
 
-    public User login(String username, String email) {
-        return userdao.findUserByNameAndEmail(username, email);
-    }
+  
 }

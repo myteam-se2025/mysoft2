@@ -34,54 +34,30 @@ public class UserDAO {
     }
 
 
-    public boolean searchUserByEmailAndId( int id , String email)  {
-    boolean uFound = false;
-    	
-    	
-    	    String sql = "SELECT * FROM public.users WHERE user_id = ? AND email = ?";
+    public User findByIdAndEmail(int id, String email) throws SQLException {
+        String sql = "SELECT * FROM public.users WHERE user_id = ? AND email = ?";
+        try (Connection con = DbConnection.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-    	    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-    	        pstmt.setInt(1, id);
-    	        pstmt.setString(2, email.trim());
+            pstmt.setInt(1, id);
+            pstmt.setString(2, email.trim().toLowerCase());
 
-    	        ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-              //  System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
-                uFound = true;
-            }else {
-            	uFound = false;
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Database error occurred while searching for user.\nPlease try again later.",
-                    "Database Error",
-                    JOptionPane.ERROR_MESSAGE
-                );
-                e.printStackTrace();
-        }
-        return uFound;
-}
-    
-    public User findUserByNameAndEmail(String fullName, String email) {
-        String sql = "SELECT * FROM users WHERE full_name = ? AND email = ?";
-        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setString(1, fullName);
-            pstmt.setString(2, email);
             ResultSet rs = pstmt.executeQuery();
-
-
-            while (rs.next()) {
-                System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
-               
+            if (rs.next()) {
+                return new User(
+                    rs.getInt("user_id"),
+                    rs.getString("full_name"),
+                    rs.getString("email"),
+                    rs.getString("phone"),
+                    rs.getString("address"),
+                    rs.getDate("membership_date")
+                );
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-}
+        }
         return null;
     }
-
+    
+   
 
 
 

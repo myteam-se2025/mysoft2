@@ -37,32 +37,24 @@ import modl.Admin;
 		    
 		    
 		    
-		    public boolean searchAdminByEmailAndId(int id, String email) throws SQLException{
-		        boolean aFound = false;
-		        
+		    public Admin findByIdAndEmail(int id, String email) throws SQLException {
 		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email = ?";
+		        try (Connection con = DbConnection.getConnection();
+		             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 		            pstmt.setInt(1, id);
-		            pstmt.setString(2, email.trim());
+		            pstmt.setString(2, email.trim().toLowerCase());
 
 		            ResultSet rs = pstmt.executeQuery();
 		            if (rs.next()) {
-		                //  System.out.println("User Found: " + rs.getString("name") + ", Email: " + rs.getString("email"));
-		                  aFound = true;
-		              }else {
-		              	aFound = false;
-		              }
-		          } catch (SQLException e) {
-		              JOptionPane.showMessageDialog(
-		                      null,
-		                      "Database error occurred while searching for user.\nPlease try again later.",
-		                      "Database Error",
-		                      JOptionPane.ERROR_MESSAGE
-		                  );
-		                  e.printStackTrace();
-		          }
-		          return aFound;
-		  }
-	}
-	/**/
+		                return new Admin(
+		                    rs.getInt("admin_id"),
+		                    rs.getString("username"),
+		                    rs.getString("password"),
+		                    rs.getString("email")
+		                );
+		            }
+		        }
+		        return null; // not found
+		    }
+		}

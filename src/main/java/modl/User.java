@@ -22,14 +22,14 @@ public class User {
 	String address="null";
 	Date membership_date=null;
 
-	/* public User(int user_id, String full_name, String email, String phone, String address, Date membership_date) {
+	 public User(int user_id, String full_name, String email, String phone, String address, Date membership_date) {
 	        this.user_id = user_id;
 	        this.full_name = full_name;
 	        this.email = email;
 	        this.phone = phone;
 	        this.address = address;
 	        this.membership_date = membership_date;
-	    }*/
+	    }
 
 	 public User(String full_name, String email, String phone, String address, Date membership_date) {
 
