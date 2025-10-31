@@ -120,26 +120,54 @@ public class LogIn extends JFrame {
 				private void handleLogin() {
 					
 					String email = email1.getText().trim();
-					int idd;
+					String passtext = pass.getText();
+					
+					
+					
+					
+					if (email.isEmpty() || passtext.isEmpty())
+					{
+						 JOptionPane.showMessageDialog(LogIn.this,
+					                "Please enter both ID and email.",
+					                "Input Error",
+					                JOptionPane.WARNING_MESSAGE);
+					        return;
+					}
+					
+					
+					int id= 0;
 					try {
-				     idd = Integer.parseInt(pass.getText().trim());
-					 } catch (NumberFormatException ex) {
-				            JOptionPane.showMessageDialog(LogIn.this, "Invalid ID format.", "Error", JOptionPane.ERROR_MESSAGE);
+				        id = Integer.parseInt(passtext);
+				        if (id <= 0) {
+				            JOptionPane.showMessageDialog(LogIn.this,
+				                    "ID must be a positive number.",
+				                    "Input Error",
+				                    JOptionPane.WARNING_MESSAGE);
 				            return;
 				        }
+				    } catch (NumberFormatException ex) {
+				        JOptionPane.showMessageDialog(LogIn.this,
+				                "ID must be a number.",
+				                "Input Error",
+				                JOptionPane.WARNING_MESSAGE);
+				        return;
+				    }
+					
+					
+					 if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.(com|org|net)$")) {
+					        JOptionPane.showMessageDialog(LogIn.this,
+					        		"Email must hava @ and end with .com, .org, or .net | Example: name@example.com",
+					                "Input Error",
+					                JOptionPane.WARNING_MESSAGE);
+					        return;
+					    }
+					 
+					 
 					
 					 LogInService service = new LogInService();
-					 String result = null;
-					 try {
-						     result = service.login(idd, email);
-						    JOptionPane.showMessageDialog(LogIn.this, result);
-						} catch (SQLException ex) {
-						    JOptionPane.showMessageDialog(LogIn.this,
-						        "A database error occurred while trying to log in.",
-						        "Database Error",
-						        JOptionPane.ERROR_MESSAGE);
-						    ex.printStackTrace(); 
-						}
+					 String result = service.login(id, email);
+						    
+					 
 				        switch (result) {
 				            case "ADMIN":
 				                new AdminMain().setVisible(true);

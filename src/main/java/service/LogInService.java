@@ -14,26 +14,22 @@ public class LogInService {
 	
 	
 
-	    public String login(int id, String email) throws SQLException{
-	    	AdminDAO adminDAO = new AdminDAO() ;
+	
+	public String login(int id, String email) {
+	    try {
+	        AdminDAO adminDAO = new AdminDAO();
 	        UserDAO userDAO = new UserDAO();
-	        try {
-	            Admin admin = adminDAO.findByIdAndEmail(id, email);
-	            if (admin != null) {
-	                return "ADMIN";
-	            }
 
-	            User user = userDAO.findByIdAndEmail(id, email);
-	            if (user != null) {
-	                return "USER";
-	            }
+	        if (adminDAO.findByIdAndEmail(id, email) != null) return "ADMIN";
+	        if (userDAO.findByIdAndEmail(id, email) != null) return "USER";
 
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return "ERROR";
-	        }
 	        return "NOT_FOUND";
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // You could log this instead
+	        return "ERROR";
 	    }
+	}
+
 	}
 	
 	
