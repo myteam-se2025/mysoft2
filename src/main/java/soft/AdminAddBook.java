@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,11 +23,11 @@ public class AdminAddBook extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField tittle;
-    private JTextField auother;
-    private JTextField isbn;
-    private JTextField category;
-    private JTextField copies;
+    private JTextField title2;
+    private JTextField author2;
+    private JTextField isbn2;
+    private JTextField category2;
+    private JTextField copies2;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -48,80 +49,113 @@ public class AdminAddBook extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JLabel lblTitle = new JLabel("Title");
-        lblTitle.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        JLabel lblTitle = new JLabel("Add Book");
         lblTitle.setForeground(new Color(202, 128, 53));
-        lblTitle.setBounds(36, 45, 91, 14);
+        lblTitle.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblTitle.setBounds(76, 25, 200, 20);
         contentPane.add(lblTitle);
 
-        JLabel lblAuthor = new JLabel("Author");
-        lblAuthor.setForeground(new Color(202, 128, 53));
-        lblAuthor.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-        lblAuthor.setBounds(24, 109, 91, 14);
-        contentPane.add(lblAuthor);
+        JLabel lblNewLabel_1 = new JLabel("Title");
+        lblNewLabel_1.setForeground(new Color(202, 128, 53));
+        lblNewLabel_1.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblNewLabel_1.setBounds(0, 94, 142, 14);
+        contentPane.add(lblNewLabel_1);
 
-        JLabel lblIsbn = new JLabel("ISBN");
-        lblIsbn.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-        lblIsbn.setForeground(new Color(202, 128, 53));
-        lblIsbn.setBounds(24, 181, 160, 14);
-        contentPane.add(lblIsbn);
+        JLabel lblNewLabel_2 = new JLabel("Author");
+        lblNewLabel_2.setForeground(new Color(202, 128, 53));
+        lblNewLabel_2.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblNewLabel_2.setBounds(0, 144, 101, 14);
+        contentPane.add(lblNewLabel_2);
 
-        JLabel lblCategory = new JLabel("Category");
-        lblCategory.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-        lblCategory.setForeground(new Color(202, 128, 53));
-        lblCategory.setBounds(24, 244, 160, 14);
-        contentPane.add(lblCategory);
+        JLabel lblNewLabel_3 = new JLabel("ISBN");
+        lblNewLabel_3.setForeground(new Color(202, 128, 53));
+        lblNewLabel_3.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblNewLabel_3.setBounds(0, 193, 101, 14);
+        contentPane.add(lblNewLabel_3);
 
-        JLabel lblCopies = new JLabel("Copies");
-        lblCopies.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-        lblCopies.setForeground(new Color(202, 128, 53));
-        lblCopies.setBounds(24, 300, 160, 14);
-        contentPane.add(lblCopies);
+        JLabel lblNewLabel_4 = new JLabel("Category");
+        lblNewLabel_4.setForeground(new Color(202, 128, 53));
+        lblNewLabel_4.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblNewLabel_4.setBounds(0, 240, 120, 14);
+        contentPane.add(lblNewLabel_4);
 
-        tittle = new JTextField();
-        tittle.setBounds(238, 45, 186, 25);
-        contentPane.add(tittle);
+        JLabel lblNewLabel_5 = new JLabel("Copies");
+        lblNewLabel_5.setForeground(new Color(202, 128, 53));
+        lblNewLabel_5.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblNewLabel_5.setBounds(0, 287, 120, 14);
+        contentPane.add(lblNewLabel_5);
 
-        auother = new JTextField();
-        auother.setBounds(238, 104, 186, 25);
-        contentPane.add(auother);
+        title2 = new JTextField();
+        title2.setBounds(147, 94, 166, 20);
+        contentPane.add(title2);
+        title2.setColumns(10);
 
-        isbn = new JTextField();
-        isbn.setBounds(238, 172, 186, 25);
-        contentPane.add(isbn);
+        author2 = new JTextField();
+        author2.setBounds(147, 144, 166, 20);
+        contentPane.add(author2);
+        author2.setColumns(10);
 
-        category = new JTextField();
-        category.setBounds(238, 239, 186, 25);
-        contentPane.add(category);
+        isbn2 = new JTextField();
+        isbn2.setBounds(147, 193, 166, 20);
+        contentPane.add(isbn2);
+        isbn2.setColumns(10);
 
-        copies = new JTextField();
-        copies.setBounds(238, 295, 186, 25);
-        contentPane.add(copies);
+        category2 = new JTextField();
+        category2.setBounds(147, 240, 166, 20);
+        contentPane.add(category2);
+        category2.setColumns(10);
 
-        JButton addbook = new JButton("Add Book");
-        addbook.addActionListener(new ActionListener() {
+        copies2 = new JTextField();
+        copies2.setBounds(147, 287, 166, 20);
+        contentPane.add(copies2);
+        copies2.setColumns(10);
+
+        JButton btnAddBook = new JButton("Add Book");
+        btnAddBook.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        btnAddBook.setForeground(new Color(96, 77, 49));
+        btnAddBook.setBounds(393, 345, 172, 23);
+        contentPane.add(btnAddBook);
+
+        btnAddBook.addActionListener(new ActionListener() {
             @Override
-			public void actionPerformed(ActionEvent e) {
-                String title = tittle.getText();
-                String author = auother.getText();
-                String isbnCode = isbn.getText();
-                String cat = category.getText();
-                int copyCount = Integer.parseInt(copies.getText());
-
-                Book book = new Book(title, author, isbnCode, cat, copyCount);
-                try {
-                    BookService service = new BookService();
-                    service.registerBook(book);
-                    JOptionPane.showMessageDialog(null, "Book added successfully!");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error adding book: " + ex.getMessage());
-                }
+            public void actionPerformed(ActionEvent e) {
+                handleAddBook();
             }
         });
-        addbook.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-        addbook.setForeground(new Color(96, 77, 49));
-        addbook.setBounds(409, 400, 186, 30);
-        contentPane.add(addbook);
+    }
+
+    private void handleAddBook() {
+        String title = title2.getText().trim();
+        String author = author2.getText().trim();
+        String isbn = isbn2.getText().trim();
+        String category = category2.getText().trim();
+        int copies;
+
+        try {
+            copies = Integer.parseInt(copies2.getText().trim());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Copies must be a valid number.");
+            return;
+        }
+
+        Book book = new Book(title, author, isbn, category, copies);
+
+        try {
+            BookService bookService = new BookService();
+            String message = bookService.addBook(book);
+            JOptionPane.showMessageDialog(this, message);
+
+            if (message.equals("Book added successfully!")) {
+                title2.setText("");
+                author2.setText("");
+                isbn2.setText("");
+                category2.setText("");
+                copies2.setText("");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+        }
     }
 }

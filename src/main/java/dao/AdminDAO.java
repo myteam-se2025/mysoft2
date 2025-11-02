@@ -1,60 +1,52 @@
+
 package dao;
 
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-
+import java.sql.*;
 import modl.Admin;
 
-	public class AdminDAO {
+public class AdminDAO extends BaseDAO {
 
-		private static boolean aFound = false;
-		private Connection con;
+    // إدراج أدمن جديد
+    public void addUser(Admin admin) {
+        String sql = "INSERT INTO public.admins (admin_id, username, password, email) VALUES (?, ?, ?, ?)";
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-		    public AdminDAO() throws SQLException {
-		        con = DbConnection.getConnection();
-		    }
+            ps.setInt(1, admin.getAdmin_id());
+            ps.setString(2, admin.getUsername());
+            ps.setString(3, admin.getPassword());
+            ps.setString(4, admin.getEmail());
 
-		    public  void addUser(Admin admin)  {
+            ps.executeUpdate();
 
-		        String sql =  "INSERT INTO public.admins (int admin_id , String username , password ,email ) VALUES (?, ?, ?, ?)";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-		        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-		            pstmt.setInt(1, admin.getAdmin_id());
-		            pstmt.setString(2, admin.getUsername());
-		            pstmt.setString(3, admin.getPassword());
-		            pstmt.setString(4, admin.getEmail());
+    // البحث عن أدمن حسب الـ ID والبريد الإلكتروني
+    public Admin findByIdAndEmail(int id, String email) {
+        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email = ?";
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-		            pstmt.executeUpdate();
-		        } catch (SQLException e) {
-		            e.printStackTrace();
-		        }
-		    }
-		    
-		    
-		    
-		    public Admin findByIdAndEmail(int id, String email) throws SQLException {
-		        String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email = ?";
-		        try (Connection con = DbConnection.getConnection();
-		             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.setString(2, email.trim().toLowerCase());
 
-		            pstmt.setInt(1, id);
-		            pstmt.setString(2, email.trim().toLowerCase());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Admin admin = new Admin(
+                        rs.getInt("admin_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email")
+                );
+                return admin;
+            }
 
-		            ResultSet rs = pstmt.executeQuery();
-		            if (rs.next()) {
-		                return new Admin(
-		                    rs.getInt("admin_id"),
-		                    rs.getString("username"),
-		                    rs.getString("password"),
-		                    rs.getString("email")
-		                );
-		            }
-		        }
-		        return null; // not found
-		    }
-		}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}

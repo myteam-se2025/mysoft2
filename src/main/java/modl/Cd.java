@@ -18,13 +18,7 @@ public class Cd {
     String genre = "null";
     int available_copies = 0;
 
-    /* public Cd(int cd_id, String title, String artist, String genre, int available_copies) {
-        this.cd_id = cd_id;
-        this.title = title;
-        this.artist = artist;
-        this.genre = genre;
-        this.available_copies = available_copies;
-    } */
+
 
     public Cd(String title, String artist, String genre, int available_copies) {
         this.title = title;
