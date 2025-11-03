@@ -24,6 +24,8 @@ public class BookDAO extends BaseDAO {
             return false;
         }
     }
+    
+    
 
     public Book findByTitleAndId(String title, int id) {
         String sql = "SELECT * FROM public.books WHERE title = ? AND book_id = ?";
@@ -51,6 +53,8 @@ public class BookDAO extends BaseDAO {
         return null;
     }
     
+    
+    
     public Book findbyid( int id) {
         String sql = "SELECT * FROM public.books WHERE book_id = ?";
         try (Connection con = getConnection();
@@ -76,6 +80,7 @@ public class BookDAO extends BaseDAO {
         }
         return null;
     }
+    
     
     
     public Book findbytitle( int title) {
@@ -129,6 +134,13 @@ public class BookDAO extends BaseDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    
+    
+    public void bookavalablty(String isbn)
+    {
+    	
     }
     
 }
