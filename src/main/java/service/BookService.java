@@ -1,8 +1,12 @@
 package service;
 
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
 import dao.BookDAO;
-import modl.Book;
+import modl.*;
+import dao.*;
 
 public class BookService {
 
@@ -38,5 +42,35 @@ public class BookService {
         // ✅ Attempt to add to database
         boolean success = bookDao.insertBook(book);
         return success ? "Book added successfully!" : "Error while saving Book to database.";
+    }
+    
+    public Book findbyid(String id )
+    {
+    	 if (id == null || id.isEmpty()) {
+    	        JOptionPane.showMessageDialog(null, "Please enter a book ID.");
+    	        return null;
+    	    }
+
+    	    int idd;
+    	    try {
+    	        idd = Integer.parseInt(id);
+    	        if (idd <= 0) {
+    	            JOptionPane.showMessageDialog(null, "ID must be a positive number.");
+    	            return null;
+    	        }
+    	    } catch (NumberFormatException ex) {
+    	        JOptionPane.showMessageDialog(null, "ID must be a number.");
+    	        return null;
+    	    }
+        
+    	    try {
+    	        BookDAO bookDAO = new BookDAO();
+    	        return bookDAO.findbyid(idd);
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	        JOptionPane.showMessageDialog(null, "Database error occurred.");
+    	        return null;
+    	    }
+        
     }
 }
