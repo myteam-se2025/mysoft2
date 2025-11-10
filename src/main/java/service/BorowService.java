@@ -67,12 +67,16 @@ public class BorowService {
 	    
             try {
 	    	
-	    	LoansDAO loan = new LoansDAO();
-	    	Loan l = loan.findeLoanByuserId(idd);
-	    	int loanid = l.getLoanId();
-	    	
+	    	LoansDAO lo = new LoansDAO();
+	    	Loan loan = lo.findeLoanByuserId(idd);
+	    	if (loan != null)
+	    	{
+	    	int loanid = loan.getLoanId();
 	    	FineDAO fine = new FineDAO();
-	    	 return fine.findeuserfines(loanid);
+	    	 return fine.findeuserFines(loanid);
+	    	}else {
+	    		return null;
+	    	}
 	    	 
 	    	 
 	    } catch (NumberFormatException ex) {

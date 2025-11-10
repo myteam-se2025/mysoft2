@@ -10,9 +10,14 @@ import modl.*;
 
 public class FineDAO extends BaseDAO {
 
+	public Fine insurtFine()
+	{
+		
+		return null;
+		
+	}
 	
-	
-	public Fine findeuserfines  (int id)
+	public Fine findeuserFines  (int id)
 	{
 		
 	        String sql = "SELECT * FROM public.fines WHERE loan_id = ?";

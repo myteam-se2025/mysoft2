@@ -2,10 +2,11 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.Date;
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.time.LocalDate;
 import modl.*;
 import dao.*;
 
@@ -30,7 +31,7 @@ public class LoansDAO extends BaseDAO{
 	                    rs.getInt("cd_id"),
 	                    rs.getDate("loan_date") != null ? rs.getDate("loan_date").toLocalDate() : null,
 	                    rs.getDate("due_date") != null ? rs.getDate("due_date").toLocalDate() : null,
-	                    rs.getDate("retrn_date") != null ? rs.getDate("retrn_date").toLocalDate() : null,
+	                    rs.getDate("return_date") != null ? rs.getDate("return_date").toLocalDate() : null,
 	                    rs.getString("status")
 	                );
 	                
@@ -62,7 +63,7 @@ public class LoansDAO extends BaseDAO{
 	                    rs.getInt("cd_id"),
 	                    rs.getDate("loan_date") != null ? rs.getDate("loan_date").toLocalDate() : null,
 	                    rs.getDate("due_date") != null ? rs.getDate("due_date").toLocalDate() : null,
-	                    rs.getDate("retrn_date") != null ? rs.getDate("retrn_date").toLocalDate() : null,
+	                    rs.getDate("return_date") != null ? rs.getDate("return_date").toLocalDate() : null,
 	                    rs.getString("status")
 	                );
 	                
@@ -77,18 +78,17 @@ public class LoansDAO extends BaseDAO{
 
 
 	 public boolean insertloan(Loan loan) {
-	        String sql = "INSERT INTO public.loans (loan_id, user_id, book_id, cd-id, loan-date, due_date,return_date , status) VALUES (?, ?, ?, ?, ?,?,?,?)";
+	        String sql = "INSERT INTO public.loans ( user_id, book_id,  loan_date, due_date) VALUES (?, ?, ?, ?)";
 	        try (Connection con = getConnection();
 	             PreparedStatement ps = con.prepareStatement(sql)) {
 
-	          //  ps.setInt(1, loan.getLoanId());
-	            ps.setInt(2, loan.getUserId());
-	            ps.setInt(3, loan.getBookId());
-	        //  ps.setInt(4, loan.getCdId());
-	            ps.setDate(5, java.sql.Date.valueOf(loan.getLoanDate()));       ps.executeUpdate();
-	            ps.setDate(6, java.sql.Date.valueOf(loan.getDueDate()));  
-	          //  ps.setDate(7, java.sql.Date.valueOf(loan.getReturnDate()));  
-		      //  ps.setString(8, loan.getStatus());   
+	           
+	            ps.setInt(1, loan.getUserId());
+	            ps.setInt(2, loan.getBookId());
+	        
+	            ps.setDate(3, java.sql.Date.valueOf(loan.getLoanDate()));      
+	            ps.setDate(4, java.sql.Date.valueOf(loan.getDueDate()));  
+	             
 	            ps.executeUpdate();
 	            
 	            return true;
@@ -98,6 +98,37 @@ public class LoansDAO extends BaseDAO{
 	            return false;
 	        }
 	    }
+	 
+	 
+	 
+	
+
+	 public void allOverDueLoans() throws SQLException {
+		  Date loanduedate = null;
+		  int loanid = 0;
+		  
+		  
+		 String sql = "SELECT * FROM public.loans ";
+	        
+	        try (Connection con = getConnection() ; PreparedStatement ps = con.prepareStatement(sql)) {
+
+	            ResultSet rs = ps.executeQuery();
+
+	            while (rs.next()) {
+	            	 loanduedate = rs.getDate("due_date");
+	            	 loanid = rs.getInt("loan_id");
+	            	 LocalDate loanduedatelocal = loanduedate.toLocalDate();
+	            	 
+	            	 if (  LocalDate.now().isAfter( loanduedatelocal))
+	            	 {
+	            		 /* add new fine with function amount books */
+	            		 /*then set 3 days to sende email  */
+	            		 
+	            	 }
+	            	 
+	            }
+	 }
+}
 }
 	
 

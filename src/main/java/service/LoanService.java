@@ -1,5 +1,7 @@
 package service;
 
+import java.time.LocalDate;
+
 import dao.LoansDAO;
 import modl.Loan;
 
@@ -19,6 +21,17 @@ public class LoanService {
 		l.insertloan(loan);
 		
 		return null;
+	}
+	
+	
+	
+	private void checkOverdueLoans ()
+	{
+		  System.out.println("Checking for overdue loans... " + LocalDate.now());
+
+		  LoansDAO r = new LoansDAO();
+		  
+		/*  r.allOverDueLoans(); */
 	}
 	
 	}

@@ -46,6 +46,7 @@ public class Loan {
 		this.bookId= d;
 		this.loanDate= LocalDate.now();
 		this.dueDate = loanDate.plusDays(28);
+		this.cdId = 0;
 				
 	}
 

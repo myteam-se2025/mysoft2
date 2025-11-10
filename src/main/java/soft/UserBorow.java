@@ -21,6 +21,7 @@ import modl.Fine;
 import modl.Loan;
 import service.BorowService;
 import service.LoanService;
+import java.awt.event.ActionListener;
 
 public class UserBorow extends JFrame {
 
@@ -77,6 +78,10 @@ public class UserBorow extends JFrame {
 		bookid.setColumns(10);
 
 		JButton btnNewButton = new JButton("borow");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setAction(action_1);
 		btnNewButton.setBackground(new Color(143, 188, 143));
 		btnNewButton.setForeground(new Color(85, 107, 47));
@@ -125,7 +130,7 @@ public class UserBorow extends JFrame {
 	}
 	private class SwingAction_1 extends AbstractAction {
 		public SwingAction_1() {
-			putValue(NAME, "SwingAction_1");
+			putValue(NAME, "Borow");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -143,6 +148,7 @@ public class UserBorow extends JFrame {
 			}else
 			{
 				 JOptionPane.showMessageDialog(UserBorow.this, "this book is avalble");
+				 
 				 Fine f = null;
 				  f =avalble.userfinescheck(user_id);
 				 
