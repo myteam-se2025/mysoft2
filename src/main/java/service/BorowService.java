@@ -6,6 +6,7 @@ import dao.FineDAO;
 import dao.LoansDAO;
 import modl.Fine;
 import modl.Loan;
+import soft.UserBorow;
 
 public class BorowService {
 
@@ -46,6 +47,8 @@ public class BorowService {
 	    }
 	
 	
+	
+	
 	public Fine userfinescheck(String userid)
 	{
 		if (userid == null || userid.isEmpty()) {
@@ -64,26 +67,62 @@ public class BorowService {
 	        JOptionPane.showMessageDialog(null, "ID must be a number.");
 	        return null;
 	    }
-	    
+	 
             try {
-	    	
 	    	LoansDAO lo = new LoansDAO();
 	    	Loan loan = lo.findeLoanByuserId(idd);
+	    	
 	    	if (loan != null)
 	    	{
-	    	int loanid = loan.getLoanId();
+	    	
 	    	FineDAO fine = new FineDAO();
-	    	 return fine.findeuserFines(loanid);
+	    	 return fine.findeuserFines(loan.getLoanId());
 	    	}else {
 	    		return null;
-	    	}
-	    	 
-	    	 
+	    	}   	 
 	    } catch (NumberFormatException ex) {
 	        JOptionPane.showMessageDialog(null, "ID must be a number.");
 	        return null;
 	    }
 	    
 	}
+	
+	
+	
+	public void borowabook ( String user_id, String book_id)
+	{
+		 Loan ll = new Loan(user_id,book_id);		 
+		 LoanService lo = new LoanService();
+		 int genratedLoanId = lo.addbookloan(ll);
+		 
+		 
+		  Fine fine = new Fine(ll.getDueDate() , genratedLoanId);		 
+		  FineServise ff = new FineServise();
+		  ff.addbookFine(fine);
+		 
+	}
+
+
+
+
+	public String processBorrowRequest(String user_id, String book_id) {
+		
+		 Loan loan = bookAvalbltyChack(book_id);
+	        if (loan != null) 
+	        {
+	            return "This book is not available.";
+	        }
+
+	        Fine fine = userfinescheck(user_id);
+	        if (fine != null && fine.getstatus()) 
+	        {
+	            return "You have unpaid fines. Please pay them to borrow books.";
+	        }
+
+	        borowabook(user_id, book_id);
+	        return "Book borrowed successfully!";
+
+	}
+	
 	}
 

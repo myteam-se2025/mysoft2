@@ -101,7 +101,35 @@ public class LoansDAO extends BaseDAO{
 	 
 	 
 	 
+	 public int insertintloan(Loan loan) {
+	        String sql = "INSERT INTO public.loans ( user_id, book_id,  loan_date, due_date) VALUES (?, ?, ?, ?) RETURNING loan_id";
+	        try (Connection con = getConnection();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+
+	           
+	            ps.setInt(1, loan.getUserId());
+	            ps.setInt(2, loan.getBookId());
+	        
+	            ps.setDate(3, java.sql.Date.valueOf(loan.getLoanDate()));      
+	            ps.setDate(4, java.sql.Date.valueOf(loan.getDueDate()));  
+	             
+	            ResultSet rs = ps.executeQuery();
+	            if (rs.next()) {
+	                int generatedId = rs.getInt("loan_id");
+	                loan.setLoanId(generatedId); 
+	                return generatedId;
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	      
+	        }
+	        return -1;
+	    }
+	 
 	
+	 
+	 
 
 	 public void allOverDueLoans() throws SQLException {
 		  Date loanduedate = null;

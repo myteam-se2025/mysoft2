@@ -8,19 +8,20 @@ import modl.Loan;
 public class LoanService {
 
 	
-	public String addbookloan(Loan loan )
+	public int addbookloan(Loan loan )
 	{
 		if (loan.getBookId() == null || loan.getBookId() ==0) {
-            return "Title cannot be empty!";
+			 throw new IllegalArgumentException("Book ID cannot be empty!");
+			   
 		}
 		if (loan.getUserId() == null || loan.getUserId() == 0) {
-            return "Title cannot be empty!";
-        }
+			 throw new IllegalArgumentException("User ID cannot be empty!");
+      }
 		
 		LoansDAO l = new LoansDAO();
-		l.insertloan(loan);
+		return l.insertintloan(loan);
 		
-		return null;
+		
 	}
 	
 	

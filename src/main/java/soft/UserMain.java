@@ -57,7 +57,7 @@ public class UserMain extends JFrame {
 		JLabel lblNewLabel = new JLabel("Welcome to your library space — knowledge starts here.");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Traditional Arabic", Font.BOLD | Font.ITALIC, 28));
-		lblNewLabel.setForeground(new Color(139, 69, 19));
+		lblNewLabel.setForeground(new Color(210, 180, 140));
 		lblNewLabel.setBounds(28, 152, 737, 129);
 		contentPane.add(lblNewLabel);
 

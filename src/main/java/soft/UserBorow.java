@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import modl.Fine;
 import modl.Loan;
 import service.BorowService;
+import service.FineServise;
 import service.LoanService;
 import java.awt.event.ActionListener;
 
@@ -135,37 +136,15 @@ public class UserBorow extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			
-			String book_id = bookid.getText();
-			String user_id = userid.getText();
 			
-			Loan l = null;
-			BorowService avalble = new BorowService();
-			 l =avalble.bookAvalbltyChack(book_id);
 			
-			if ( l != null)
-			{
-				 JOptionPane.showMessageDialog(UserBorow.this, " this book is not avalble");
-			}else
-			{
-				 JOptionPane.showMessageDialog(UserBorow.this, "this book is avalble");
-				 
-				 Fine f = null;
-				  f =avalble.userfinescheck(user_id);
-				 
-				 if( f != null)
-				 {
-					 JOptionPane.showMessageDialog(UserBorow.this, " you have fines pay thim to get the book");
-						
-				 }else 
-				 {  
-					  l = new Loan(user_id,book_id);
-					 LoanService lo = new LoanService();
-					 lo.addbookloan(l);
-					 JOptionPane.showMessageDialog(UserBorow.this, " user got the book");
-						
-				 }
- 	           
-			}
+			        String book_id = bookid.getText().trim();
+			        String user_id = userid.getText().trim();
+
+			        BorowService borrowService = new BorowService();
+			        String message = borrowService.processBorrowRequest(user_id, book_id);
+
+			        JOptionPane.showMessageDialog(UserBorow.this, message);
 			
 			
 		}
