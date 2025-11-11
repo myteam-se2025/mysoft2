@@ -1,5 +1,6 @@
 package soft;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -21,19 +22,24 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import modl.*;
 import service.BookService;
+import service.FindeBooks;
+import service.FindeByAuthor;
+import service.FindeById;
+import service.FindeByTitle;
 import dao.*;
 
 public class UserSearch extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable booktable;
+	private JPanel booktable;
 	private JTextField theauthor;
 	private JTextField theisbn;
 	private JTextField thetitle;
 	private final Action action = new SwingAction();
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
+	private final Action action_3 = new SwingAction_3();
 
 	/**
 	 * Launch the application.
@@ -69,12 +75,12 @@ public class UserSearch extends JFrame {
 		panel.setBackground(new Color(189, 183, 107));
 		panel.setBounds(10, 297, 778, 225);
 		contentPane.add(panel);
-
-		booktable = new JTable();
-		booktable.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 10));
-		booktable.setForeground(new Color(0, 0, 0));
-		booktable.setBackground(new Color(0, 0, 0));
+		
+		booktable = new JPanel();
+		booktable.setForeground(new Color(139, 69, 19));
 		panel.add(booktable);
+		booktable.setLayout(new BorderLayout());
+		booktable.setBackground(new Color(143, 188, 143));
 
 		JButton showall = new JButton("show all");
 		showall.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 15));
@@ -105,6 +111,7 @@ public class UserSearch extends JFrame {
 		contentPane.add(byisbn);
 
 		JButton bytitle = new JButton("searsh by title");
+		bytitle.setAction(action_3);
 		bytitle.setForeground(new Color(85, 107, 47));
 		bytitle.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 15));
 		bytitle.setBackground(new Color(255, 222, 173));
@@ -165,66 +172,115 @@ public class UserSearch extends JFrame {
 			 UserSearch.this.dispose();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private class SwingAction_1 extends AbstractAction {
 		public SwingAction_1() {
 			putValue(NAME, "search by author");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
+		
+			
+			String author = theauthor.getText().trim() ;
+		    FindeBooks bok = new FindeBooks();
+			bok.setStratgy(new FindeByAuthor());
+            Book mybook = bok.findeBook(author);
+			 
+            makeatable(mybook);
+			
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private class SwingAction_2 extends AbstractAction {
 		public SwingAction_2() {
-			putValue(NAME, "search by isbn");
+			putValue(NAME, "search by id");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
-			findebook();
+			
+		
+			String id = theisbn.getText().trim();
+		    FindeBooks bok = new FindeBooks();			
+			bok.setStratgy(new FindeById());			
+            Book mybook = bok.findeBook(id);
+			
+            makeatable(mybook);
 			
 		}
 		
 		
 		
 		
-		public void findebook()
-		{
-			String id = theisbn.getText();
-
-		    try {
-		        BookService findbook = new BookService();
-		        Book mybook = findbook.findbyid(id);
-
-		        
-		        if (mybook != null) {
-		            Object[][] data = {
-		                {
-		                    mybook.getIsbn(),
-		                    mybook.getAuthor(),
-		                    mybook.getCategory(),
-		                    mybook.getTitle(),
-		                    mybook.getAvailable_copies()
-		                }
-		            };
-
-		            String[] columnNames = {"isbn", "Author", "category", "Title", "copies"};
-
-		            JTable table = new JTable(data, columnNames);
-		            JScrollPane scrollPane = new JScrollPane(table);
-
-		            
-		            booktable.removeAll(); 
-		            booktable.add(scrollPane);
-		            booktable.revalidate();
-		            booktable.repaint();
-
-		        } else {
-		            JOptionPane.showMessageDialog(UserSearch.this, "Book not found!", "Search", JOptionPane.WARNING_MESSAGE);
+	}
+	private class SwingAction_3 extends AbstractAction {
+		public SwingAction_3() {
+			putValue(NAME, "search by title");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			
+			
+			String title = thetitle.getText().trim();
+			
+			    FindeBooks bok = new FindeBooks();				
+				bok.setStratgy(new FindeByTitle());				
+	            Book mybook = bok.findeBook(title);
+				
+	            makeatable(mybook);
+				
+		}
+	}
+	
+	
+	
+	
+	public void makeatable( Book mybook)
+	{
+		if (mybook != null) {
+		    Object[][] data = {
+		        {
+		            mybook.getIsbn(),
+		            mybook.getAuthor(),
+		            mybook.getCategory(),
+		            mybook.getTitle(),
+		            mybook.getAvailable_copies()
 		        }
+		    };
 
-		    } catch (SQLException e1) {
-		        e1.printStackTrace();
-		        JOptionPane.showMessageDialog(UserSearch.this, "Database error.", "Error", JOptionPane.ERROR_MESSAGE);
-		    }
+		    String[] columnNames = {"isbn", "Author", "category", "Title", "copies"};
+
+		    JTable table = new JTable(data, columnNames);
+		    JScrollPane scrollPane = new JScrollPane(table);
+
+		    
+		    booktable.removeAll();
+		    booktable.setLayout(new BorderLayout());
+		    booktable.add(scrollPane, BorderLayout.CENTER);
+		    booktable.revalidate();
+		    booktable.repaint();
+
+
+		} else {
+		    JOptionPane.showMessageDialog(UserSearch.this, "Book not found!", "Search", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 }

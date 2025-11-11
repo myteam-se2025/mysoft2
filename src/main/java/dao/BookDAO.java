@@ -72,7 +72,7 @@ public class BookDAO extends BaseDAO {
                     rs.getString("category"),
                     rs.getInt("available_copies")
                 );
-                book.setBook_id(rs.getInt("book_id")); // نفس اسم setter في الكلاس
+                book.setBook_id(rs.getInt("book_id"));
                 return book;
             }
         } catch (SQLException e) {
@@ -83,13 +83,13 @@ public class BookDAO extends BaseDAO {
     
     
     
-    public Book findbytitle( int title) {
+    public Book findbytitle( String title) {
         String sql = "SELECT * FROM public.books WHERE title = ?";
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             
-            ps.setInt(1, title);
+            ps.setString(1, title);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -110,13 +110,13 @@ public class BookDAO extends BaseDAO {
     }
     
     
-    public Book findbyauthor( int author) {
+    public Book findbyauthor( String author) {
         String sql = "SELECT * FROM public.books WHERE author = ?";
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             
-            ps.setInt(1, author);
+            ps.setString(1, author);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -127,7 +127,7 @@ public class BookDAO extends BaseDAO {
                     rs.getString("category"),
                     rs.getInt("available_copies")
                 );
-                book.setBook_id(rs.getInt("book_id")); // نفس اسم setter في الكلاس
+                book.setBook_id(rs.getInt("book_id")); 
                 return book;
             }
         } catch (SQLException e) {

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import dao.BookDAO;
-import modl.*;
+import modl.Book;
 import dao.*;
 
 public class BookService {
@@ -66,6 +66,55 @@ public class BookService {
     	    try {
     	        BookDAO bookDAO = new BookDAO();
     	        return bookDAO.findbyid(idd);
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	        JOptionPane.showMessageDialog(null, "Database error occurred.");
+    	        return null;
+    	    }
+        
+    }
+    
+    
+    
+    
+    
+    
+    public Book findbyAuthor(String author )
+    {
+    	 if (author == null || author.isEmpty()) {
+    	        JOptionPane.showMessageDialog(null, "Please enter a book ID.");
+    	        return null;
+    	    }
+
+    	    
+        
+    	    try {
+    	        BookDAO bookDAO = new BookDAO();
+    	        return bookDAO.findbyauthor(author);
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	        JOptionPane.showMessageDialog(null, "Database error occurred.");
+    	        return null;
+    	    }
+        
+    }
+    
+    
+    
+    
+    
+    public Book findbyTitle(String Title )
+    {
+    	 if (Title == null || Title.isEmpty()) {
+    	        JOptionPane.showMessageDialog(null, "Please enter a book ID.");
+    	        return null;
+    	    }
+
+    	    
+        
+    	    try {
+    	        BookDAO bookDAO = new BookDAO();
+    	        return bookDAO.findbytitle(Title);
     	    } catch (Exception e) {
     	        e.printStackTrace();
     	        JOptionPane.showMessageDialog(null, "Database error occurred.");
