@@ -40,10 +40,10 @@ public class Loan {
 	}
 	public Loan (String userid, String bookid )
 	{
-		int s = Integer.parseInt(userid);
-        int d = Integer.parseInt(bookid);
-		this.userId = s;
-		this.bookId= d;
+
+		this.userId = Integer.parseInt(userid);
+		this.bookId= Integer.parseInt(bookid);
+		
 		this.loanDate= LocalDate.now();
 		this.dueDate = loanDate.plusDays(28);
 		this.cdId = 0;

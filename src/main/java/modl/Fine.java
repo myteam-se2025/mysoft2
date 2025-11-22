@@ -13,13 +13,14 @@ public class Fine {
 	private LocalDate issued_date = null;
 	
 	
-	 public Fine(int fineid, int loanid, int amount, String status, LocalDate issued_date) {
+	 public Fine(int fineid, int loanid, int amount, boolean string, LocalDate issued_date) {
 	  this.fine_id = fineid;
 	  this.loan_id = loanid;
 	  this.amount = amount;
 	  this.activestatus = false;
 	  this.issued_date = issued_date;
 	 }
+	 
 	 
 	 public Fine (LocalDate startdate , int loanid)
 	 {

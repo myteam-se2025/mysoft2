@@ -1,5 +1,6 @@
 package soft;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -9,9 +10,17 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+
+import modl.Book;
+import modl.Fine;
+import service.FineService;
+import service.PayFineService;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
@@ -23,9 +32,11 @@ public class UserFines extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final Action action = new SwingAction();
-	private JTextField txtInterYourId;
-	private JTextField txtAmountToPay;
+	private JTextField userID;
+	private JTextField fineID;
 	private JTable table;
+	private final Action action_1 = new SwingAction_1();
+	private final Action action_2 = new SwingAction_2();
 
 	/**
 	 * Launch the application.
@@ -65,16 +76,17 @@ public class UserFines extends JFrame {
 		btnNewButton.setBackground(new Color(143, 188, 143));
 		contentPane.add(btnNewButton);
 		
-		txtInterYourId = new JTextField();
-		txtInterYourId.setForeground(new Color(210, 180, 140));
-		txtInterYourId.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 18));
-		txtInterYourId.setHorizontalAlignment(SwingConstants.CENTER);
-		txtInterYourId.setText("inter your id");
-		txtInterYourId.setBounds(230, 63, 315, 30);
-		contentPane.add(txtInterYourId);
-		txtInterYourId.setColumns(10);
+		userID = new JTextField();
+		userID.setForeground(new Color(210, 180, 140));
+		userID.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 18));
+		userID.setHorizontalAlignment(SwingConstants.CENTER);
+		userID.setText("inter your id");
+		userID.setBounds(233, 57, 315, 30);
+		contentPane.add(userID);
+		userID.setColumns(10);
 		
 		JButton btnNewButton_1_1 = new JButton("show all fines ");
+		btnNewButton_1_1.setAction(action_2);
 		btnNewButton_1_1.setBackground(new Color(210, 180, 140));
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,16 +97,17 @@ public class UserFines extends JFrame {
 		btnNewButton_1_1.setBounds(578, 273, 153, 20);
 		contentPane.add(btnNewButton_1_1);
 		
-		txtAmountToPay = new JTextField();
-		txtAmountToPay.setHorizontalAlignment(SwingConstants.CENTER);
-		txtAmountToPay.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 18));
-		txtAmountToPay.setForeground(new Color(210, 180, 140));
-		txtAmountToPay.setText("inter fine id to pay");
-		txtAmountToPay.setBounds(285, 184, 193, 24);
-		contentPane.add(txtAmountToPay);
-		txtAmountToPay.setColumns(10);
+		fineID = new JTextField();
+		fineID.setHorizontalAlignment(SwingConstants.CENTER);
+		fineID.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 18));
+		fineID.setForeground(new Color(210, 180, 140));
+		fineID.setText("inter fine id to pay");
+		fineID.setBounds(291, 176, 193, 24);
+		contentPane.add(fineID);
+		fineID.setColumns(10);
 		
 		JButton btnNewButton_2 = new JButton("pay");
+		btnNewButton_2.setAction(action_1);
 		btnNewButton_2.setBackground(new Color(210, 180, 140));
 		btnNewButton_2.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 18));
 		btnNewButton_2.setForeground(new Color(143, 188, 143));
@@ -102,13 +115,13 @@ public class UserFines extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_2.setBounds(337, 154, 89, 20);
+		btnNewButton_2.setBounds(269, 146, 239, 20);
 		contentPane.add(btnNewButton_2);
 		
 		table = new JTable();
 		table.setForeground(new Color(143, 188, 143));
 		table.setBackground(new Color(210, 180, 140));
-		table.setBounds(66, 303, 665, 208);
+		table.setBounds(53, 303, 678, 208);
 		contentPane.add(table);
 
 	}
@@ -126,4 +139,69 @@ public class UserFines extends JFrame {
 			 UserFines.this.dispose();
 		}
 	}
+	private class SwingAction_1 extends AbstractAction {
+		public SwingAction_1() {
+			putValue(NAME, "Pay and return book");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			
+			String fineid = fineID.getText().trim();
+			String userid = userID.getText().trim();
+			
+			PayFineService f = new PayFineService();
+			String massage = f.payfine(userid , fineid);
+			
+			 JOptionPane.showMessageDialog(UserFines.this, massage);
+			
+		}
+	}
+	private class SwingAction_2 extends AbstractAction {
+		public SwingAction_2() {
+			putValue(NAME, "see recorde");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			
+			String userid = userID.getText().trim();
+			
+			
+			 
+			
+		}
+	}
+	
+	
+	
+	/*
+	public void makeatable( Book mybook)
+	{
+		if (mybook != null) {
+		    Object[][] data = {
+		        {
+		            mybook.getIsbn(),
+		            mybook.getAuthor(),
+		            mybook.getCategory(),
+		            mybook.getTitle(),
+		            mybook.getAvailable_copies()
+		        }
+		    };
+
+		    String[] columnNames = {"isbn", "Author", "category", "Title", "copies"};
+
+		    JTable table = new JTable(data, columnNames);
+		    JScrollPane scrollPane = new JScrollPane(table);
+
+		    
+		    booktable.removeAll();
+		    booktable.setLayout(new BorderLayout());
+		    booktable.add(scrollPane, BorderLayout.CENTER);
+		    booktable.revalidate();
+		    booktable.repaint();
+
+
+		} else {
+		    JOptionPane.showMessageDialog(UserSearch.this, "Book not found!", "Search", JOptionPane.WARNING_MESSAGE);
+		}
+	}*/
 }

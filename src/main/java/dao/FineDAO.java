@@ -19,6 +19,36 @@ public class FineDAO extends BaseDAO {
 		
 	}
 	
+	
+	
+	public Fine findeFineByFineId  (int id)
+	{
+		
+	        String sql = "SELECT * FROM public.fines WHERE fine_id = ?";
+	        
+	        try (Connection con = getConnection() ; PreparedStatement ps = con.prepareStatement(sql)) {
+
+	            
+	            ps.setInt(1, id);
+	            ResultSet rs = ps.executeQuery();
+
+	            if (rs.next()) {
+	                return new Fine(
+	                    rs.getInt("fine_id"),
+	                    rs.getInt("loan_id"),
+	                    rs.getInt("amount"),
+	                    rs.getBoolean("status"),
+	                    rs.getDate("issued_date") != null ? rs.getDate("due_date").toLocalDate() : null
+	                );
+	                
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+			return null;
+		
+	}
+	
 	public Fine findeuserFines  (int id)
 	{
 		
@@ -35,7 +65,7 @@ public class FineDAO extends BaseDAO {
 	                    rs.getInt("fine_id"),
 	                    rs.getInt("loan_id"),
 	                    rs.getInt("amount"),
-	                    rs.getString("status"),
+	                    rs.getBoolean("status"),
 	                    rs.getDate("issued_date") != null ? rs.getDate("due_date").toLocalDate() : null
 	                );
 	                
@@ -46,8 +76,6 @@ public class FineDAO extends BaseDAO {
 			return null;
 		
 	}
-	
-	
 	
 	public void insertFine (Fine fine)
 	{
@@ -69,6 +97,27 @@ public class FineDAO extends BaseDAO {
 	            catch (SQLException e) {
 	                JOptionPane.showMessageDialog(null, e.getMessage());
 	            }
+	}
+
+	public boolean deletefine(int fineid) {
+		
+		 String sql = "DELETE FROM public.fines WHERE fine_id = ?";
+
+		    try (Connection con = getConnection(); 
+		         PreparedStatement ps = con.prepareStatement(sql)) {
+
+		        ps.setInt(1, fineid);
+
+		        int rowsAffected = ps.executeUpdate();
+
+		        
+		        return rowsAffected > 0;
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return false;
 	}
 	
 	}

@@ -44,6 +44,8 @@ public class LoansDAO extends BaseDAO{
 	        
 	    }
 	
+	
+	
 	public Loan findeLoanByuserId(int id)
 	{
 		
@@ -157,6 +159,31 @@ public class LoansDAO extends BaseDAO{
 	            }
 	 }
 }
+	 
+	 
+	 
+	 
+	 public boolean deleteloan(int loanid)
+	 {
+
+		 String sql = "DELETE FROM public.loans WHERE loan_id = ?";
+
+		    try (Connection con = getConnection(); 
+		         PreparedStatement ps = con.prepareStatement(sql)) {
+
+		        ps.setInt(1, loanid);
+
+		        int rowsAffected = ps.executeUpdate();
+
+		        
+		        return rowsAffected > 0;
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return false;
+	 }
 }
 	
 

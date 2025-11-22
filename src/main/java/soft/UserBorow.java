@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import modl.Fine;
 import modl.Loan;
 import service.BorowService;
-import service.FineServise;
+import service.FineService;
 import service.LoanService;
 import java.awt.event.ActionListener;
 

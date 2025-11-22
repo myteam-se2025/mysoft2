@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import dao.BookDAO;
 import modl.Book;
+import modl.Loan;
 import dao.*;
 
 public class BookService {
@@ -22,7 +22,8 @@ public class BookService {
      * @return message indicating success or failure
      */
     public String addBook(Book book) {
-        // ✅ Basic validation
+      
+    	
         if (book.getTitle() == null || book.getTitle().trim().isEmpty()) {
             return "Title cannot be empty!";
         }
@@ -39,10 +40,13 @@ public class BookService {
             return "Number of copies cannot be negative!";
         }
 
-        // ✅ Attempt to add to database
+       
         boolean success = bookDao.insertBook(book);
         return success ? "Book added successfully!" : "Error while saving Book to database.";
     }
+    
+    
+    
     
     public Book findbyid(String id )
     {
@@ -122,4 +126,44 @@ public class BookService {
     	    }
         
     }
+    
+    
+    
+    
+
+	public Loan bookAvalbltyChack(String book_id)
+	{
+		
+		if (book_id == null || book_id.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Please enter a book ID.");
+			return null;
+        }
+		
+		int idd = 0;
+	    try {
+	        idd = Integer.parseInt(book_id);
+	        if (idd <= 0) {
+	            JOptionPane.showMessageDialog(null, "ID must be a positive number.");
+	            return null;
+	        }
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(null, "ID must be a number.");
+	        return null;
+	    }
+	    
+	    try {
+	    	
+	    	LoansDAO loan = new LoansDAO();
+	    	return loan.findeLoanBybookId(idd);
+	    	
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(null, "ID must be a number.");
+	        return null;
+	    }
+		
+	    	
+	    }
+	
+    
+    
 }
