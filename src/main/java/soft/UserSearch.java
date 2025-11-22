@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -40,6 +41,7 @@ public class UserSearch extends JFrame {
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
 	private final Action action_3 = new SwingAction_3();
+	private final Action action_4 = new SwingAction_4();
 
 	/**
 	 * Launch the application.
@@ -83,10 +85,11 @@ public class UserSearch extends JFrame {
 		booktable.setBackground(new Color(143, 188, 143));
 
 		JButton showall = new JButton("show all");
+		showall.setAction(action_4);
 		showall.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 15));
 		showall.setForeground(new Color(85, 107, 47));
 		showall.setBackground(new Color(245, 222, 179));
-		showall.setBounds(670, 265, 102, 24);
+		showall.setBounds(618, 265, 154, 24);
 		contentPane.add(showall);
 
 		JButton byauthor = new JButton("searsh by author");
@@ -192,11 +195,13 @@ public class UserSearch extends JFrame {
 		
 			
 			String author = theauthor.getText().trim() ;
+			
 		    FindeBooks bok = new FindeBooks();
 			bok.setStratgy(new FindeByAuthor());
-            Book mybook = bok.findeBook(author);
+			
+            List<Book> mybook = bok.findeBook(author);
 			 
-            makeatable(mybook);
+            makeatablelist(mybook);
 			
 		}
 	}
@@ -221,9 +226,9 @@ public class UserSearch extends JFrame {
 			String id = theisbn.getText().trim();
 		    FindeBooks bok = new FindeBooks();			
 			bok.setStratgy(new FindeById());			
-            Book mybook = bok.findeBook(id);
+            List<Book> mybook = bok.findeBook(id);
 			
-            makeatable(mybook);
+            makeatablelist(mybook);
 			
 		}
 		
@@ -243,9 +248,9 @@ public class UserSearch extends JFrame {
 			
 			    FindeBooks bok = new FindeBooks();				
 				bok.setStratgy(new FindeByTitle());				
-	            Book mybook = bok.findeBook(title);
+	            List<Book> mybook = bok.findeBook(title);
 				
-	            makeatable(mybook);
+	            makeatablelist(mybook);
 				
 		}
 	}
@@ -253,34 +258,69 @@ public class UserSearch extends JFrame {
 	
 	
 	
-	public void makeatable( Book mybook)
-	{
-		if (mybook != null) {
-		    Object[][] data = {
-		        {
-		            mybook.getIsbn(),
-		            mybook.getAuthor(),
-		            mybook.getCategory(),
-		            mybook.getTitle(),
-		            mybook.getAvailable_copies()
-		        }
-		    };
-
-		    String[] columnNames = {"isbn", "Author", "category", "Title", "copies"};
-
-		    JTable table = new JTable(data, columnNames);
-		    JScrollPane scrollPane = new JScrollPane(table);
-
-		    
-		    booktable.removeAll();
-		    booktable.setLayout(new BorderLayout());
-		    booktable.add(scrollPane, BorderLayout.CENTER);
-		    booktable.revalidate();
-		    booktable.repaint();
-
-
-		} else {
-		    JOptionPane.showMessageDialog(UserSearch.this, "Book not found!", "Search", JOptionPane.WARNING_MESSAGE);
+	
+	
+	private class SwingAction_4 extends AbstractAction {
+		public SwingAction_4() {
+			putValue(NAME, "show all books ");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			
+			try {
+				BookService b = new BookService();
+				List<Book> books = b.findeAllBooks();
+				makeatablelist(books);
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+			
+			
 		}
 	}
+	
+	
+	
+	public void makeatablelist(List<Book> books) {
+	  
+		if (books != null && !books.isEmpty()) {
+	    	
+	        String[] columnNames = {"ISBN", "Author", "Category", "Title", "Copies"};
+
+	        Object[][] data = new Object[books.size()][5];
+
+	        // Fill the table rows
+	        for (int i = 0; i < books.size(); i++) {
+	            Book b = books.get(i);
+	            data[i][0] = b.getIsbn();
+	            data[i][1] = b.getAuthor();
+	            data[i][2] = b.getCategory();
+	            data[i][3] = b.getTitle();
+	            data[i][4] = b.getAvailable_copies();
+	        }
+
+	        // Create the table
+	        JTable table = new JTable(data, columnNames);
+	        JScrollPane scrollPane = new JScrollPane(table);
+
+	        // Update the panel
+	        booktable.removeAll();
+	        booktable.setLayout(new BorderLayout());
+	        booktable.add(scrollPane, BorderLayout.CENTER);
+	        booktable.revalidate();
+	        booktable.repaint();
+
+	    } else {
+	        JOptionPane.showMessageDialog(
+	            UserSearch.this,
+	            "No books found!",
+	            "Search",
+	            JOptionPane.WARNING_MESSAGE
+	        );
+	    }
+	}
+
+	
+	
 }

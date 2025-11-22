@@ -1,5 +1,8 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import dao.FineDAO;
@@ -10,6 +13,50 @@ import modl.Loan;
 
 public class FineService {
 
+	
+	
+	public List<Fine> findeAlluserfines (String userid)
+	{
+		List<Fine> fines = new ArrayList<>();
+		List<Loan> loans = new ArrayList<>();
+		if (userid == null || userid.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Please enter a user ID.");
+			return null;
+        }
+		
+		int idd = 0;
+	    try {
+	        idd = Integer.parseInt(userid);
+	        if (idd <= 0) {
+	            JOptionPane.showMessageDialog(null, "ID must be a positive number.");
+	            return null;
+	        }
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(null, "ID must be a number.");
+	        return null;
+	    }
+	    FineDAO finedao = new FineDAO();
+	    LoanService loanservice = new LoanService();
+	    loans = loanservice.findeAllUserLoans(idd);
+	    
+	    for (int i = 0; i < loans.size(); i++) {
+	     int loanid = loans.get(i).getLoanId();
+	     Fine fine = new Fine();
+	     fine = finedao.findeuserFines(loanid);
+	     fines.add(fine);
+	    }
+	    
+	   return fines; 
+	    
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -36,49 +83,6 @@ public class FineService {
 	
 	
 	
-	
-	public Fine userfinescheck(String userid)
-	{
-		if (userid == null || userid.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Please enter a book ID.");
-			return null;
-        }
-		
-		int idd = 0;
-	    try {
-	        idd = Integer.parseInt(userid);
-	        if (idd <= 0) {
-	            JOptionPane.showMessageDialog(null, "ID must be a positive number.");
-	            return null;
-	        }
-	    } catch (NumberFormatException ex) {
-	        JOptionPane.showMessageDialog(null, "ID must be a number.");
-	        return null;
-	    }
-	 
-	    
-	    
-            try {
-	    	LoansDAO lo = new LoansDAO();
-	    	Loan loan = lo.findeLoanByuserId(idd);
-	    	
-	    	if (loan != null)
-	    	{
-	    	
-	    	FineDAO fine = new FineDAO();
-	    	 return fine.findeuserFines(loan.getLoanId());
-	    	 
-	    	}else {
-	    		return null;
-	    	} 
-	    	
-	    	
-	    } catch (NumberFormatException ex) {
-	        JOptionPane.showMessageDialog(null, "ID must be a number.");
-	        return null;
-	    }
-	    
-	}
 	
 	
 	
@@ -112,8 +116,10 @@ public class FineService {
 	        return null;
 	    }
 	    
+	    
 	    LoansDAO loandao = new LoansDAO();
 	    FineDAO finedao =  new FineDAO();
+	    
 	    Fine fin = finedao.findeFineByFineId(fidd);
 	    boolean finestatus = fin.getstatus();
 	    

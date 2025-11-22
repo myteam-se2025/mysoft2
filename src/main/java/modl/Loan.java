@@ -12,22 +12,20 @@ public class Loan {
 	private int cdId;
 	private LocalDate loanDate;
 	private LocalDate dueDate;
-	private LocalDate returnDate;
-	private String status;
+	
 
 //	public Loans() {}
 	
 
 	public  Loan(int loanId, int userId, int bookId, int cdId,
-				 LocalDate loanDate, LocalDate dueDate, LocalDate returnDate, String status) {
+				 LocalDate loanDate, LocalDate dueDate) {
 		this.loanId = loanId;
 		this.userId = userId;
 		this.bookId = bookId;
 		this.cdId = cdId;
 		this.loanDate = loanDate;
 		this.dueDate = dueDate;
-		this.returnDate = returnDate;
-		this.status = status;
+		
 	}
 	
 	public Loan (int userid, int bookid )
@@ -98,20 +96,8 @@ public class Loan {
 		this.dueDate = dueDate;
 	}
 
-	public LocalDate getReturnDate() {
-		return returnDate;
-	}
+	
 
-	public void setReturnDate(LocalDate returnDate) {
-		this.returnDate = returnDate;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 	
 }

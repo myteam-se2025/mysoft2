@@ -1,9 +1,12 @@
 package dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -19,7 +22,34 @@ public class FineDAO extends BaseDAO {
 		
 	}
 	
-	
+	public List<Fine> findeAllFines(int loanid)
+	{
+		List<Fine> fines = new ArrayList<>();
+		
+		 String sql = "SELECT * FROM public.fines WHERE loan_id = ?";
+	        
+	        try (Connection con = getConnection() ; PreparedStatement ps = con.prepareStatement(sql)) {
+
+	            
+	            ps.setInt(1, loanid);
+	            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Fine fine = new Fine(
+                    rs.getInt("fine_id"),
+                    rs.getInt("loan_id"),
+                    rs.getInt("amount"),
+                    rs.getBoolean("status"),
+                    rs.getDate("issued_date") != null ? rs.getDate("due_date").toLocalDate() : null
+                );
+                fines.add(fine);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+		return fines;
+	}
 	
 	public Fine findeFineByFineId  (int id)
 	{

@@ -1,13 +1,14 @@
 package service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import modl.Book;
 
 public class FindeByTitle implements SearchBook{
 
 	
-	public Book findeBook(String searchby) {
+	public List<Book> findeBook(String searchby) {
 		BookService book;
 		 try {
 			book = new BookService();

@@ -1,6 +1,8 @@
 package service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.LoansDAO;
 import modl.Loan;
@@ -23,6 +25,17 @@ public class LoanService {
 		
 		
 	}
+	
+	
+	public List<Loan> findeAllUserLoans(int userid)
+	{
+		List<Loan> loans = new ArrayList<>();
+		
+		LoansDAO loansdao = new LoansDAO();
+		loans = loansdao.findeLoanByUserId(userid);
+		return loans;
+	}
+	
 	
 	
 	

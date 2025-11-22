@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import modl.*;
 import dao.*;
 
@@ -30,9 +33,8 @@ public class LoansDAO extends BaseDAO{
 	                    rs.getInt("book_id"),
 	                    rs.getInt("cd_id"),
 	                    rs.getDate("loan_date") != null ? rs.getDate("loan_date").toLocalDate() : null,
-	                    rs.getDate("due_date") != null ? rs.getDate("due_date").toLocalDate() : null,
-	                    rs.getDate("return_date") != null ? rs.getDate("return_date").toLocalDate() : null,
-	                    rs.getString("status")
+	                    rs.getDate("due_date") != null ? rs.getDate("due_date").toLocalDate() : null
+	                   
 	                );
 	                
 	            }
@@ -46,9 +48,9 @@ public class LoansDAO extends BaseDAO{
 	
 	
 	
-	public Loan findeLoanByuserId(int id)
+	public List<Loan> findeLoanByUserId(int id)
 	{
-		
+		List<Loan> loans = new ArrayList<>();
 	        String sql = "SELECT * FROM public.loans WHERE user_id = ?";
 	        
 	        try (Connection con = getConnection() ; PreparedStatement ps = con.prepareStatement(sql)) {
@@ -58,22 +60,21 @@ public class LoansDAO extends BaseDAO{
 	            ResultSet rs = ps.executeQuery();
 
 	            if (rs.next()) {
-	                return new Loan(
+	                Loan loan = new Loan(
 	                    rs.getInt("Loan_id"),
 	                    rs.getInt("user_id"),
 	                    rs.getInt("book_id"),
 	                    rs.getInt("cd_id"),
 	                    rs.getDate("loan_date") != null ? rs.getDate("loan_date").toLocalDate() : null,
-	                    rs.getDate("due_date") != null ? rs.getDate("due_date").toLocalDate() : null,
-	                    rs.getDate("return_date") != null ? rs.getDate("return_date").toLocalDate() : null,
-	                    rs.getString("status")
+	                    rs.getDate("due_date") != null ? rs.getDate("due_date").toLocalDate() : null
+	                  
 	                );
-	                
+	                loans.add(loan);
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-			return null;
+			return  loans;
 		
 	        
 	    }

@@ -25,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JTable;
 
 public class UserFines extends JFrame {
@@ -34,7 +36,7 @@ public class UserFines extends JFrame {
 	private final Action action = new SwingAction();
 	private JTextField userID;
 	private JTextField fineID;
-	private JTable table;
+	private JTable finestable;
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
 
@@ -118,11 +120,11 @@ public class UserFines extends JFrame {
 		btnNewButton_2.setBounds(269, 146, 239, 20);
 		contentPane.add(btnNewButton_2);
 		
-		table = new JTable();
-		table.setForeground(new Color(143, 188, 143));
-		table.setBackground(new Color(210, 180, 140));
-		table.setBounds(53, 303, 678, 208);
-		contentPane.add(table);
+		finestable = new JTable();
+		finestable.setForeground(new Color(143, 188, 143));
+		finestable.setBackground(new Color(210, 180, 140));
+		finestable.setBounds(53, 303, 678, 208);
+		contentPane.add(finestable);
 
 	}
 
@@ -163,8 +165,9 @@ public class UserFines extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			
-			String userid = userID.getText().trim();
-			
+		String userid = userID.getText().trim();
+			FineService  fineservise = new FineService ();
+			List<Fine> fines =fineservise.findeAlluserfines(userid);
 			
 			 
 			
@@ -172,36 +175,44 @@ public class UserFines extends JFrame {
 	}
 	
 	
+	public void makeatablelist(List<Fine> fines) {
+		  
+		if (fines != null && !fines.isEmpty()) {
+	    	
+	        String[] columnNames = {"fineid", "loanid", "amount", "isuee_date", "status"};
+
+	        Object[][] data = new Object[fines.size()][5];
+
+	        // Fill the table rows
+	        for (int i = 0; i < fines.size(); i++) {
+	            Fine f = fines.get(i);
+	            data[i][0] = f.getFineId();
+	            data[i][1] = f.getLoanId();
+	            data[i][2] = f.getAmount();
+	            data[i][3] = f.getDateIssued();
+	            data[i][4] = f.getstatus();
+	        }
+
+	        // Create the table
+	        JTable table = new JTable(data, columnNames);
+	        JScrollPane scrollPane = new JScrollPane(table);
+
+	        // Update the panel
+	        finestable.removeAll();
+	        finestable.setLayout(new BorderLayout());
+	        finestable.add(scrollPane, BorderLayout.CENTER);
+	        finestable.revalidate();
+	        finestable.repaint();
+
+	    } else {
+	        JOptionPane.showMessageDialog(
+	             UserFines.this,
+	            "No books found!",
+	            "Search",
+	            JOptionPane.WARNING_MESSAGE
+	        );
+	    }
+	}
 	
-	/*
-	public void makeatable( Book mybook)
-	{
-		if (mybook != null) {
-		    Object[][] data = {
-		        {
-		            mybook.getIsbn(),
-		            mybook.getAuthor(),
-		            mybook.getCategory(),
-		            mybook.getTitle(),
-		            mybook.getAvailable_copies()
-		        }
-		    };
-
-		    String[] columnNames = {"isbn", "Author", "category", "Title", "copies"};
-
-		    JTable table = new JTable(data, columnNames);
-		    JScrollPane scrollPane = new JScrollPane(table);
-
-		    
-		    booktable.removeAll();
-		    booktable.setLayout(new BorderLayout());
-		    booktable.add(scrollPane, BorderLayout.CENTER);
-		    booktable.revalidate();
-		    booktable.repaint();
-
-
-		} else {
-		    JOptionPane.showMessageDialog(UserSearch.this, "Book not found!", "Search", JOptionPane.WARNING_MESSAGE);
-		}
-	}*/
+	
 }

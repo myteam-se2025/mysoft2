@@ -30,7 +30,12 @@ public class Fine {
 		 this.activestatus = false;
 	 }
 
-	    // Getters
+	    public Fine() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+		// Getters
 	    public Integer getFineId() {
 	        return fine_id;
 	    }

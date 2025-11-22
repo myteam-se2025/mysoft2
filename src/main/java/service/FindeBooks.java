@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import modl.Book;
 
 public class FindeBooks {
@@ -11,7 +13,7 @@ public class FindeBooks {
 		this.stratgy = stratgy;
 	}
 	
-	public Book findeBook (String searchby)
+	public List<Book> findeBook (String searchby)
 	{
 		if (stratgy == null)
 		{

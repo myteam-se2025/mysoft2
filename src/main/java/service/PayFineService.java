@@ -12,12 +12,8 @@ public class PayFineService {
 	public String payfine(String userid , String fineid)
 	{
 		FineService f = new FineService();
-		Fine fine=	f.userfinescheck(userid);
-		if(fine == null)
-		{
-		return " user id is does'not exist  ";
-		}
-		
+		//Fine fine=	f.userfinescheck(userid);
+	
 		f.payFine(userid, fineid);
 	    
 	    

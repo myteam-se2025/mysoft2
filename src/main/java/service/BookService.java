@@ -1,6 +1,7 @@
 package service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -47,8 +48,16 @@ public class BookService {
     
     
     
+    public List<Book> findeAllBooks()
+    {
+    	BookDAO bdao= new  BookDAO();
+    	
+    	List<Book> b = bdao.findAllBooks() ;
+    	return b;
+    }
     
-    public Book findbyid(String id )
+    
+    public List<Book> findbyid(String id )
     {
     	 if (id == null || id.isEmpty()) {
     	        JOptionPane.showMessageDialog(null, "Please enter a book ID.");
@@ -83,7 +92,7 @@ public class BookService {
     
     
     
-    public Book findbyAuthor(String author )
+    public List<Book> findbyAuthor(String author )
     {
     	 if (author == null || author.isEmpty()) {
     	        JOptionPane.showMessageDialog(null, "Please enter a book ID.");
@@ -107,7 +116,7 @@ public class BookService {
     
     
     
-    public Book findbyTitle(String Title )
+    public List<Book> findbyTitle(String Title )
     {
     	 if (Title == null || Title.isEmpty()) {
     	        JOptionPane.showMessageDialog(null, "Please enter a book ID.");

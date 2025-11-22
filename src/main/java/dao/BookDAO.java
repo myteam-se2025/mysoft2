@@ -2,6 +2,9 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import modl.Book;
 
 public class BookDAO extends BaseDAO {
@@ -53,9 +56,36 @@ public class BookDAO extends BaseDAO {
         return null;
     }
     
+    public List<Book> findAllBooks() {
+    	
+    	List<Book> books = new ArrayList<>();
+        
+    	String sql = "SELECT * FROM public.books ";
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Book book = new Book(
+                    rs.getString("title"),
+                    rs.getString("author"),
+                    rs.getString("isbn"),
+                    rs.getString("category"),
+                    rs.getInt("available_copies")
+                );
+                book.setBook_id(rs.getInt("book_id"));
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return books;
+    }
     
-    
-    public Book findbyid( int id) {
+    public List<Book> findbyid( int id) {
+    	List<Book> books = new ArrayList<>();
+    	
         String sql = "SELECT * FROM public.books WHERE book_id = ?";
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -73,17 +103,18 @@ public class BookDAO extends BaseDAO {
                     rs.getInt("available_copies")
                 );
                 book.setBook_id(rs.getInt("book_id"));
-                return book;
+                books.add(book);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return books;
     }
     
     
     
-    public Book findbytitle( String title) {
+    public List<Book> findbytitle( String title) {
+    	List<Book> books = new ArrayList<>();
         String sql = "SELECT * FROM public.books WHERE title = ?";
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -101,16 +132,18 @@ public class BookDAO extends BaseDAO {
                     rs.getInt("available_copies")
                 );
                 book.setBook_id(rs.getInt("book_id"));
-                return book;
+                books.add(book);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return books;
     }
     
     
-    public Book findbyauthor( String author) {
+    public List<Book> findbyauthor( String author) {
+    	List<Book> books = new ArrayList<>();
+    	
         String sql = "SELECT * FROM public.books WHERE author = ?";
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -128,12 +161,12 @@ public class BookDAO extends BaseDAO {
                     rs.getInt("available_copies")
                 );
                 book.setBook_id(rs.getInt("book_id")); 
-                return book;
+                books.add(book);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return books;
     }
     
     
