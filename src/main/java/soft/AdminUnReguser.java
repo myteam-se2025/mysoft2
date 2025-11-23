@@ -3,70 +3,121 @@ package soft;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import modl.User;
+import service.UnRegUserService;
 
 public class AdminUnReguser extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					AdminUnReguser frame = new AdminUnReguser();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
 
-	private JPanel contentPane;
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                AdminUnReguser frame = new AdminUnReguser();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	public AdminUnReguser() {
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(100, 100, 811, 569);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(153, 181, 115));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+    public AdminUnReguser() {
+        setTitle("Unregister Users");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 800, 500);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(153, 181, 115));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 142, 775, 317);
-		contentPane.add(panel);
+        JLabel lblTitle = new JLabel("Unregister Inactive Users");
+        lblTitle.setForeground(new Color(44, 116, 54));
+        lblTitle.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblTitle.setBounds(10, 20, 500, 40);
+        contentPane.add(lblTitle);
 
-		JLabel lblNewLabel = new JLabel("If you want To Unregister aUser So That Inactive Accounts Are Removed ");
-		lblNewLabel.setForeground(new Color(44, 116, 54));
-		lblNewLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 16));
-		lblNewLabel.setBounds(10, 39, 775, 45);
-		contentPane.add(lblNewLabel);
+        JLabel lblInfo = new JLabel("Only users without active loans or unpaid fines can be unregistered.");
+        lblInfo.setForeground(new Color(44, 116, 54));
+        lblInfo.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 14));
+        lblInfo.setBounds(10, 60, 700, 30);
+        contentPane.add(lblInfo);
 
-		JLabel lblNewLabel_1 = new JLabel("Click on A Button");
-		lblNewLabel_1.setForeground(new Color(44, 116, 54));
-		lblNewLabel_1.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 15));
-		lblNewLabel_1.setBounds(10, 83, 228, 27);
-		contentPane.add(lblNewLabel_1);
+        JButton btnUnregister = new JButton("Unregister Users");
+        btnUnregister.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 16));
+        btnUnregister.setForeground(new Color(97, 152, 63));
+        btnUnregister.setBounds(10, 120, 250, 30);
+        contentPane.add(btnUnregister);
 
-		JButton btnNewButton = new JButton("UnRegister");
-		btnNewButton.setForeground(new Color(97, 152, 63));
-		btnNewButton.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		btnNewButton.setBounds(298, 496, 213, 23);
-		contentPane.add(btnNewButton);
+        btnUnregister.addActionListener(e -> openUserSelectionDialog());
+    }
 
-	}
+    private void openUserSelectionDialog() {
+        UnRegUserService service = new UnRegUserService();
+        List<User> users = service.getEligibleUsers();
 
+        if (users.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No eligible users found.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (User u : users) {
+            model.addElement(u.getUser_id() + " - " + u.getFull_name() + " - " + u.getEmail());
+        }
+
+        JList<String> userList = new JList<>(model);
+        userList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        JScrollPane scroll = new JScrollPane(userList);
+        scroll.setPreferredSize(new java.awt.Dimension(600, 300));
+
+        int option = JOptionPane.showConfirmDialog(
+                this,
+                scroll,
+                "Select users to unregister",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (option != JOptionPane.OK_OPTION) return;
+
+        int[] selectedIndices = userList.getSelectedIndices();
+        if (selectedIndices.length == 0) {
+            JOptionPane.showMessageDialog(this, "No user selected.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to unregister the selected users?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        boolean allSuccess = true;
+
+        for (int i : selectedIndices) {
+            String data = model.get(i);
+            int userId = Integer.parseInt(data.split(" - ")[0]);
+
+            if (!service.unregisterUser(userId)) {
+                allSuccess = false;
+            }
+        }
+
+        if (allSuccess)
+            JOptionPane.showMessageDialog(this, "Users unregistered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        else
+            JOptionPane.showMessageDialog(this, "Some users could not be deleted.", "Partial Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
