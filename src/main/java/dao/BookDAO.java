@@ -75,7 +75,9 @@ public class BookDAO extends BaseDAO {
                     rs.getInt("available_copies")
                 );
                 book.setBook_id(rs.getInt("book_id"));
+                if (book != null) {
                 books.add(book);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,7 +96,7 @@ public class BookDAO extends BaseDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 Book book = new Book(
                     rs.getString("title"),
                     rs.getString("author"),
@@ -103,7 +105,9 @@ public class BookDAO extends BaseDAO {
                     rs.getInt("available_copies")
                 );
                 book.setBook_id(rs.getInt("book_id"));
-                books.add(book);
+                if (book != null) {
+                    books.add(book);
+                    }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,7 +127,7 @@ public class BookDAO extends BaseDAO {
             ps.setString(1, title);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 Book book = new Book(
                     rs.getString("title"),
                     rs.getString("author"),
@@ -132,7 +136,9 @@ public class BookDAO extends BaseDAO {
                     rs.getInt("available_copies")
                 );
                 book.setBook_id(rs.getInt("book_id"));
-                books.add(book);
+                if (book != null) {
+                    books.add(book);
+                    }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,7 +158,7 @@ public class BookDAO extends BaseDAO {
             ps.setString(1, author);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 Book book = new Book(
                     rs.getString("title"),
                     rs.getString("author"),
@@ -161,7 +167,9 @@ public class BookDAO extends BaseDAO {
                     rs.getInt("available_copies")
                 );
                 book.setBook_id(rs.getInt("book_id")); 
-                books.add(book);
+                if (book != null) {
+                    books.add(book);
+                    }
             }
         } catch (SQLException e) {
             e.printStackTrace();

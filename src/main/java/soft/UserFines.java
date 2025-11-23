@@ -36,9 +36,10 @@ public class UserFines extends JFrame {
 	private final Action action = new SwingAction();
 	private JTextField userID;
 	private JTextField fineID;
-	private JTable finestable;
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
+	private JPanel table_1;
+
 
 	/**
 	 * Launch the application.
@@ -70,6 +71,19 @@ public class UserFines extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		
+		JPanel bane1 = new JPanel(); 
+		bane1.setBackground(new Color(189, 183, 107));
+		bane1.setBounds(10, 297, 778, 225);
+		contentPane.add(bane1);
+		
+		table_1 = new JPanel();
+		table_1.setForeground(new Color(139, 69, 19));
+		bane1.add(table_1);
+		table_1.setLayout(new BorderLayout());
+		table_1.setBackground(new Color(143, 188, 143));
+		
+		
 		JButton btnNewButton = new JButton("<--");
 		btnNewButton.setAction(action);
 		btnNewButton.setBounds(10, 10, 67, 19);
@@ -120,11 +134,8 @@ public class UserFines extends JFrame {
 		btnNewButton_2.setBounds(269, 146, 239, 20);
 		contentPane.add(btnNewButton_2);
 		
-		finestable = new JTable();
-		finestable.setForeground(new Color(143, 188, 143));
-		finestable.setBackground(new Color(210, 180, 140));
-		finestable.setBounds(53, 303, 678, 208);
-		contentPane.add(finestable);
+		
+		
 
 	}
 
@@ -169,14 +180,15 @@ public class UserFines extends JFrame {
 			FineService  fineservise = new FineService ();
 			List<Fine> fines =fineservise.findeAlluserfines(userid);
 			
-			 
+			 makeatablelist(fines);
 			
+			 
 		}
 	}
 	
 	
 	public void makeatablelist(List<Fine> fines) {
-		  
+		
 		if (fines != null && !fines.isEmpty()) {
 	    	
 	        String[] columnNames = {"fineid", "loanid", "amount", "isuee_date", "status"};
@@ -192,18 +204,17 @@ public class UserFines extends JFrame {
 	            data[i][3] = f.getDateIssued();
 	            data[i][4] = f.getstatus();
 	        }
-
-	        // Create the table
 	        JTable table = new JTable(data, columnNames);
 	        JScrollPane scrollPane = new JScrollPane(table);
 
-	        // Update the panel
-	        finestable.removeAll();
-	        finestable.setLayout(new BorderLayout());
-	        finestable.add(scrollPane, BorderLayout.CENTER);
-	        finestable.revalidate();
-	        finestable.repaint();
-
+	        
+	        
+	        
+	        table_1.removeAll();
+	        table_1.setLayout(new BorderLayout());
+	        table_1.add(scrollPane, BorderLayout.CENTER);
+	        table_1.revalidate();
+	        table_1.repaint();
 	    } else {
 	        JOptionPane.showMessageDialog(
 	             UserFines.this,
@@ -213,6 +224,4 @@ public class UserFines extends JFrame {
 	        );
 	    }
 	}
-	
-	
 }

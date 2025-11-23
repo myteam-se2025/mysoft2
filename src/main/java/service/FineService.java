@@ -19,6 +19,7 @@ public class FineService {
 	{
 		List<Fine> fines = new ArrayList<>();
 		List<Loan> loans = new ArrayList<>();
+		
 		if (userid == null || userid.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Please enter a user ID.");
 			return null;
@@ -35,16 +36,24 @@ public class FineService {
 	        JOptionPane.showMessageDialog(null, "ID must be a number.");
 	        return null;
 	    }
+	    
 	    FineDAO finedao = new FineDAO();
+	    
 	    LoanService loanservice = new LoanService();
 	    loans = loanservice.findeAllUserLoans(idd);
 	    
 	    for (int i = 0; i < loans.size(); i++) {
+	    	//if (loans.get(i) != null)
+	    	//{
 	     int loanid = loans.get(i).getLoanId();
 	     Fine fine = new Fine();
 	     fine = finedao.findeuserFines(loanid);
+	     if (fine != null)
+	     {
 	     fines.add(fine);
-	    }
+	     }
+	     }
+	  //  }
 	    
 	   return fines; 
 	    

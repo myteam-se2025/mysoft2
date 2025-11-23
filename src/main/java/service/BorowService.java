@@ -42,6 +42,7 @@ public class BorowService {
 
 	public String processBorrowRequest(String user_id, String book_id) {
 		
+		int countstatustrue = 0;
 		List<Fine> fines = new ArrayList<>();
 		
 		BookService b;
@@ -63,10 +64,14 @@ public class BorowService {
 	        	{
 	        		if (fines.get(i).getstatus())
 	        		{
-	        			return " you have active unpayed fines pay them to get the book";
+	        			countstatustrue ++;
 	        		}
 	        	}
-	            
+	            if (countstatustrue > 0)
+	            {
+	            	return "you have one or more unpayed fines pay them to get the book ";
+	            }
+	        	
 	        }else {
 	        borowabook(user_id, book_id);
 	        return "Book borrowed successfully!";

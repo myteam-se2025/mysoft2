@@ -40,9 +40,12 @@ public class FineDAO extends BaseDAO {
                     rs.getInt("loan_id"),
                     rs.getInt("amount"),
                     rs.getBoolean("status"),
-                    rs.getDate("issued_date") != null ? rs.getDate("due_date").toLocalDate() : null
+                    rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null
                 );
+                if(fine != null)
+                {
                 fines.add(fine);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +71,7 @@ public class FineDAO extends BaseDAO {
 	                    rs.getInt("loan_id"),
 	                    rs.getInt("amount"),
 	                    rs.getBoolean("status"),
-	                    rs.getDate("issued_date") != null ? rs.getDate("due_date").toLocalDate() : null
+	                    rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null
 	                );
 	                
 	            }
@@ -96,7 +99,7 @@ public class FineDAO extends BaseDAO {
 	                    rs.getInt("loan_id"),
 	                    rs.getInt("amount"),
 	                    rs.getBoolean("status"),
-	                    rs.getDate("issued_date") != null ? rs.getDate("due_date").toLocalDate() : null
+	                    rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null
 	                );
 	                
 	            }

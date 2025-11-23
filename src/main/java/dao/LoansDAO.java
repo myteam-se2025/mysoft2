@@ -59,7 +59,7 @@ public class LoansDAO extends BaseDAO{
 	            ps.setInt(1, id);
 	            ResultSet rs = ps.executeQuery();
 
-	            if (rs.next()) {
+	            while (rs.next()) {
 	                Loan loan = new Loan(
 	                    rs.getInt("Loan_id"),
 	                    rs.getInt("user_id"),
@@ -69,7 +69,10 @@ public class LoansDAO extends BaseDAO{
 	                    rs.getDate("due_date") != null ? rs.getDate("due_date").toLocalDate() : null
 	                  
 	                );
-	                loans.add(loan);
+	                if (loans != null) {
+	                   loans.add(loan);
+	                }
+
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
