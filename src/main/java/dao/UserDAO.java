@@ -22,10 +22,10 @@ public class UserDAO extends BaseDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}
+		} 
 	}
 
-	// البحث عن مستخدم حسب ID والبريد الإلكتروني
+	
 	public User findByIdAndEmail(int id, String email) {
 		String sql = "SELECT * FROM public.users WHERE user_id = ? AND email = ?";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {

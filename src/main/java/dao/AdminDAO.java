@@ -18,7 +18,7 @@ public class AdminDAO extends BaseDAO {
 
 			ps.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
 	}

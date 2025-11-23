@@ -31,9 +31,7 @@ public class LoansDAO extends BaseDAO {
 				LocalDate loanduedatelocal = loanduedate.toLocalDate();
 
 				if (LocalDate.now().isAfter(loanduedatelocal)) {
-					/* add new fine with function amount books */
-					/* then set 3 days to sende email */
-
+					
 				}
 
 			}
