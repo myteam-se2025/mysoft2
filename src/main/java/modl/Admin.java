@@ -12,42 +12,48 @@ package modl;
  */
 public class Admin {
 
+	int admin_id;
+	String username;
+	String password;
+	String email;
 
+	public Admin(int admin_id, String username, String password, String email) {
+		this.admin_id = admin_id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
 
-	 int admin_id;
-	    String username;
-	    String password;
-	    String email;
+	public int getAdmin_id() {
+		return admin_id;
+	}
 
-	    public Admin(int admin_id, String username, String password, String email) {
-	        this.admin_id = admin_id;
-	        this.username = username;
-	        this.password = password;
-	        this.email = email;
-	    }
-	    public  int getAdmin_id() {
-	        return admin_id;
-	    }
-	    public String getUsername() {
-	        return username;
-	    }
-	    public String getPassword() {
-	        return password;
-	    }
-	    public String getEmail() {
-	        return email;
-	    }
-	    public void setAdmin_id(int admin_id) {
-	        this.admin_id = admin_id;
-	    }
-	    public void setUsername(String username) {
-	        this.username = username;
-	    }
-	    public void setPassword(String password) {
-	        this.password = password;
-	    }
-	    public void setEmail(String email) {
-	        this.email = email;
-	    }
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setAdmin_id(int admin_id) {
+		this.admin_id = admin_id;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 }

@@ -26,13 +26,39 @@ import java.awt.event.ActionListener;
 
 public class UserBorow extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField bookid;
-	private final Action action = new SwingAction();
-	private JTextField userid;
-	private final Action action_1 = new SwingAction_1();
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "<--");
+			putValue(SHORT_DESCRIPTION, "get back");
+		}
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			UserMain searchFrame = new UserMain();
+			searchFrame.setVisible(true);
+			searchFrame.setLocationRelativeTo(null);
+			UserBorow.this.dispose();
+		}
+	}
+	private class SwingAction_1 extends AbstractAction {
+		public SwingAction_1() {
+			putValue(NAME, "Borow");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+
+			String book_id = bookid.getText().trim();
+			String user_id = userid.getText().trim();
+
+			BorowService borrowService = new BorowService();
+			String message = borrowService.processBorrowRequest(user_id, book_id);
+
+			JOptionPane.showMessageDialog(UserBorow.this, message);
+
+		}
+	}
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Launch the application.
 	 */
@@ -49,6 +75,14 @@ public class UserBorow extends JFrame {
 			}
 		});
 	}
+	private JPanel contentPane;
+	private JTextField bookid;
+
+	private final Action action = new SwingAction();
+
+	private JTextField userid;
+
+	private final Action action_1 = new SwingAction_1();
 
 	/**
 	 * Create the frame.
@@ -89,7 +123,7 @@ public class UserBorow extends JFrame {
 		btnNewButton.setFont(new Font("Sitka Text", Font.BOLD | Font.ITALIC, 12));
 		btnNewButton.setBounds(593, 181, 95, 20);
 		panel.add(btnNewButton);
-		
+
 		userid = new JTextField();
 		userid.setText("inter your id hear");
 		userid.setHorizontalAlignment(SwingConstants.CENTER);
@@ -114,39 +148,5 @@ public class UserBorow extends JFrame {
 		btnNewButton_1.setBounds(10, 10, 70, 20);
 		contentPane.add(btnNewButton_1);
 
-	}
-
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "<--");
-			putValue(SHORT_DESCRIPTION, "get back");
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			UserMain searchFrame = new UserMain();
-			 searchFrame.setVisible(true);
-			 searchFrame.setLocationRelativeTo(null);
-			 UserBorow.this.dispose();
-		}
-	}
-	private class SwingAction_1 extends AbstractAction {
-		public SwingAction_1() {
-			putValue(NAME, "Borow");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-			
-			
-			
-			        String book_id = bookid.getText().trim();
-			        String user_id = userid.getText().trim();
-
-			        BorowService borrowService = new BorowService();
-			        String message = borrowService.processBorrowRequest(user_id, book_id);
-
-			        JOptionPane.showMessageDialog(UserBorow.this, message);
-			
-			
-		}
 	}
 }

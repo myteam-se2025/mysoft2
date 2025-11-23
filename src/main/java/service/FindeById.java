@@ -6,22 +6,20 @@ import java.util.List;
 
 import dao.*;
 
-public class FindeById implements SearchBook{
+public class FindeById implements SearchBook {
 
-	
-	public List<Book> findeBook(String searchby){
-		 
-		 try {
-			 BookService book = new BookService();
+	public List<Book> findeBook(String searchby) {
+
+		try {
+			BookService book = new BookService();
 			return book.findbyid(searchby);
-			
-		 } catch (SQLException e) {
-			
+
+		} catch (SQLException e) {
+
 			e.printStackTrace();
-		 }
-		
+		}
+
 		return null;
 	}
 
-	
 }

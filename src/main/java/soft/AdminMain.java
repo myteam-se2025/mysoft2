@@ -15,8 +15,6 @@ import javax.swing.border.EmptyBorder;
 public class AdminMain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-
 	/**
 	 * Launch the application.
 	 */
@@ -33,6 +31,8 @@ public class AdminMain extends JFrame {
 			}
 		});
 	}
+
+	private JPanel contentPane;
 
 	/**
 	 * Create the frame.
@@ -57,10 +57,10 @@ public class AdminMain extends JFrame {
 		btnNewButton_3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 AddCd searchFrame = new  AddCd();
-				 searchFrame.setVisible(true);
-				 searchFrame.setLocationRelativeTo(null);
-				 AdminMain.this.dispose();
+				AddCd searchFrame = new AddCd();
+				searchFrame.setVisible(true);
+				searchFrame.setLocationRelativeTo(null);
+				AdminMain.this.dispose();
 			}
 		});
 		btnNewButton_3.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 15));
@@ -86,10 +86,10 @@ public class AdminMain extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 AddUser searchFrame = new  AddUser();
-				 searchFrame.setVisible(true);
-				 searchFrame.setLocationRelativeTo(null);
-				 AdminMain.this.dispose();
+				AddUser searchFrame = new AddUser();
+				searchFrame.setVisible(true);
+				searchFrame.setLocationRelativeTo(null);
+				AdminMain.this.dispose();
 
 			}
 		});
@@ -99,10 +99,10 @@ public class AdminMain extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				 AdminAddBook searchFrame = new  AdminAddBook();
-				 searchFrame.setVisible(true);
-				 searchFrame.setLocationRelativeTo(null);
-				 AdminMain.this.dispose();
+				AdminAddBook searchFrame = new AdminAddBook();
+				searchFrame.setVisible(true);
+				searchFrame.setLocationRelativeTo(null);
+				AdminMain.this.dispose();
 			}
 		});
 

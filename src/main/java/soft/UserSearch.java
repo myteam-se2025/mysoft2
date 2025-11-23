@@ -31,18 +31,95 @@ import dao.*;
 
 public class UserSearch extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JPanel booktable;
-	private JTextField theauthor;
-	private JTextField theisbn;
-	private JTextField thetitle;
-	private final Action action = new SwingAction();
-	private final Action action_1 = new SwingAction_1();
-	private final Action action_2 = new SwingAction_2();
-	private final Action action_3 = new SwingAction_3();
-	private final Action action_4 = new SwingAction_4();
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "<--");
+			putValue(SHORT_DESCRIPTION, "get back");
+		}
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			UserMain searchFrame = new UserMain();
+			searchFrame.setVisible(true);
+			searchFrame.setLocationRelativeTo(null);
+			UserSearch.this.dispose();
+		}
+	}
+	private class SwingAction_1 extends AbstractAction {
+		public SwingAction_1() {
+			putValue(NAME, "search by author");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+
+			String author = theauthor.getText().trim();
+
+			FindeBooks bok = new FindeBooks();
+			bok.setStratgy(new FindeByAuthor());
+
+			List<Book> mybook = bok.findeBook(author);
+
+			makeatablelist(mybook);
+
+		}
+	}
+	private class SwingAction_2 extends AbstractAction {
+		public SwingAction_2() {
+			putValue(NAME, "search by id");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+
+			String id = theisbn.getText().trim();
+			FindeBooks bok = new FindeBooks();
+			bok.setStratgy(new FindeById());
+			List<Book> mybook = bok.findeBook(id);
+
+			makeatablelist(mybook);
+
+		}
+
+	}
+	private class SwingAction_3 extends AbstractAction {
+		public SwingAction_3() {
+			putValue(NAME, "search by title");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+
+			String title = thetitle.getText().trim();
+
+			FindeBooks bok = new FindeBooks();
+			bok.setStratgy(new FindeByTitle());
+			List<Book> mybook = bok.findeBook(title);
+
+			makeatablelist(mybook);
+
+		}
+	}
+	private class SwingAction_4 extends AbstractAction {
+		public SwingAction_4() {
+			putValue(NAME, "show all books ");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+
+			try {
+				BookService b = new BookService();
+				List<Book> books = b.findeAllBooks();
+				makeatablelist(books);
+			} catch (SQLException e1) {
+
+				e1.printStackTrace();
+			}
+
+		}
+	}
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +136,22 @@ public class UserSearch extends JFrame {
 			}
 		});
 	}
+	private JPanel contentPane;
+	private JPanel booktable;
+	private JTextField theauthor;
+	private JTextField theisbn;
+
+	private JTextField thetitle;
+
+	private final Action action = new SwingAction();
+
+	private final Action action_1 = new SwingAction_1();
+
+	private final Action action_2 = new SwingAction_2();
+
+	private final Action action_3 = new SwingAction_3();
+
+	private final Action action_4 = new SwingAction_4();
 
 	/**
 	 * Create the frame.
@@ -77,7 +170,7 @@ public class UserSearch extends JFrame {
 		panel.setBackground(new Color(189, 183, 107));
 		panel.setBounds(10, 297, 778, 225);
 		contentPane.add(panel);
-		
+
 		booktable = new JPanel();
 		booktable.setForeground(new Color(139, 69, 19));
 		panel.add(booktable);
@@ -162,165 +255,39 @@ public class UserSearch extends JFrame {
 		contentPane.add(btnNewButton);
 
 	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "<--");
-			putValue(SHORT_DESCRIPTION, "get back");
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			 UserMain searchFrame = new UserMain();
-			 searchFrame.setVisible(true);
-			 searchFrame.setLocationRelativeTo(null);
-			 UserSearch.this.dispose();
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	private class SwingAction_1 extends AbstractAction {
-		public SwingAction_1() {
-			putValue(NAME, "search by author");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		
-			
-			String author = theauthor.getText().trim() ;
-			
-		    FindeBooks bok = new FindeBooks();
-			bok.setStratgy(new FindeByAuthor());
-			
-            List<Book> mybook = bok.findeBook(author);
-			 
-            makeatablelist(mybook);
-			
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	private class SwingAction_2 extends AbstractAction {
-		public SwingAction_2() {
-			putValue(NAME, "search by id");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-			
-		
-			String id = theisbn.getText().trim();
-		    FindeBooks bok = new FindeBooks();			
-			bok.setStratgy(new FindeById());			
-            List<Book> mybook = bok.findeBook(id);
-			
-            makeatablelist(mybook);
-			
-		}
-		
-		
-		
-		
-	}
-	private class SwingAction_3 extends AbstractAction {
-		public SwingAction_3() {
-			putValue(NAME, "search by title");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-			
-			
-			String title = thetitle.getText().trim();
-			
-			    FindeBooks bok = new FindeBooks();				
-				bok.setStratgy(new FindeByTitle());				
-	            List<Book> mybook = bok.findeBook(title);
-				
-	            makeatablelist(mybook);
-				
-		}
-	}
-	
-	
-	
-	
-	
-	
-	private class SwingAction_4 extends AbstractAction {
-		public SwingAction_4() {
-			putValue(NAME, "show all books ");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-			
-			try {
-				BookService b = new BookService();
-				List<Book> books = b.findeAllBooks();
-				makeatablelist(books);
-			} catch (SQLException e1) {
-				
-				e1.printStackTrace();
-			}
-			
-			
-		}
-	}
-	
-	
-	
+
 	public void makeatablelist(List<Book> books) {
-	  
+
 		if (books != null && !books.isEmpty()) {
-	    	
-	        String[] columnNames = {"ISBN", "Author", "Category", "Title", "Copies"};
 
-	        Object[][] data = new Object[books.size()][5];
+			String[] columnNames = { "ISBN", "Author", "Category", "Title", "Copies" };
 
-	        // Fill the table rows
-	        for (int i = 0; i < books.size(); i++) {
-	            Book b = books.get(i);
-	            data[i][0] = b.getIsbn();
-	            data[i][1] = b.getAuthor();
-	            data[i][2] = b.getCategory();
-	            data[i][3] = b.getTitle();
-	            data[i][4] = b.getAvailable_copies();
-	        }
+			Object[][] data = new Object[books.size()][5];
 
-	        // Create the table
-	        JTable table = new JTable(data, columnNames);
-	        JScrollPane scrollPane = new JScrollPane(table);
+			// Fill the table rows
+			for (int i = 0; i < books.size(); i++) {
+				Book b = books.get(i);
+				data[i][0] = b.getIsbn();
+				data[i][1] = b.getAuthor();
+				data[i][2] = b.getCategory();
+				data[i][3] = b.getTitle();
+				data[i][4] = b.getAvailable_copies();
+			}
 
-	        // Update the panel
-	        booktable.removeAll();
-	        booktable.setLayout(new BorderLayout());
-	        booktable.add(scrollPane, BorderLayout.CENTER);
-	        booktable.revalidate();
-	        booktable.repaint();
+			// Create the table
+			JTable table = new JTable(data, columnNames);
+			JScrollPane scrollPane = new JScrollPane(table);
 
-	    } else {
-	        JOptionPane.showMessageDialog(
-	            UserSearch.this,
-	            "No books found!",
-	            "Search",
-	            JOptionPane.WARNING_MESSAGE
-	        );
-	    }
+			// Update the panel
+			booktable.removeAll();
+			booktable.setLayout(new BorderLayout());
+			booktable.add(scrollPane, BorderLayout.CENTER);
+			booktable.revalidate();
+			booktable.repaint();
+
+		} else {
+			JOptionPane.showMessageDialog(UserSearch.this, "No books found!", "Search", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
-	
-	
 }

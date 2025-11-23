@@ -18,12 +18,51 @@ import javax.swing.border.EmptyBorder;
 
 public class UserMain extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private final Action action = new SwingAction();
-	private final Action action_1 = new SwingAction_1();
-	private final Action action_2 = new SwingAction_2();
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "Search");
+			putValue(SHORT_DESCRIPTION, "Search for books");
+		}
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			UserSearch searchFrame = new UserSearch();
+			searchFrame.setVisible(true);
+			searchFrame.setLocationRelativeTo(null);
+			UserMain.this.dispose();
+
+		}
+	}
+	private class SwingAction_1 extends AbstractAction {
+		public SwingAction_1() {
+			putValue(NAME, "borrow ");
+			putValue(SHORT_DESCRIPTION, "borrow");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			UserBorow searchFrame = new UserBorow();
+			searchFrame.setVisible(true);
+			searchFrame.setLocationRelativeTo(null);
+			UserMain.this.dispose();
+		}
+	}
+	private class SwingAction_2 extends AbstractAction {
+		public SwingAction_2() {
+			putValue(NAME, "fines");
+			putValue(SHORT_DESCRIPTION, "fines");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			UserFines searchFrame = new UserFines();
+			searchFrame.setVisible(true);
+			searchFrame.setLocationRelativeTo(null);
+			UserMain.this.dispose();
+		}
+	}
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Launch the application.
 	 */
@@ -40,6 +79,14 @@ public class UserMain extends JFrame {
 			}
 		});
 	}
+
+	private JPanel contentPane;
+
+	private final Action action = new SwingAction();
+
+	private final Action action_1 = new SwingAction_1();
+
+	private final Action action_2 = new SwingAction_2();
 
 	// my code
 	/**
@@ -86,7 +133,7 @@ public class UserMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnBorow.setAction(action_1);//action_1
+		btnBorow.setAction(action_1);// action_1
 		btnBorow.setForeground(Color.BLACK);
 		btnBorow.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 15));
 		btnBorow.setBackground(new Color(143, 188, 143));
@@ -101,47 +148,5 @@ public class UserMain extends JFrame {
 		btnFines.setBounds(544, 10, 197, 37);
 		panel.add(btnFines);
 
-	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "Search");
-	        putValue(SHORT_DESCRIPTION, "Search for books");
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			 UserSearch searchFrame = new UserSearch();
-			 searchFrame.setVisible(true);
-			 searchFrame.setLocationRelativeTo(null);
-			 UserMain.this.dispose();
-
-
-		}
-	}
-	private class SwingAction_1 extends AbstractAction {
-		public SwingAction_1() {
-			putValue(NAME, "borrow ");
-			putValue(SHORT_DESCRIPTION, "borrow");
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			 UserBorow searchFrame = new UserBorow();
-			 searchFrame.setVisible(true);
-			 searchFrame.setLocationRelativeTo(null);
-			 UserMain.this.dispose();
-		}
-	}
-	private class SwingAction_2 extends AbstractAction {
-		public SwingAction_2() {
-			putValue(NAME, "fines");
-			putValue(SHORT_DESCRIPTION, "fines");
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			 UserFines searchFrame = new UserFines();
-			 searchFrame.setVisible(true);
-			 searchFrame.setLocationRelativeTo(null);
-			 UserMain.this.dispose();
-		}
 	}
 }

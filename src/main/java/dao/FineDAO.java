@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,146 +11,120 @@ import javax.swing.JOptionPane;
 
 import modl.Fine;
 
-
 public class FineDAO extends BaseDAO {
 
-	public Fine insurtFine()
-	{
-		
-		return null;
-		
+	public boolean deletefine(int fineid) {
+
+		String sql = "DELETE FROM public.fines WHERE fine_id = ?";
+
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setInt(1, fineid);
+
+			int rowsAffected = ps.executeUpdate();
+
+			return rowsAffected > 0;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
-	
-	public List<Fine> findeAllFines(int loanid)
-	{
+
+	public List<Fine> findeAllFines(int loanid) {
 		List<Fine> fines = new ArrayList<>();
-		
-		 String sql = "SELECT * FROM public.fines WHERE loan_id = ?";
-	        
-	        try (Connection con = getConnection() ; PreparedStatement ps = con.prepareStatement(sql)) {
 
-	            
-	            ps.setInt(1, loanid);
-	            ResultSet rs = ps.executeQuery();
+		String sql = "SELECT * FROM public.fines WHERE loan_id = ?";
 
-            while (rs.next()) {
-                Fine fine = new Fine(
-                    rs.getInt("fine_id"),
-                    rs.getInt("loan_id"),
-                    rs.getInt("amount"),
-                    rs.getBoolean("status"),
-                    rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null
-                );
-                if(fine != null)
-                {
-                fines.add(fine);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-		
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setInt(1, loanid);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Fine fine = new Fine(rs.getInt("fine_id"), rs.getInt("loan_id"), rs.getInt("amount"),
+						rs.getBoolean("status"),
+						rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null);
+				if (fine != null) {
+					fines.add(fine);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return fines;
 	}
-	
-	public Fine findeFineByFineId  (int id)
-	{
-		
-	        String sql = "SELECT * FROM public.fines WHERE fine_id = ?";
-	        
-	        try (Connection con = getConnection() ; PreparedStatement ps = con.prepareStatement(sql)) {
 
-	            
-	            ps.setInt(1, id);
-	            ResultSet rs = ps.executeQuery();
+	public Fine findeFineByFineId(int id) {
 
-	            if (rs.next()) {
-	                return new Fine(
-	                    rs.getInt("fine_id"),
-	                    rs.getInt("loan_id"),
-	                    rs.getInt("amount"),
-	                    rs.getBoolean("status"),
-	                    rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null
-	                );
-	                
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-			return null;
-		
-	}
-	
-	public Fine findeuserFines  (int id)
-	{
-		
-	        String sql = "SELECT * FROM public.fines WHERE loan_id = ?";
-	        
-	        try (Connection con = getConnection() ; PreparedStatement ps = con.prepareStatement(sql)) {
+		String sql = "SELECT * FROM public.fines WHERE fine_id = ?";
 
-	            
-	            ps.setInt(1, id);
-	            ResultSet rs = ps.executeQuery();
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
-	            if (rs.next()) {
-	                return new Fine(
-	                    rs.getInt("fine_id"),
-	                    rs.getInt("loan_id"),
-	                    rs.getInt("amount"),
-	                    rs.getBoolean("status"),
-	                    rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null
-	                );
-	                
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-			return null;
-		
-	}
-	
-	public void insertFine (Fine fine)
-	{
-		 String sql = "INSERT INTO public.fines (loan_id , amount , issued_date , status ) VALUES (?, ?, ? , ?)";
-	        try (Connection con = getConnection();
-	             PreparedStatement ps = con.prepareStatement(sql)) {
-	        	 con.setAutoCommit(true);
-	           
-	            ps.setInt(1, fine.getLoanId());
-	            ps.setInt(2, fine.getAmount());
-	        
-	            ps.setDate(3, java.sql.Date.valueOf(fine.getDateIssued()));      
-	            ps.setBoolean(4, fine.getstatus()); 
-	             
-	            ps.executeUpdate();
-	            
-	        }
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
 
-	            catch (SQLException e) {
-	                JOptionPane.showMessageDialog(null, e.getMessage());
-	            }
+			if (rs.next()) {
+				return new Fine(rs.getInt("fine_id"), rs.getInt("loan_id"), rs.getInt("amount"),
+						rs.getBoolean("status"),
+						rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
-	public boolean deletefine(int fineid) {
-		
-		 String sql = "DELETE FROM public.fines WHERE fine_id = ?";
+	public Fine findeuserFines(int id) {
 
-		    try (Connection con = getConnection(); 
-		         PreparedStatement ps = con.prepareStatement(sql)) {
+		String sql = "SELECT * FROM public.fines WHERE loan_id = ?";
 
-		        ps.setInt(1, fineid);
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
-		        int rowsAffected = ps.executeUpdate();
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
 
-		        
-		        return rowsAffected > 0;
+			if (rs.next()) {
+				return new Fine(rs.getInt("fine_id"), rs.getInt("loan_id"), rs.getInt("amount"),
+						rs.getBoolean("status"),
+						rs.getDate("issued_date") != null ? rs.getDate("issued_date").toLocalDate() : null);
 
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 
-		    return false;
 	}
-	
+
+	public void insertFine(Fine fine) {
+		String sql = "INSERT INTO public.fines (loan_id , amount , issued_date , status ) VALUES (?, ?, ? , ?)";
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+			con.setAutoCommit(true);
+
+			ps.setInt(1, fine.getLoanId());
+			ps.setInt(2, fine.getAmount());
+
+			ps.setDate(3, java.sql.Date.valueOf(fine.getDateIssued()));
+			ps.setBoolean(4, fine.getstatus());
+
+			ps.executeUpdate();
+
+		}
+
+		catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 
+	public Fine insurtFine() {
+
+		return null;
+
+	}
+
+}

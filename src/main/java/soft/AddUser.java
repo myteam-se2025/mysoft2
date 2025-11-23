@@ -20,12 +20,6 @@ import service.UserService;
 public class AddUser extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField name2;
-	private JTextField email;
-	private JTextField phone;
-	private JTextField addres;
-
 	/**
 	 * Launch the application.
 	 */
@@ -42,6 +36,12 @@ public class AddUser extends JFrame {
 			}
 		});
 	}
+	private JPanel contentPane;
+	private JTextField name2;
+	private JTextField email;
+	private JTextField phone;
+
+	private JTextField addres;
 
 	/**
 	 * Create the frame.
@@ -102,7 +102,7 @@ public class AddUser extends JFrame {
 
 		addres = new JTextField();
 		addres.setBounds(147, 240, 166, 20);
-		contentPane.add(addres);
+		contentPane.add(addres); 
 		addres.setColumns(10);
 
 		JButton btnNewButton = new JButton("AddUser");
@@ -117,15 +117,15 @@ public class AddUser extends JFrame {
 				String phone2 = phone.getText();
 				String addres2 = addres.getText();
 
-				  User user = new User(name, email2, phone2, addres2, new java.sql.Date(System.currentTimeMillis()));
+				User user = new User(name, email2, phone2, addres2, new java.sql.Date(System.currentTimeMillis()));
 
-			        try {
-			            UserService userService = new UserService();
-			            userService.registerUser(user);
-			        } catch (Exception e1) {
-			            e1.printStackTrace();
+				try {
+					UserService userService = new UserService();
+					userService.registerUser(user);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
-			    }
 
 		});
 		btnNewButton.setBounds(393, 345, 172, 23);

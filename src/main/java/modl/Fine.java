@@ -6,81 +6,71 @@ import java.time.LocalDate;
 
 public class Fine {
 
-	private int fine_id =0;
-	private int loan_id =0;
-	private int amount =0 ;
-	private boolean activestatus = false ;
+	private int fine_id = 0;
+	private int loan_id = 0;
+	private int amount = 0;
+	private boolean activestatus = false;
 	private LocalDate issued_date = null;
-	
-	
-	 public Fine(int fineid, int loanid, int amount, boolean activestatus , LocalDate issued_date) {
-	  this.fine_id = fineid;
-	  this.loan_id = loanid;
-	  this.amount = amount;
-	  this.activestatus = activestatus;
-	  this.issued_date = issued_date;
-	 }
-	 
-	 
-	 public Fine (LocalDate startdate , int loanid)
-	 {
-		 this.loan_id = loanid;
-		 this.issued_date = startdate;
-		 this.amount = 10;
-		 this.activestatus = false;
-	 }
 
-	    public Fine() {
+	public Fine() {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Fine(int fineid, int loanid, int amount, boolean activestatus, LocalDate issued_date) {
+		this.fine_id = fineid;
+		this.loan_id = loanid;
+		this.amount = amount;
+		this.activestatus = activestatus;
+		this.issued_date = issued_date;
+	}
 
-		// Getters
-	    public Integer getFineId() {
-	        return fine_id;
-	    }
+	public Fine(LocalDate startdate, int loanid) {
+		this.loan_id = loanid;
+		this.issued_date = startdate;
+		this.amount = 10;
+		this.activestatus = false;
+	}
 
-	    public Integer getLoanId() {
-	        return loan_id;
-	    }
+	public int getAmount() {
+		return amount;
+	}
 
-	    public int getAmount() {
-	        return amount;
-	    }
+	public LocalDate getDateIssued() {
+		return issued_date;
+	}
 
-	    public boolean getstatus() {
-	        return activestatus;
-	    }
+	// Getters
+	public Integer getFineId() {
+		return fine_id;
+	}
 
-	    public LocalDate getDateIssued() {
-	        return issued_date;
-	    }
+	public Integer getLoanId() {
+		return loan_id;
+	}
 
-	   
+	public boolean getstatus() {
+		return activestatus;
+	}
 
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
 
-	    // Setters
-	    public void setFineId(Integer fineId) {
-	        this.fine_id = fineId;
-	    }
+	public void setDateIssued(LocalDate dateIssued) {
+		this.issued_date = dateIssued;
+	}
 
-	    public void setLoanId(Integer loanId) {
-	        this.loan_id = loanId;
-	    }
+	// Setters
+	public void setFineId(Integer fineId) {
+		this.fine_id = fineId;
+	}
 
-	    public void setAmount(int amount) {
-	        this.amount = amount;
-	    }
+	public void setLoanId(Integer loanId) {
+		this.loan_id = loanId;
+	}
 
+	public void setStatus(boolean activestatus) {
+		this.activestatus = activestatus;
+	}
 
-	    public void setDateIssued(LocalDate dateIssued) {
-	        this.issued_date = dateIssued;
-	    }
-
-	   
-
-	    public void setStatus(boolean activestatus) {
-	        this.activestatus = activestatus;
-	    } 
-	
 }

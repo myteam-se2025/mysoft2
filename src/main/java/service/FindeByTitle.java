@@ -5,19 +5,18 @@ import java.util.List;
 
 import modl.Book;
 
-public class FindeByTitle implements SearchBook{
+public class FindeByTitle implements SearchBook {
 
-	
 	public List<Book> findeBook(String searchby) {
 		BookService book;
-		 try {
+		try {
 			book = new BookService();
 			return book.findbyTitle(searchby);
-			
-		 } catch (SQLException e) {
-			
+
+		} catch (SQLException e) {
+
 			e.printStackTrace();
-		 }
+		}
 		return null;
 	}
 
