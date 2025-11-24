@@ -304,7 +304,7 @@ class FineDAOTest {
         verify(mockPreparedStatement).setBoolean(4, true);
         verify(mockPreparedStatement).executeUpdate();
     }
-
+//
     @Test
     void testInsertFineFailure() throws SQLException {
         Fine fine = new Fine(0, 100, 50, true, LocalDate.now().minusDays(1));

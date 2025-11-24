@@ -40,7 +40,7 @@ class LoansDAOTest {
     @AfterAll
     static void tearDownAfterClass() throws Exception {
     }
-
+//
     @BeforeEach
     void setUp() throws Exception {
         mockResultSet = mock(ResultSet.class);
