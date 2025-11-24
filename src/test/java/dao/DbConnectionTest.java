@@ -23,7 +23,7 @@ class DbConnectionTest {
     void setUp() {
         System.setOut(new PrintStream(outContent));
     }
-
+///////
     @AfterEach
     void tearDown() {
         System.setOut(originalOut);
