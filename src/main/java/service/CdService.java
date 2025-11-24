@@ -11,7 +11,9 @@ public class CdService {
 	public CdService() throws SQLException {
 		cdDao = new CdDAO();
 	}
-
+	public CdService(CdDAO cdDao) {
+	    this.cdDao = cdDao;
+	}
 	/**
 	 * Adds a new CD after validating its data.
 	 * 

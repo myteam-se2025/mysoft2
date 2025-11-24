@@ -8,6 +8,22 @@ import modl.User;
 import modl.Admin;
 
 public class AdminDAO extends BaseDAO {
+	public boolean login(String username, String email) {
+        String sql = "SELECT * FROM admins WHERE username = ? AND email = ?";
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+            ps.setString(2, email);
+
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     // -------------------------
     // CRUD للأدمن
