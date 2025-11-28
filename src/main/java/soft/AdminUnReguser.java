@@ -1,3 +1,4 @@
+
 package soft;
 
 import java.awt.Color;
@@ -15,6 +16,10 @@ public class AdminUnReguser extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
+    private JButton btnUnregister;
+
+    //  مخصص للاختبارات: يمكن استبدال الخدمة أو Dialogs
+    protected UnRegUserService service = new UnRegUserService();
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -49,7 +54,7 @@ public class AdminUnReguser extends JFrame {
         lblInfo.setBounds(10, 60, 700, 30);
         contentPane.add(lblInfo);
 
-        JButton btnUnregister = new JButton("Unregister Users");
+        btnUnregister = new JButton("Unregister Users");
         btnUnregister.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 16));
         btnUnregister.setForeground(new Color(97, 152, 63));
         btnUnregister.setBounds(10, 120, 250, 30);
@@ -58,12 +63,38 @@ public class AdminUnReguser extends JFrame {
         btnUnregister.addActionListener(e -> openUserSelectionDialog());
     }
 
-    private void openUserSelectionDialog() {
-        UnRegUserService service = new UnRegUserService();
-        List<User> users = service.getEligibleUsers();
+    // ✅ Getter للزر للاختبارات
+    public JButton getBtnUnregister() {
+        return btnUnregister;
+    }
+
+    // fun محمية للاختبارات
+    protected List<User> getEligibleUsers() {
+        return service.getEligibleUsers();
+    }
+
+    protected boolean unregisterUser(int userId) {
+        return service.unregisterUser(userId);
+    }
+
+    protected void showMessageDialog(Object message, String title, int messageType) {
+        JOptionPane.showMessageDialog(this, message, title, messageType);
+    }
+
+    protected int showConfirmDialog(Object message, String title, int optionType, int messageType) {
+        return JOptionPane.showConfirmDialog(this, message, title, optionType, messageType);
+    }
+
+    protected int[] getSelectedIndices(JList<String> userList) {
+        return userList.getSelectedIndices();
+    }
+
+    // ✅ منطق فتح الحوار
+    protected void openUserSelectionDialog() {
+        List<User> users = getEligibleUsers();
 
         if (users.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No eligible users found.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            showMessageDialog("No eligible users found.", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -74,50 +105,33 @@ public class AdminUnReguser extends JFrame {
 
         JList<String> userList = new JList<>(model);
         userList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
         JScrollPane scroll = new JScrollPane(userList);
         scroll.setPreferredSize(new java.awt.Dimension(600, 300));
 
-        int option = JOptionPane.showConfirmDialog(
-                this,
-                scroll,
-                "Select users to unregister",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE
-        );
-
+        int option = showConfirmDialog(scroll, "Select users to unregister", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (option != JOptionPane.OK_OPTION) return;
 
-        int[] selectedIndices = userList.getSelectedIndices();
+        int[] selectedIndices = getSelectedIndices(userList);
         if (selectedIndices.length == 0) {
-            JOptionPane.showMessageDialog(this, "No user selected.", "Warning", JOptionPane.WARNING_MESSAGE);
+            showMessageDialog("No user selected.", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "Are you sure you want to unregister the selected users?",
-                "Confirm",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
-        );
-
+        int confirm = showConfirmDialog("Are you sure you want to unregister the selected users?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (confirm != JOptionPane.YES_OPTION) return;
 
         boolean allSuccess = true;
-
         for (int i : selectedIndices) {
             String data = model.get(i);
             int userId = Integer.parseInt(data.split(" - ")[0]);
-
-            if (!service.unregisterUser(userId)) {
+            if (!unregisterUser(userId)) {
                 allSuccess = false;
             }
         }
 
         if (allSuccess)
-            JOptionPane.showMessageDialog(this, "Users unregistered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            showMessageDialog("Users unregistered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         else
-            JOptionPane.showMessageDialog(this, "Some users could not be deleted.", "Partial Error", JOptionPane.ERROR_MESSAGE);
+            showMessageDialog("Some users could not be deleted.", "Partial Error", JOptionPane.ERROR_MESSAGE);
     }
 }

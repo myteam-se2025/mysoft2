@@ -30,6 +30,7 @@ public class User {
 		this.address = address;
 		this.membership_date = membership_date;
 	}
+	public User() {}
 
 	public User(String full_name, String email, String phone, String address, Date membership_date) {
 

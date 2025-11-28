@@ -1,14 +1,16 @@
+
 package soft;
 
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;   // مهم للاختبارات
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -19,118 +21,134 @@ import service.UserService;
 
 public class AddUser extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					AddUser frame = new AddUser();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	private JPanel contentPane;
-	private JTextField name2;
-	private JTextField email;
-	private JTextField phone;
+    private static final long serialVersionUID = 1L;
 
-	private JTextField addres;
+    private JPanel contentPane;
+    protected JTextField name2;
+    protected JTextField email;
+    protected JTextField phone;
+    protected JTextField addres;
 
-	/**
-	 * Create the frame.
-	 */
-	public AddUser() {
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(100, 100, 811, 569);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(143, 188, 143));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                AddUser frame = new AddUser();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-		JLabel lblNewLabel = new JLabel("Add User");
-		lblNewLabel.setForeground(new Color(202, 128, 53));
-		lblNewLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel.setBounds(76, 25, 123, 14);
-		contentPane.add(lblNewLabel);
+    public AddUser() {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setBounds(100, 100, 811, 569);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(143, 188, 143));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("FullName");
-		lblNewLabel_1.setForeground(new Color(202, 128, 53));
-		lblNewLabel_1.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel_1.setBounds(0, 94, 142, 14);
-		contentPane.add(lblNewLabel_1);
+        JLabel lblTitle = new JLabel("Add User");
+        lblTitle.setForeground(new Color(202, 128, 53));
+        lblTitle.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblTitle.setBounds(76, 25, 123, 14);
+        contentPane.add(lblTitle);
 
-		JLabel lblNewLabel_2 = new JLabel("Email");
-		lblNewLabel_2.setForeground(new Color(202, 128, 53));
-		lblNewLabel_2.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel_2.setBounds(0, 144, 101, 14);
-		contentPane.add(lblNewLabel_2);
+        JLabel lblName = new JLabel("FullName");
+        lblName.setForeground(new Color(202, 128, 53));
+        lblName.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblName.setBounds(0, 94, 142, 14);
+        contentPane.add(lblName);
 
-		JLabel lblNewLabel_3 = new JLabel("Phone");
-		lblNewLabel_3.setForeground(new Color(202, 128, 53));
-		lblNewLabel_3.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel_3.setBounds(0, 193, 101, 14);
-		contentPane.add(lblNewLabel_3);
+        JLabel lblEmail = new JLabel("Email");
+        lblEmail.setForeground(new Color(202, 128, 53));
+        lblEmail.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblEmail.setBounds(0, 144, 101, 14);
+        contentPane.add(lblEmail);
 
-		JLabel lblNewLabel_4 = new JLabel("Addres");
-		lblNewLabel_4.setForeground(new Color(202, 128, 53));
-		lblNewLabel_4.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		lblNewLabel_4.setBounds(0, 240, 91, 14);
-		contentPane.add(lblNewLabel_4);
+        JLabel lblPhone = new JLabel("Phone");
+        lblPhone.setForeground(new Color(202, 128, 53));
+        lblPhone.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblPhone.setBounds(0, 193, 101, 14);
+        contentPane.add(lblPhone);
 
-		name2 = new JTextField();
-		name2.setBounds(147, 94, 166, 20);
-		contentPane.add(name2);
-		name2.setColumns(10);
+        JLabel lblAddress = new JLabel("Address");
+        lblAddress.setForeground(new Color(202, 128, 53));
+        lblAddress.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        lblAddress.setBounds(0, 240, 101, 14);
+        contentPane.add(lblAddress);
 
-		email = new JTextField();
-		email.setBounds(147, 144, 166, 20);
-		contentPane.add(email);
-		email.setColumns(10);
+        name2 = new JTextField();
+        name2.setBounds(147, 94, 166, 20);
+        contentPane.add(name2);
 
-		phone = new JTextField();
-		phone.setBounds(147, 193, 166, 20);
-		contentPane.add(phone);
-		phone.setColumns(10);
+        email = new JTextField();
+        email.setBounds(147, 144, 166, 20);
+        contentPane.add(email);
 
-		addres = new JTextField();
-		addres.setBounds(147, 240, 166, 20);
-		contentPane.add(addres); 
-		addres.setColumns(10);
+        phone = new JTextField();
+        phone.setBounds(147, 193, 166, 20);
+        contentPane.add(phone);
 
-		JButton btnNewButton = new JButton("AddUser");
-		btnNewButton.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
-		btnNewButton.setForeground(new Color(96, 77, 49));
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+        addres = new JTextField();
+        addres.setBounds(147, 240, 166, 20);
+        contentPane.add(addres);
 
-				String name = name2.getText();
-				String email2 = email.getText();
-				String phone2 = phone.getText();
-				String addres2 = addres.getText();
+        JButton btnAdd = new JButton("AddUser");
+        btnAdd.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 18));
+        btnAdd.setForeground(new Color(96, 77, 49));
+        btnAdd.setBounds(393, 345, 172, 23);
+        contentPane.add(btnAdd);
 
-				User user = new User(name, email2, phone2, addres2, new java.sql.Date(System.currentTimeMillis()));
+        btnAdd.addActionListener((ActionEvent e) -> handleAddUser());
+    }
 
-				try {
-					UserService userService = new UserService();
-					userService.registerUser(user);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
+    // تستخدم للاختبارات فقط
+    protected void handleAddUserForTest() {
+        handleAddUser();
+    }
 
-		});
-		btnNewButton.setBounds(393, 345, 172, 23);
-		contentPane.add(btnNewButton);
+    // يمكن استبدالها بالـ mock في الاختبارات
+    protected UserService createUserService() throws SQLException {
+        return new UserService();
+    }
 
-	}
+   
+    private void handleAddUser() {
+        try {
+            // 
+            if (name2.getText().isEmpty() || email.getText().isEmpty() ||
+                phone.getText().isEmpty() || addres.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "All fields are required!");
+                return;
+            }
 
+            if (!phone.getText().matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "Phone must be numeric!");
+                return;
+            }
+
+            User user = new User(
+                name2.getText(),
+                email.getText(),
+                phone.getText(),
+                addres.getText(),
+                new java.sql.Date(System.currentTimeMillis())
+            );
+
+            UserService service = createUserService();
+            service.registerUser(user);
+
+            JOptionPane.showMessageDialog(this, "User added successfully!");
+            name2.setText("");
+            email.setText("");
+            phone.setText("");
+            addres.setText("");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error adding user!");
+        }
+    }
 }
