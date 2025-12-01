@@ -7,7 +7,25 @@ import java.util.List;
 import modl.User;
 import modl.Admin;
 
+/**
+ * AdminDAO handles admin-related database operations including authentication,
+ * adding admins, and managing users.
+ * Provides methods for admin login, retrieval, addition, and user management.
+ * 
+ * @author Library Management
+ * @version 1.0
+ * @since 2025
+ */
 public class AdminDAO extends BaseDAO {
+	
+	
+	 /**
+     * Authenticates an admin using username and email.
+     *
+     * @param username the admin's username
+     * @param email    the admin's email
+     * @return true if admin exists with the given credentials, false otherwise
+     */
 	public boolean login(String username, String email) {
         String sql = "SELECT * FROM admins WHERE username = ? AND email = ?";
         try (Connection con = getConnection();
@@ -25,7 +43,11 @@ public class AdminDAO extends BaseDAO {
         }
     }
 
-    
+	 /**
+     * Adds a new admin to the database.
+     *
+     * @param admin the Admin object containing admin details
+     */
     public void addAdmin(Admin admin) {
         String sql = "INSERT INTO public.admins (username, password, email) VALUES (?, ?, ?)";
         try (Connection con = getConnection();
@@ -40,7 +62,13 @@ public class AdminDAO extends BaseDAO {
         	e.printStackTrace();   }
     }
 
-
+    /**
+     * Finds an admin by ID and email.
+     *
+     * @param id    the admin's ID
+     * @param email the admin's email
+     * @return Admin object if found, null otherwise
+     */
     public Admin findByIdAndEmail(int id, String email) {
         String sql = "SELECT * FROM public.admins WHERE admin_id = ? AND email = ?";
         try (Connection con = getConnection();
@@ -64,7 +92,12 @@ public class AdminDAO extends BaseDAO {
         return null;
     }
 
-    
+    /**
+     * Adds a new user to the database.
+     *
+     * @param u the User object containing user details
+     * @return true if the insertion was successful, false otherwise
+     */
     public boolean addUser(User u) {
         String sql = "INSERT INTO public.users (full_name, email, phone, address, membership_date) VALUES (?, ?, ?, ?, ?)";
         try (Connection con = getConnection();
@@ -84,6 +117,11 @@ public class AdminDAO extends BaseDAO {
         }
     }
 
+    /**
+     * Retrieves users who are eligible (i.e., users with no active loans).
+     *
+     * @return a list of eligible User objects
+     */
     public List<User> findEligibleUsers() {
         List<User> list = new ArrayList<>();
 
@@ -115,7 +153,12 @@ public class AdminDAO extends BaseDAO {
 
         return list;
     }
-  
+    /**
+     * Deletes a user by their ID.
+     *
+     * @param id the user's ID
+     * @return true if a row was deleted, false otherwise
+     */
     public boolean deleteUserById(int id) {
         String sql = "DELETE FROM public.users WHERE user_id = ?";
         try (Connection con = getConnection();

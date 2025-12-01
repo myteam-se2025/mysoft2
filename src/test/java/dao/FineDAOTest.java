@@ -82,7 +82,7 @@ class FineDAOTest {
 
         assertFalse(result);
     }
-
+ 
     @Test
     void testDeletefineConnectionFailure() {
         fineDAO = new FineDAO() {
@@ -327,10 +327,5 @@ class FineDAOTest {
         assertDoesNotThrow(() -> fineDAO.insertFine(fine));
     }
 
-    @Test
-    void testInsurtFine() {
-        Fine result = fineDAO.insurtFine();
-
-        assertNull(result);
-    }
+   
 }

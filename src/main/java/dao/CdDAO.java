@@ -3,9 +3,22 @@ package dao;
 import java.sql.*;
 import modl.Cd;
 
+/**
+ * CdDAO handles database operations related to CDs.
+ * Provides methods to insert new CDs and search for CDs by title and ID.
+ * 
+ * @author Library
+ * @version 1.0
+ * @since 2025
+ */
 public class CdDAO extends BaseDAO {
 
-	// إدراج CD جديد
+	/**
+     * Inserts a new CD into the database.
+     *
+     * @param cd the Cd object containing CD details
+     * @return true if insertion was successful, false otherwise
+     */
 	public boolean insertCd(Cd cd) {
 		String sql = "INSERT INTO public.cds (title, artist, genre, available_copies) VALUES (?, ?, ?, ?)";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -23,7 +36,13 @@ public class CdDAO extends BaseDAO {
 		}
 	}
 
-	// البحث عن CD حسب الاسم و ID
+	/**
+     * Searches for a CD by its title and ID.
+     *
+     * @param title the title of the CD
+     * @param id    the unique ID of the CD
+     * @return the Cd object if found, null otherwise
+     */
 	public Cd searchCdByTitleAndId(String title, int id) {
 		String sql = "SELECT * FROM public.cds WHERE title = ? AND cd_id = ?";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {

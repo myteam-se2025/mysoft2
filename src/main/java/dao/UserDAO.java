@@ -3,9 +3,23 @@ package dao;
 import java.sql.*;
 import modl.User;
 
+/**
+ * UserDAO handles all database operations related to library users.
+ * Provides methods to add new users and find users by ID and email.
+ * 
+ * @author Library
+ * @version 1.0
+ * @since 2025
+ */
 public class UserDAO extends BaseDAO {
 
-
+	 /**
+     * Adds a new user to the database.
+     *
+     * @param user the User object containing user details
+     * @return true if the insertion was successful, false otherwise
+     * @throws SQLException if a database access error occurs
+     */
 	public boolean addUser(User user) throws SQLException {
 		String sql = "INSERT INTO public.users (full_name, email, phone, address, membership_date) VALUES (?, ?, ?, ?, ?)";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -26,7 +40,13 @@ public class UserDAO extends BaseDAO {
 		} 
 	}
 
-	
+	/**
+     * Finds a user by their ID and email.
+     *
+     * @param id the user ID
+     * @param email the user's email
+     * @return the User object if found, null otherwise
+     */
 	public User findByIdAndEmail(int id, String email) {
 		String sql = "SELECT * FROM public.users WHERE user_id = ? AND email = ?";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {

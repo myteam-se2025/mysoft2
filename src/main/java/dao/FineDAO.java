@@ -11,8 +11,22 @@ import javax.swing.JOptionPane;
 
 import modl.Fine;
 
+/**
+ * FineDAO handles all database operations related to fines in the library system.
+ * Provides methods to insert, retrieve, and delete fines.
+ * 
+ * @author Library
+ * @version 1.0
+ * @since 2025
+ */
 public class FineDAO extends BaseDAO {
 
+	 /**
+     * Deletes a fine by its ID.
+     *
+     * @param fineid the ID of the fine to delete
+     * @return true if the fine was successfully deleted, false otherwise
+     */
 	public boolean deletefine(int fineid) {
 
 		String sql = "DELETE FROM public.fines WHERE fine_id = ?";
@@ -31,7 +45,12 @@ public class FineDAO extends BaseDAO {
 
 		return false;
 	}
-
+	 /**
+     * Retrieves all fines for a specific loan.
+     *
+     * @param loanid the ID of the loan
+     * @return a list of Fine objects associated with the loan
+     */
 	public List<Fine> findeAllFines(int loanid) {
 		List<Fine> fines = new ArrayList<>();
 
@@ -56,7 +75,12 @@ public class FineDAO extends BaseDAO {
 
 		return fines;
 	}
-
+	/**
+     * Finds a fine by its ID.
+     *
+     * @param id the fine ID
+     * @return the Fine object if found, null otherwise
+     */
 	public Fine findeFineByFineId(int id) {
 
 		String sql = "SELECT * FROM public.fines WHERE fine_id = ?";
@@ -78,7 +102,12 @@ public class FineDAO extends BaseDAO {
 		return null;
 
 	}
-
+	 /**
+     * Finds a user's fine by loan ID.
+     *
+     * @param id the loan ID
+     * @return the Fine object if found, null otherwise
+     */
 	public Fine findeuserFines(int id) {
 
 		String sql = "SELECT * FROM public.fines WHERE loan_id = ?";
@@ -100,7 +129,11 @@ public class FineDAO extends BaseDAO {
 		return null;
 
 	}
-
+	/**
+     * Inserts a new fine into the database.
+     *
+     * @param fine the Fine object to insert
+     */
 	public void insertFine(Fine fine) {
 		String sql = "INSERT INTO public.fines (loan_id , amount , issued_date , status ) VALUES (?, ?, ? , ?)";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -119,12 +152,6 @@ public class FineDAO extends BaseDAO {
 		catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-	}
-
-	public Fine insurtFine() {
-
-		return null;
-
 	}
 
 }

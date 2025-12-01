@@ -4,14 +4,28 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * DbConnection handles the creation and management of the database connection.
+ * Provides a method to obtain a Connection object to the PostgreSQL database.
+ * 
+ * @author Library
+ * @version 1.0
+ * @since 2025
+ */
 public class DbConnection  {
-
+	
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "123456";
 
 	private  Connection connection;
-
+	/**
+     * Obtains a Connection to the PostgreSQL database.
+     * If the connection is already established and open, it returns the existing connection.
+     * 
+     * @return a valid Connection object to the database
+     * @throws SQLException if a database access error occurs
+     */
 	public Connection getConnection() throws SQLException {
 		if (connection == null || connection.isClosed()) {
 			try {
