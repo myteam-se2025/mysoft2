@@ -5,6 +5,8 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 /**
  * Simple Gmail SMTP Email Sender
  */
@@ -42,8 +44,8 @@ public class EmailService {
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             msg.setSubject(subject);
             msg.setText(body);
-
-            // Send
+//
+            // Send 
             Transport.send(msg);
 
             System.out.println("Email successfully sent to " + to);
@@ -52,5 +54,21 @@ public class EmailService {
             ex.printStackTrace();
             System.out.println("Email failed: " + ex.getMessage());
         }
+    }
+    static void run() {
+        Dotenv dotenv = Dotenv.load();
+        String username = dotenv.get("EMAIL_USERNAME");
+        String password = dotenv.get("EMAIL_PASSWORD");
+
+        EmailService emailService = new EmailService(username, password);
+
+        String subject = "Book Due Reminder";
+        String body = "Dear user, Your book is due soon. Best regards, An Najah Library System";
+
+        emailService.sendEmail("s12218103@stu.najah.edu", subject, body);
+        emailService.sendEmail("deemahamdan2004@gmail.com", subject, body);
+    }
+    public static void main(String[] args) {
+        run();
     }
 }
