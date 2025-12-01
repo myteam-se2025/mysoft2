@@ -171,8 +171,8 @@ public class AddCd extends JFrame {
             }
 
         } catch (Exception e) {   // ← ← ← التعديل الوحيد هنا
-            if (!testingMode)
-                JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+e.printStackTrace();          
+JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
         }
     }
 }
