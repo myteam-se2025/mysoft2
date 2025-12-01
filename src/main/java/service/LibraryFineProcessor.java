@@ -24,6 +24,18 @@ public class LibraryFineProcessor {
        //  Fixed: Send to the actual user's email (not hardcoded!)
          emailService.sendEmail(email, "Library Fine Notice", message);
     }
+    
+    /*
+     *  
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * */
+    
 }
 
 
