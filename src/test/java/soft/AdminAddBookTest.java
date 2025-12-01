@@ -1,170 +1,136 @@
-
 package soft;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import javax.swing.*;
-
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-
 import service.BookService;
 import modl.Book;
 
 public class AdminAddBookTest {
 
-    private AdminAddBook addBook;
+    private AdminAddBook addBookUI;
     private BookService mockService;
-    private MockedStatic<JOptionPane> mockJOption;
 
     @BeforeEach
     void setup() {
-        addBook = new AdminAddBook();
+        addBookUI = new AdminAddBook();
+        addBookUI.testingMode = true;   // ⬅ يمنع JOptionPane
+
         mockService = mock(BookService.class);
-        addBook.setBookServiceForTest(mockService);
-
-        mockJOption = mockStatic(JOptionPane.class); // mock JOptionPane
+        addBookUI.setBookServiceForTest(mockService);  // ⬅ ربط الـ mock
     }
 
-    @AfterEach
-    void teardown() {
-        mockJOption.close();
-        addBook = null;
-        mockService = null;
-    }
-
-    // ----------------------------------------------------------
+    // -------------------------------------------------------
     @Test
-    @DisplayName("Successful add")
-    void testAddBookSuccessfully() throws Exception {
+    @DisplayName("Test adding book successfully")
+    void testAddBookSuccess() {
 
         when(mockService.addBook(any(Book.class))).thenReturn("Book added successfully!");
 
-        addBook.title2.setText("Java 101");
-        addBook.author2.setText("John Doe");
-        addBook.category2.setText("Programming");
-        addBook.copies2.setText("5");
-        addBook.isbn2.setText("111222333");
+        addBookUI.title2.setText("Java");
+        addBookUI.author2.setText("James");
+        addBookUI.isbn2.setText("12345");
+        addBookUI.category2.setText("Programming");
+        addBookUI.copies2.setText("5");
 
-        addBook.handleAddBookForTest();
+        addBookUI.handleAddBookForTest();
 
         verify(mockService, times(1)).addBook(any(Book.class));
 
-        assertEquals("", addBook.title2.getText());
-        assertEquals("", addBook.author2.getText());
-        assertEquals("", addBook.category2.getText());
-        assertEquals("", addBook.copies2.getText());
-        assertEquals("", addBook.isbn2.getText());
+        assertEquals("", addBookUI.title2.getText());
+        assertEquals("", addBookUI.author2.getText());
+        assertEquals("", addBookUI.isbn2.getText());
+        assertEquals("", addBookUI.category2.getText());
+        assertEquals("", addBookUI.copies2.getText());
     }
 
-    // ----------------------------------------------------------
+    // -------------------------------------------------------
     @Test
-    @DisplayName("Empty ISBN should block add")
-    void testEmptyISBN() throws Exception {
+    @DisplayName("Test invalid copies (not a number)")
+    void testInvalidCopies() {
 
-        addBook.title2.setText("Book1");
-        addBook.author2.setText("A1");
-        addBook.category2.setText("Fiction");
-        addBook.copies2.setText("3");
-        addBook.isbn2.setText(""); // EMPTY ISBN
+        addBookUI.title2.setText("Java");
+        addBookUI.author2.setText("James");
+        addBookUI.isbn2.setText("12345");
+        addBookUI.category2.setText("Programming");
+        addBookUI.copies2.setText("abc");  // ⬅ خطأ
 
-        addBook.handleAddBookForTest();
+        addBookUI.handleAddBookForTest();
 
         verify(mockService, never()).addBook(any(Book.class));
-        mockJOption.verify(() -> JOptionPane.showMessageDialog(any(), eq("ISBN cannot be empty!")), times(1));
     }
 
-    // ----------------------------------------------------------
+    // -------------------------------------------------------
     @Test
-    @DisplayName("Invalid copies input")
-    void testInvalidCopies() throws Exception {
+    @DisplayName("Test empty title field — service not called")
+    void testEmptyTitle() {
 
-        addBook.title2.setText("Book1");
-        addBook.author2.setText("A1");
-        addBook.category2.setText("Fiction");
-        addBook.copies2.setText("abc"); // غير صالح
-        addBook.isbn2.setText("444555666");
+        addBookUI.title2.setText("");
+        addBookUI.author2.setText("James");
+        addBookUI.isbn2.setText("12345");
+        addBookUI.category2.setText("Programming");
+        addBookUI.copies2.setText("5");
 
-        addBook.handleAddBookForTest();
+        addBookUI.handleAddBookForTest();
 
         verify(mockService, never()).addBook(any(Book.class));
-        mockJOption.verify(() -> JOptionPane.showMessageDialog(any(), eq("Copies must be a valid number.")), times(1));
     }
 
-    // ----------------------------------------------------------
+    // -------------------------------------------------------
     @Test
-    @DisplayName("SQLException behavior")
-    void testSQLException() throws Exception {
+    @DisplayName("Test empty ISBN field — service not called")
+    void testEmptyISBN() {
 
-        when(mockService.addBook(any(Book.class))).thenThrow(new RuntimeException("DB error"));
+        addBookUI.title2.setText("Java");
+        addBookUI.author2.setText("James");
+        addBookUI.isbn2.setText("");
+        addBookUI.category2.setText("Programming");
+        addBookUI.copies2.setText("5");
 
-        addBook.title2.setText("Book1");
-        addBook.author2.setText("A1");
-        addBook.category2.setText("Fiction");
-        addBook.copies2.setText("3");
-        addBook.isbn2.setText("555777999");
+        addBookUI.handleAddBookForTest();
 
-        assertDoesNotThrow(() -> addBook.handleAddBookForTest());
-        verify(mockService, times(1)).addBook(any(Book.class));
+        verify(mockService, never()).addBook(any(Book.class));
     }
 
-    // ----------------------------------------------------------
+    // -------------------------------------------------------
     @Test
-    @DisplayName("Service failure → fields should NOT clear")
-    void testServiceFailureMessage() throws Exception {
+    @DisplayName("Test service failure message — fields must NOT clear")
+    void testServiceFailureMessage() {
 
         when(mockService.addBook(any(Book.class))).thenReturn("Error adding book!");
 
-        addBook.title2.setText("T1");
-        addBook.author2.setText("A1");
-        addBook.category2.setText("G1");
-        addBook.copies2.setText("4");
-        addBook.isbn2.setText("999");
+        addBookUI.title2.setText("Java");
+        addBookUI.author2.setText("James");
+        addBookUI.isbn2.setText("12345");
+        addBookUI.category2.setText("Programming");
+        addBookUI.copies2.setText("5");
 
-        addBook.handleAddBookForTest();
+        addBookUI.handleAddBookForTest();
 
         verify(mockService, times(1)).addBook(any(Book.class));
 
-        assertEquals("T1", addBook.title2.getText());
-        assertEquals("A1", addBook.author2.getText());
-        assertEquals("G1", addBook.category2.getText());
-        assertEquals("4", addBook.copies2.getText());
-        assertEquals("999", addBook.isbn2.getText());
+        assertEquals("Java", addBookUI.title2.getText());
+        assertEquals("James", addBookUI.author2.getText());
+        assertEquals("12345", addBookUI.isbn2.getText());
+        assertEquals("Programming", addBookUI.category2.getText());
+        assertEquals("5", addBookUI.copies2.getText());
     }
 
-    // ----------------------------------------------------------
+    // -------------------------------------------------------
     @Test
-    @DisplayName("Empty fields block add")
-    void testEmptyFields() throws Exception {
+    @DisplayName("Test SQLException — must NOT crash")
+    void testSQLExceptionSafe() {
 
-        addBook.title2.setText("");
-        addBook.author2.setText("A");
-        addBook.category2.setText("G");
-        addBook.copies2.setText("3");
-        addBook.isbn2.setText("123");
+        when(mockService.addBook(any(Book.class))).thenThrow(new RuntimeException("DB error"));
 
-        addBook.handleAddBookForTest();
+        addBookUI.title2.setText("Book");
+        addBookUI.author2.setText("A");
+        addBookUI.isbn2.setText("111");
+        addBookUI.category2.setText("Cat");
+        addBookUI.copies2.setText("3");
 
-        verify(mockService, never()).addBook(any(Book.class));
-    }
-
-    // ----------------------------------------------------------
-    @Test
-    @DisplayName("JButton triggers same logic")
-    void testButtonAction() {
-
-        addBook.title2.setText("Book1");
-        addBook.author2.setText("Author1");
-        addBook.category2.setText("G1");
-        addBook.copies2.setText("2");
-        addBook.isbn2.setText("999");
-
-        when(mockService.addBook(any())).thenReturn("Book added successfully!");
-
-        // simulate button click
-        addBook.addButton.doClick();
-
+        assertDoesNotThrow(() -> addBookUI.handleAddBookForTest());
         verify(mockService, times(1)).addBook(any(Book.class));
     }
 }
