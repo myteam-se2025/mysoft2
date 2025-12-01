@@ -1,117 +1,98 @@
 package service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import dao.FineDAO;
 import dao.LoansDAO;
 import modl.Fine;
 import modl.Loan;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FineService {
 
-	public String addbookFine(Fine fine) {
-		if (fine.getLoanId() == null || fine.getLoanId() == 0) {
-			return "Title cannot be empty!";
-		}
+    private final FineDAO fineDAO;
+    private final LoanService loanService;
+    private final LoansDAO loansDAO;
 
-		if (fine.getLoanId() == null || fine.getLoanId() == 0) {
-			return "Title cannot be empty!";
-		}
+    public FineService() {
+        this.fineDAO = new FineDAO();
+        this.loanService = new LoanService();
+        this.loansDAO = new LoansDAO();
+    }
+    
+    public FineService(FineDAO fineDAO, LoanService loanService, LoansDAO loansDAO) {
+        this.fineDAO = fineDAO;
+        this.loanService = loanService;
+        this.loansDAO = loansDAO;
+    }
+    
+ 
 
-		FineDAO f = new FineDAO();
-		f.insertFine(fine);
+    public String addbookFine(Fine fine) {
 
-		return null;
-	}
+        if (fine.getLoanId() == null || fine.getLoanId() == 0) {
+        	return "Loan ID cannot be empty!";
+        }
 
-	public List<Fine> findeAlluserfines(String userid) {
-		List<Fine> fines = new ArrayList<>();
-		List<Loan> loans = new ArrayList<>();
+        fineDAO.insertFine(fine);
+        return null;
+    }
 
-		if (userid == null || userid.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Please enter a user ID.");
-			return null;
-		}
+    public List<Fine> findeAlluserfines(String userid) {
+        List<Fine> fines = new ArrayList<>();
 
-		int idd = 0;
-		try {
-			idd = Integer.parseInt(userid);
-			if (idd <= 0) {
-				JOptionPane.showMessageDialog(null, "ID must be a positive number.");
-				return null;
-			}
-		} catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(null, "ID must be a number.");
-			return null;
-		}
+        if (userid == null || userid.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter a user ID.");
+            return null;
+        }
 
-		FineDAO finedao = new FineDAO();
+        int idd;
+        try {
+            idd = Integer.parseInt(userid);
+            if (idd <= 0) {
+                JOptionPane.showMessageDialog(null, "ID must be a positive number.");
+                return null;
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "ID must be a number.");
+            return null;
+        }
 
-		LoanService loanservice = new LoanService();
-		loans = loanservice.findeAllUserLoans(idd);
+        List<Loan> loans = loanService.findeAllUserLoans(idd);
 
-		for (int i = 0; i < loans.size(); i++) {
-			// if (loans.get(i) != null)
-			// {
-			int loanid = loans.get(i).getLoanId();
-			Fine fine = new Fine();
-			fine = finedao.findeuserFines(loanid);
-			if (fine != null) {
-				fines.add(fine);
-			}
-		}
-		// }
+        for (Loan loan : loans) {
+            Fine fine = fineDAO.findeuserFines(loan.getLoanId());
+            if (fine != null) {
+                fines.add(fine);
+            }
+        }
 
-		return fines;
+        return fines;
+    }
 
-	}
+    public String payFine(String userid, String fineid) {
 
-	public String payFine(String userid, String fineid) {
-		if (userid == null || userid.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Please enter a book ID.");
-			return null;
-		}
-		if (fineid == null || fineid.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Please enter a book ID.");
-			return null;
-		}
+        if (userid == null || userid.isEmpty()) return null;
+        if (fineid == null || fineid.isEmpty()) return null;
 
-		int uidd = 0;
-		int fidd = 0;
-		try {
+        int uidd, fidd;
+        try {
+            uidd = Integer.parseInt(userid);
+            fidd = Integer.parseInt(fineid);
+            if (uidd <= 0 || fidd <= 0) return null;
+        } catch (NumberFormatException ex) {
+            return null;
+        }
 
-			uidd = Integer.parseInt(userid);
-			if (uidd <= 0) {
-				JOptionPane.showMessageDialog(null, "ID must be a positive number.");
-				return null;
-			}
-			fidd = Integer.parseInt(fineid);
-			if (fidd <= 0) {
-				JOptionPane.showMessageDialog(null, "ID must be a positive number.");
-				return null;
-			}
-		} catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(null, "ID must be a number.");
-			return null;
-		}
+        Fine fine = fineDAO.findeFineByFineId(fidd);
 
-		LoansDAO loandao = new LoansDAO();
-		FineDAO finedao = new FineDAO();
-
-		Fine fin = finedao.findeFineByFineId(fidd);
-		boolean finestatus = fin.getstatus();
-
-		if (finestatus) {
-			finedao.deletefine(fidd);
-			loandao.deleteloan(fin.getLoanId());
-			return "fine is payed and book is returned ";
-		} else {
-			return "your loan hasnt expierd yet";
-		}
-
-	}
-
+        if (fine.getstatus()) {
+            fineDAO.deletefine(fidd);
+            loansDAO.deleteloan(fine.getLoanId());
+            return "fine is payed and book is returned ";
+        } else {
+            return "your loan hasnt expierd yet";
+        }
+    }
 }
