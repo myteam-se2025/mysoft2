@@ -90,6 +90,7 @@ class AddUserTest {
     @Test
     void testEmptyEmail() throws SQLException {
         genericFieldTest("Bob", "", "1234567890", "Nablus");
+        
     }
 
     @Test

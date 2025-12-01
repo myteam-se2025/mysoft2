@@ -16,7 +16,7 @@ public class EmailService {
     public EmailService(String username, String password) {
         this.username = username;
         this.password = password;
-    }
+    } 
 
     public void sendEmail(String to, String subject, String body) {
 
@@ -35,7 +35,7 @@ public class EmailService {
             }
         });
 
-        try {
+        try {  
             // Build email
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(username));

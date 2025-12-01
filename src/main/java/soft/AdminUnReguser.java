@@ -63,7 +63,7 @@ public class AdminUnReguser extends JFrame {
         btnUnregister.addActionListener(e -> openUserSelectionDialog());
     }
 
-    // ✅ Getter للزر للاختبارات
+  
     public JButton getBtnUnregister() {
         return btnUnregister;
     }
