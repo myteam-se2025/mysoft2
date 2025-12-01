@@ -1,13 +1,13 @@
 package modl;
 
 /**
- * @auther khadeja and masa
- * @param Cd               class to represent a CD in the system
- * @param cd_id            int unique identifier for the CD
- * @param title            String title of the CD
- * @param artist           String artist name of the CD
- * @param genre            String music genre of the CD
- * @param available_copies int number of available copies of the CD
+ * Represents a CD in the library management system.
+ * Contains information such as title, artist, genre, and available copies.
+ * Provides constructors, getters, and setters for all fields.
+ * 
+ * @author Khadeja and Masa
+ * @version 1.0
+ * @since 2025
  */
 
 public class Cd {
@@ -18,50 +18,68 @@ public class Cd {
 	String genre = "null";
 	int available_copies = 0;
 
-	public Cd(String title, String artist, String genre, int available_copies) {
-		this.title = title;
-		this.artist = artist;
-		this.genre = genre;
-		this.available_copies = available_copies;
-	}
+	 /**
+     * Constructs a CD with all fields specified.
+     *
+     * @param title the title of the CD
+     * @param artist the artist name
+     * @param genre the music genre
+     * @param available_copies number of available copies
+     */
+    public Cd(String title, String artist, String genre, int available_copies) {
+        this.title = title;
+        this.artist = artist;
+        this.genre = genre;
+        this.available_copies = available_copies;
+    }
 
-	public String getArtist() {
-		return artist;
-	}
+    /** @return the artist name of the CD */
+    public String getArtist() {
+        return artist;
+    }
 
-	public int getAvailable_copies() {
-		return available_copies;
-	}
+    /** @return the number of available copies */
+    public int getAvailable_copies() {
+        return available_copies;
+    }
 
-	public int getCd_id() {
-		return cd_id;
-	}
+    /** @return the CD ID */
+    public int getCd_id() {
+        return cd_id;
+    }
 
-	public String getGenre() {
-		return genre;
-	}
+    /** @return the genre of the CD */
+    public String getGenre() {
+        return genre;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    /** @return the title of the CD */
+    public String getTitle() {
+        return title;
+    }
 
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
+    /** @param artist sets the artist name */
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
 
-	public void setAvailable_copies(int available_copies) {
-		this.available_copies = available_copies;
-	}
+    /** @param available_copies sets the number of available copies */
+    public void setAvailable_copies(int available_copies) {
+        this.available_copies = available_copies;
+    }
 
-	public void setCd_id(int cd_id) {
-		this.cd_id = cd_id;
-	}
+    /** @param cd_id sets the CD ID */
+    public void setCd_id(int cd_id) {
+        this.cd_id = cd_id;
+    }
 
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
+    /** @param genre sets the genre of the CD */
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    /** @param title sets the title of the CD */
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

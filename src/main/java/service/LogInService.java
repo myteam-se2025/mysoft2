@@ -5,8 +5,25 @@ import dao.UserDAO;
 import modl.Admin;
 import modl.User;
 
+/**
+ * @author khadeja and masa
+ * @class LogInService
+ * 
+ * Service class to handle login functionality for both Admins and Users.
+ * Validates input, checks email format, and verifies credentials against the database.
+ */
 public class LogInService {
 
+	 /**
+     * Handles login for a user or admin.
+     * 
+     * @param email    The email of the user/admin
+     * @param password The password (expected as a numeric string)
+     * @return A string indicating the result:
+     *         - "ADMIN" if an admin with matching credentials is found
+     *         - "USER" if a user with matching credentials is found
+     *         - Error message if input is invalid or no match found
+     */
 	public String handleLogin(String email, String password) {
 
 		

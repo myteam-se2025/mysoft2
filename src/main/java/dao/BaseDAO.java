@@ -10,9 +10,9 @@ import dao.*;
  * Abstract base class for all DAO classes.
  * Provides common database utility methods such as obtaining a connection
  * and closing resources.
- * 
+ *  
  * @author Library Management
- * @version 1.0
+ * @version 1.0 
  * @since 2025
  */
 public abstract class BaseDAO {
@@ -46,7 +46,6 @@ public abstract class BaseDAO {
      */
 	
 	protected Connection getConnection() throws SQLException {
-		DbConnection c = new DbConnection();
-		return c.getConnection();
-	}
+		 return DbConnection.getInstance().getConnection(); // use singleton
+		   }
 }

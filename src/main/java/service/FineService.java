@@ -9,18 +9,35 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author khadeja and masa
+ * @class FineService
+ * 
+ * Service class to handle all fine-related operations in the library system.
+ * This includes adding fines, finding fines for users, and paying fines.
+ */
 public class FineService {
 
     private final FineDAO fineDAO;
     private final LoanService loanService;
     private final LoansDAO loansDAO;
 
+    /**
+     * Default constructor initializing DAO and service instances.
+     */
     public FineService() {
         this.fineDAO = new FineDAO();
         this.loanService = new LoanService();
         this.loansDAO = new LoansDAO();
     }
     
+    /**
+     * Constructor with dependency injection.
+     * 
+     * @param fineDAO DAO for fine operations
+     * @param loanService Service for loan operations
+     * @param loansDAO DAO for loan operations
+     */
     public FineService(FineDAO fineDAO, LoanService loanService, LoansDAO loansDAO) {
         this.fineDAO = fineDAO;
         this.loanService = loanService;
@@ -28,7 +45,12 @@ public class FineService {
     }
     
  
-
+    /**
+     * Adds a fine to the system for a specific loan.
+     * 
+     * @param fine Fine object containing loan ID and fine details
+     * @return Success or error message
+     */
     public String addbookFine(Fine fine) {
 
         if (fine.getLoanId() == null || fine.getLoanId() == 0) {
@@ -39,6 +61,12 @@ public class FineService {
         return null;
     }
 
+    /**
+     * Finds all fines for a given user ID.
+     * 
+     * @param userId The ID of the user
+     * @return List of Fine objects; returns empty list if none found or invalid input
+     */
     public List<Fine> findeAlluserfines(String userid) {
         List<Fine> fines = new ArrayList<>();
 
@@ -71,6 +99,13 @@ public class FineService {
         return fines;
     }
 
+    /**
+     * Pays a fine for a user and returns the book if the fine is active.
+     * 
+     * @param userId The ID of the user
+     * @param fineId The ID of the fine
+     * @return Message indicating success, failure, or if loan hasn't expired
+     */
     public String payFine(String userid, String fineid) {
 
         if (userid == null || userid.isEmpty()) return null;

@@ -16,7 +16,15 @@ public class Admin {
 	String username;
 	String password;
 	String email;
-
+	
+	 /**
+     * Constructs an Admin with all fields specified.
+     *
+     * @param admin_id unique ID of the admin
+     * @param username username of the admin
+     * @param password password of the admin
+     * @param email email of the admin
+     */
 	public Admin(int admin_id, String username, String password, String email) {
 		this.admin_id = admin_id;
 		this.username = username;
@@ -24,13 +32,22 @@ public class Admin {
 		this.email = email;
 	}
 	
+	 /**
+     * Constructs an Admin without an ID.
+     *
+     * @param username username of the admin
+     * @param password password of the admin
+     * @param email email of the admin
+     */
 	public Admin( String username, String password, String email) {
 		//this.admin_id = admin_id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 	}
-
+	/**
+     * Default constructor initializing fields with default values.
+     */
 	 public Admin() {
 	      
 	        this.admin_id = 0;
@@ -39,36 +56,43 @@ public class Admin {
 	        this.email = "null";
 	    }
 
+	 /** @return the admin ID */
 	public int getAdmin_id() {
 		return admin_id;
 	}
 
-	public String getEmail() {
-		return email;
-	}
+	 /** @return the username */
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    /** @return the password */
+    public String getPassword() {
+        return password;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    /** @return the email */
+    public String getEmail() {
+        return email;
+    }
 
-	public void setAdmin_id(int admin_id) {
-		this.admin_id = admin_id;
-	}
+    /** @param admin_id sets the admin ID */
+    public void setAdmin_id(int admin_id) {
+        this.admin_id = admin_id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /** @param username sets the username */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /** @param password sets the password */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
+    /** @param email sets the email */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

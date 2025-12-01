@@ -6,8 +6,11 @@ import java.util.List;
 
 import dao.*;
 
+/**
+ * Strategy to find books by ID.
+ */
 public class FindeById implements SearchBook {
-
+	 @Override
 	public List<Book> findeBook(String searchby) {
 
 		try {

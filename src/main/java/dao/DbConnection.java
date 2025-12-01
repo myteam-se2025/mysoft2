@@ -14,11 +14,23 @@ import java.sql.SQLException;
  */
 public class DbConnection  {
 	
+	private static DbConnection instance;
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "123456";
 
 	private  Connection connection;
+	
+	public static DbConnection getInstance() {
+        if (instance == null) {
+            synchronized (DbConnection.class) { // Thread-safe
+                if (instance == null) {
+                    instance = new DbConnection();
+                }
+            }
+        }
+        return instance;
+    }
 	/**
      * Obtains a Connection to the PostgreSQL database.
      * If the connection is already established and open, it returns the existing connection.

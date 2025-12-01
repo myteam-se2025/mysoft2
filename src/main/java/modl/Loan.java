@@ -2,6 +2,15 @@ package modl;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a Loan in the library management system.
+ * Contains information about the loaned book or CD, the user, loan date, and due date.
+ * Provides constructors, getters, and setters for all fields.
+ * 
+ * @author Khadeja and Masa
+ * @version 1.0
+ * @since 2025
+ */
 public class Loan {
 
 	private static final long serialVersionUID = 1L;
@@ -13,8 +22,15 @@ public class Loan {
 	private LocalDate loanDate;
 	private LocalDate dueDate;
 
-//	public Loans() {}
-
+	
+	
+	
+	 /**
+     * Constructs a Loan using string inputs for user and book IDs.
+     *
+     * @param userid the user ID as a string
+     * @param bookid the book ID as a string
+     */
 	public Loan(int userid, int bookid) {
 		this.userId = userid;
 		this.bookId = bookid;
@@ -23,6 +39,16 @@ public class Loan {
 
 	}
 
+	 /**
+     * Constructs a Loan with all fields specified.
+     *
+     * @param loanId the loan ID
+     * @param userId the user ID
+     * @param bookId the book ID
+     * @param cdId the CD ID
+     * @param loanDate the loan date
+     * @param dueDate the due date
+     */
 	public Loan(int loanId, int userId, int bookId, int cdId, LocalDate loanDate, LocalDate dueDate) {
 		this.loanId = loanId;
 		this.userId = userId;
@@ -33,6 +59,12 @@ public class Loan {
 
 	}
 
+	/**
+     * Constructs a Loan for a specific user and book, with default loan and due dates.
+     *
+     * @param userid the ID of the user
+     * @param bookid the ID of the book
+     */
 	public Loan(String userid, String bookid) {
 
 		this.userId = Integer.parseInt(userid);
@@ -54,52 +86,63 @@ public class Loan {
     }
 
 	
-	public Integer getBookId() {
-		return bookId;
-	}
+	  /** @return the book ID */
+    public Integer getBookId() {
+        return bookId;
+    }
 
-	public Integer getCdId() {
-		return cdId;
-	}
+    /** @return the CD ID */
+    public Integer getCdId() {
+        return cdId;
+    }
 
-	public LocalDate getDueDate() {
-		return dueDate;
-	}
+    /** @return the due date */
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
 
-	public LocalDate getLoanDate() {
-		return loanDate;
-	}
+    /** @return the loan date */
+    public LocalDate getLoanDate() {
+        return loanDate;
+    }
 
-	public Integer getLoanId() {
-		return loanId;
-	}
+    /** @return the loan ID */
+    public Integer getLoanId() {
+        return loanId;
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    /** @return the user ID */
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
-	}
+    /** @param bookId sets the book ID */
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
 
-	public void setCdId(Integer cdId) {
-		this.cdId = cdId;
-	}
+    /** @param cdId sets the CD ID */
+    public void setCdId(Integer cdId) {
+        this.cdId = cdId;
+    }
 
-	public void setDueDate(LocalDate dueDate) {
-		this.dueDate = dueDate;
-	}
+    /** @param dueDate sets the due date */
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
 
-	public void setLoanDate(LocalDate loanDate) {
-		this.loanDate = loanDate;
-	}
+    /** @param loanDate sets the loan date */
+    public void setLoanDate(LocalDate loanDate) {
+        this.loanDate = loanDate;
+    }
 
-	public void setLoanId(Integer loanId) {
-		this.loanId = loanId;
-	}
+    /** @param loanId sets the loan ID */
+    public void setLoanId(Integer loanId) {
+        this.loanId = loanId;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
+    /** @param userId sets the user ID */
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

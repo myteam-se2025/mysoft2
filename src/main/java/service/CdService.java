@@ -4,10 +4,22 @@ import java.sql.SQLException;
 import dao.CdDAO;
 import modl.Cd;
 
+/**
+ * Service class for managing CDs in the library system.
+ * Handles validation and interaction with the CdDAO for database operations.
+ * 
+ * @author Khadeja and Masa
+ * @version 1.0
+ */
 public class CdService {
 
 	private CdDAO cdDao;
 
+	 /**
+     * Default constructor initializing CdDAO.
+     * 
+     * @throws SQLException if database connection fails
+     */
 	public CdService() throws SQLException {
 		cdDao = new CdDAO();
 	}
@@ -21,7 +33,7 @@ public class CdService {
 	 * @return message indicating success or failure
 	 */
 	public String addCd(Cd cd) {
-		// ✅ Basic validation
+		
 		if (cd.getTitle() == null || cd.getTitle().trim().isEmpty()) {
 			return "Title cannot be empty!";
 		}
@@ -35,7 +47,7 @@ public class CdService {
 			return "Number of copies cannot be negative!";
 		}
 
-		// ✅ Attempt to add to database
+		
 		boolean success = cdDao.insertCd(cd);
 		return success ? "CD added successfully!" : "Error while saving CD to database.";
 	}

@@ -6,8 +6,12 @@ import java.util.List;
 
 import modl.Book;
 
+/**
+ * Strategy to find books by author.
+ */
 public class FindeByAuthor implements SearchBook {
 
+	 @Override
 	public List<Book> findeBook(String searchby) {
 
 		try {

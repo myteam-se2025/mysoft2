@@ -5,8 +5,12 @@ import java.util.List;
 
 import modl.Book;
 
+/**
+ * Strategy to find books by title.
+ */
 public class FindeByTitle implements SearchBook {
 
+	@Override
 	public List<Book> findeBook(String searchby) {
 		BookService book;
 		try {
