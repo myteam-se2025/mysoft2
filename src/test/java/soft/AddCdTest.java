@@ -36,9 +36,12 @@ public class AddCdTest{
     @DisplayName("Setup test environment")
     void setup() {
         addCd = new AddCd();
+        addCd.testingMode = true;   // ⬅️ يمنع JOptionPane من الظهور أثناء التست
+        
         mockService = mock(CdService.class);
         addCd.setCdServiceForTest(mockService);
     }
+
 
     @AfterEach
     @DisplayName("Clean up after test")
@@ -91,6 +94,8 @@ public class AddCdTest{
 
         when(mockService.addCd(any(Cd.class))).thenThrow(new SQLException("DB error"));
 
+        addCd.testingMode = true;            
+        addCd.setCdServiceForTest(mockService);  
         addCd.title2.setText("CD1");
         addCd.artist2.setText("A1");
         addCd.genre2.setText("Rock");
@@ -100,6 +105,7 @@ public class AddCdTest{
 
         verify(mockService, times(1)).addCd(any(Cd.class));
     }
+
 
     // ---------------------------------------------------------------------
     @Test

@@ -23,7 +23,12 @@ public class AddCd extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    // خدمة قابلـة للحقن أثناء الاختبار (Mock)
+    // ------------------------------------------------------------
+    //          TESTING MODE (avoids JOptionPane hang)
+    // ------------------------------------------------------------
+    public boolean testingMode = false;
+
+    // خدمة قابلة للحقن أثناء الاختبار
     private CdService cdServiceForTest = null;
 
     public void setCdServiceForTest(CdService mock) {
@@ -32,7 +37,6 @@ public class AddCd extends JFrame {
 
     private JPanel contentPane;
 
-    // public → protected
     protected JTextField title2;
     protected JTextField artist2;
     protected JTextField genre2;
@@ -134,12 +138,23 @@ public class AddCd extends JFrame {
         String title = title2.getText().trim();
         String artist = artist2.getText().trim();
         String genre = genre2.getText().trim();
+        String copiesText = copies2.getText().trim();
+
+        // ---------------------------
+        // Validation (needed for tests)
+        // ---------------------------
+        if (title.isEmpty() || artist.isEmpty() || genre.isEmpty() || copiesText.isEmpty()) {
+            if (!testingMode)
+                JOptionPane.showMessageDialog(this, "All fields must be filled.");
+            return;
+        }
 
         int copies;
         try {
-            copies = Integer.parseInt(copies2.getText().trim());
+            copies = Integer.parseInt(copiesText);
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Copies must be a valid number.");
+            if (!testingMode)
+                JOptionPane.showMessageDialog(this, "Copies must be a valid number.");
             return;
         }
 
@@ -149,7 +164,8 @@ public class AddCd extends JFrame {
             CdService service = getCdService();
             String msg = service.addCd(cd);
 
-            JOptionPane.showMessageDialog(this, msg);
+            if (!testingMode)
+                JOptionPane.showMessageDialog(this, msg);
 
             if (msg.equals("CD added successfully!")) {
                 title2.setText("");
@@ -159,7 +175,12 @@ public class AddCd extends JFrame {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+
+            if (!testingMode)   // ⬅️ أهم شيء
+                JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
         }
-    }
-}
+
+
+       
+
+}}
