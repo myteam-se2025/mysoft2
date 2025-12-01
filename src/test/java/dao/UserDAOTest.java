@@ -81,11 +81,11 @@ class UserDAOTest {
         assertFalse(result);
         verify(mockPreparedStatement, times(1)).executeUpdate();
     }
-
+ 
     
 
     @Test
-    void testAddUserConnectionFailure() {
+    void testAddUserConnectionFailure() throws SQLException {
         userDAO = new UserDAO() {
             @Override
             protected Connection getConnection() throws SQLException {

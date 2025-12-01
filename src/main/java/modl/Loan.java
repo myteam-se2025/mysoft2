@@ -44,6 +44,16 @@ public class Loan {
 
 	}
 
+	public Loan() {
+        this.loanId = 0;
+        this.userId = 0;
+        this.bookId = 0;
+        this.cdId = 0;
+        this.loanDate = LocalDate.now();
+        this.dueDate = loanDate.plusDays(28);
+    }
+
+	
 	public Integer getBookId() {
 		return bookId;
 	}

@@ -6,12 +6,14 @@ import modl.Fine;
 
 public class PayFineService {
 
-	public String payfine(String userid, String fineid) {
-		FineService f = new FineService();
-		// Fine fine= f.userfinescheck(userid);
+    private FineService fineService;
 
-		f.payFine(userid, fineid);
+    public PayFineService(FineService fineService) {
+        this.fineService = fineService;
+    }
 
-		return null;
-	}
+    public String payfine(String userid, String fineid) {
+        fineService.payFine(userid, fineid);
+        return "Paid successfully";
+    }
 }

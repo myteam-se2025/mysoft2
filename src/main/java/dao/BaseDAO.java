@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import dao.*;
 
 public abstract class BaseDAO {
 
-	// 🔹 دالة لإغلاق الموارد بعد الاستخدام (لتجنب تسريب الذاكرة)
+	
 	protected void closeResources(Connection con, PreparedStatement ps, ResultSet rs) {
 		try {
 			if (rs != null)
@@ -18,11 +19,12 @@ public abstract class BaseDAO {
 				con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	// 🔹 دالة ترجع Connection جاهزة من DbConnection
 	protected Connection getConnection() throws SQLException {
-		return DbConnection.getConnection();
+		DbConnection c = new DbConnection();
+		return c.getConnection();
 	}
 }

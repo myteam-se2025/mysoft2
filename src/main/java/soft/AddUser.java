@@ -111,7 +111,7 @@ public class AddUser extends JFrame {
 
     // يمكن استبدالها بالـ mock في الاختبارات
     protected UserService createUserService() throws SQLException {
-        return new UserService();
+        return new UserService(null);
     }
 
    

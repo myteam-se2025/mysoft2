@@ -16,26 +16,40 @@ import dao.*;
 public class LoansDAO extends BaseDAO {
 
 	public void allOverDueLoans() throws SQLException {
-		Date loanduedate = null;
-		int loanid = 0;
-
-		String sql = "SELECT * FROM public.loans ";
-
-		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				loanduedate = rs.getDate("due_date");
-				loanid = rs.getInt("loan_id");
-				LocalDate loanduedatelocal = loanduedate.toLocalDate();
-
-				if (LocalDate.now().isAfter(loanduedatelocal)) {
-					
-				}
-
-			}
-		}
+	    String sql = "SELECT loan_id, due_date FROM public.loans";
+	    
+	    try (Connection con = getConnection(); 
+	         PreparedStatement ps = con.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+	        
+	        FineDAO fineDAO = new FineDAO();
+	        LocalDate today = LocalDate.now();
+	        
+	        while (rs.next()) {
+	            int loanId = rs.getInt("loan_id");
+	            LocalDate dueDate = rs.getDate("due_date").toLocalDate();
+	            /*
+	            // If loan is overdue
+	            if (today.isAfter(dueDate)) {
+	                // Find the fine for this loan
+	                Fine fine = fineDAO.findeuserFines(loanId);
+	                
+	                if (fine != null && !fine.getstatus()) {
+	                    // Update fine status to true (overdue)
+	                    fine.setStatus(true);
+	                    String updateSql = "UPDATE fines SET status = true WHERE loan_id = ?";
+	                    
+	                    try (PreparedStatement updatePs = con.prepareStatement(updateSql)) {
+	                        updatePs.setInt(1, loanId);
+	                        updatePs.executeUpdate();
+	                    }
+	                }
+	            }*/
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
 	}
 
 	public boolean deleteloan(int loanid) {

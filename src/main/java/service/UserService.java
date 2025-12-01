@@ -12,13 +12,11 @@ public class UserService {
 
 	private UserDAO userdao;
 	
-	public UserService() throws SQLException {
-		userdao = new UserDAO();
-	}
+	
 	public UserService(UserDAO userdao) {
         this.userdao = userdao; 
     }
-	public void registerUser(User user) {
+	public void registerUser(User user)throws SQLException {
 		userdao.addUser(user);
 	}
 

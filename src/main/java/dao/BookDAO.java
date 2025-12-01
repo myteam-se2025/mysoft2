@@ -9,9 +9,7 @@ import modl.Book;
 
 public class BookDAO extends BaseDAO {
 
-	public void bookavalablty(String isbn) {
 
-	}
 
 	public List<Book> findAllBooks() {
 

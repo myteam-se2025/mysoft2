@@ -6,13 +6,13 @@ import java.sql.SQLException;
 
 public class DbConnection {
 
-	private static final String URL = "jdbc:postgresql://localhost:5433/postgres";
+	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "123456";
 
-	private static Connection connection;
+	private  Connection connection;
 
-	public static Connection getConnection() throws SQLException {
+	public Connection getConnection() throws SQLException {
 		if (connection == null || connection.isClosed()) {
 			try {
 				connection = DriverManager.getConnection(URL, USER, PASSWORD);

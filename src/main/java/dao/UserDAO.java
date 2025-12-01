@@ -6,7 +6,7 @@ import modl.User;
 public class UserDAO extends BaseDAO {
 
 
-	public boolean addUser(User user) {
+	public boolean addUser(User user) throws SQLException {
 		String sql = "INSERT INTO public.users (full_name, email, phone, address, membership_date) VALUES (?, ?, ?, ?, ?)";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -22,6 +22,7 @@ public class UserDAO extends BaseDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+			
 		} 
 	}
 

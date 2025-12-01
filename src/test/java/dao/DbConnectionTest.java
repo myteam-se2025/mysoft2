@@ -22,6 +22,7 @@ class DbConnectionTest {
     @BeforeEach
     void setUp() {
         System.setOut(new PrintStream(outContent));
+       
     }
 ///////
     @AfterEach
@@ -36,8 +37,8 @@ class DbConnectionTest {
             Connection mockConnection = mock(Connection.class);
             mockedDriver.when(() -> DriverManager.getConnection(anyString(), anyString(), anyString())).thenReturn(mockConnection);
             when(mockConnection.isClosed()).thenReturn(false);
-
-            Connection result = DbConnection.getConnection();
+            DbConnection c = new DbConnection();
+            Connection result = c.getConnection();
 
             assertNotNull(result);
             assertEquals(mockConnection, result);
@@ -51,9 +52,9 @@ class DbConnectionTest {
             Connection mockConnection = mock(Connection.class);
             mockedDriver.when(() -> DriverManager.getConnection(anyString(), anyString(), anyString())).thenReturn(mockConnection);
             when(mockConnection.isClosed()).thenReturn(false);
-
-            Connection first = DbConnection.getConnection();
-            Connection second = DbConnection.getConnection();
+            DbConnection c = new DbConnection();
+            Connection first = c.getConnection();
+            Connection second = c.getConnection();
 
             assertEquals(first, second);
             assertTrue(outContent.toString().contains("Database connected successfully."));
@@ -70,9 +71,9 @@ class DbConnectionTest {
                     .thenReturn(mockConnection2);
             when(mockConnection1.isClosed()).thenReturn(false).thenReturn(true);
             when(mockConnection2.isClosed()).thenReturn(false);
-
-            Connection first = DbConnection.getConnection();
-            Connection second = DbConnection.getConnection();
+            DbConnection c = new DbConnection();
+            Connection first = c.getConnection();
+            Connection second = c.getConnection();
 
             assertNotEquals(first, second);
             assertEquals(mockConnection2, second);
@@ -84,8 +85,8 @@ class DbConnectionTest {
     void testGetConnectionFailure() {
         try (MockedStatic<DriverManager> mockedDriver = mockStatic(DriverManager.class)) {
             mockedDriver.when(() -> DriverManager.getConnection(anyString(), anyString(), anyString())).thenThrow(new SQLException("Connection failed"));
-
-            assertThrows(SQLException.class, DbConnection::getConnection);
+            DbConnection c = new DbConnection();
+            assertThrows(SQLException.class, c::getConnection);
             assertTrue(outContent.toString().contains("Failed to connect to the database."));
         }
     }
@@ -99,10 +100,11 @@ class DbConnectionTest {
                     .thenThrow(new SQLException("Connection failed"));
             when(mockConnection.isClosed()).thenReturn(false).thenReturn(true);
 
-            Connection first = DbConnection.getConnection();
+            DbConnection c = new DbConnection();
+            Connection first = c.getConnection();
             assertNotNull(first);
 
-            assertThrows(SQLException.class, DbConnection::getConnection);
+            assertThrows(SQLException.class, c::getConnection);
             assertTrue(outContent.toString().contains("Database connected successfully."));
             assertTrue(outContent.toString().contains("Failed to connect to the database."));
         }

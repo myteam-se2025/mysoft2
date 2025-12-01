@@ -20,7 +20,7 @@ public class UserFines extends JFrame {
     // === الكلاسات الداخلية تبقى كما هي ===
     private class SwingAction extends AbstractAction {
         public SwingAction() {
-            putValue(NAME, "<--");
+            putValue(NAME, "<--"); 
             putValue(SHORT_DESCRIPTION, "get back");
         }
 
@@ -31,7 +31,7 @@ public class UserFines extends JFrame {
             searchFrame.setLocationRelativeTo(null);
             UserFines.this.dispose();
         }
-    }
+    } 
 
     private class SwingAction_1 extends AbstractAction {
         public SwingAction_1() {
@@ -144,7 +144,7 @@ public class UserFines extends JFrame {
     }
 
     protected PayFineService createPayFineService() {
-        return new PayFineService();
+        return new PayFineService(null);
     }
 
     protected void showMessageDialog(Object message) {

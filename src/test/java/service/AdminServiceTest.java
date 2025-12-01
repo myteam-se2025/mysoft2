@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+
 import dao.AdminDAO;
 
 class AdminServiceTest {
@@ -35,19 +36,16 @@ class AdminServiceTest {
     @Test
     void testLoginSuccess() throws Exception {
 
-        // Mock للـ DAO
         AdminDAO mockDao = Mockito.mock(AdminDAO.class);
 
-        // Service باستخدام mock dao
-        AdminService adminService = new AdminService(mockDao);
-
-        // لما نعمل login يجب يرجع true
+       
+       
         when(mockDao.login("admin", "123")).thenReturn(true);
 
-        // الفعل
+        AdminService adminService = new AdminService(mockDao);
         boolean result = adminService.login("admin", "123");
 
-        // التحقق
+        
         assertTrue(result);
         verify(mockDao, times(1)).login("admin", "123");
     }
@@ -59,7 +57,8 @@ class AdminServiceTest {
 
         AdminService adminService = new AdminService(mockDao);
 
-        // login فاشل → false
+        AdminService g = new AdminService();
+
         when(mockDao.login("wrong", "000")).thenReturn(false);
 
         boolean result = adminService.login("wrong", "000");

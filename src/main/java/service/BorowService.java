@@ -12,9 +12,9 @@ import modl.Fine;
 import modl.Loan;
 import soft.UserBorow;
 import service.*;
-
+ 
 public class BorowService {
-
+ 
 	public void borowabook(String user_id, String book_id) {
 		Loan loan = new Loan(user_id, book_id);
 		LoanService lo = new LoanService();
@@ -26,7 +26,7 @@ public class BorowService {
 
 	} 
 
-	public String processBorrowRequest(String user_id, String book_id) {
+	public String processBorrowRequest(String user_id, String book_id)  {
 
 		int countstatustrue = 0;
 		List<Fine> fines = new ArrayList<>();
@@ -58,8 +58,9 @@ public class BorowService {
 				return "Book borrowed successfully!";
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	        e.printStackTrace();
+	       
+	    }
 		return null;
 	}
 

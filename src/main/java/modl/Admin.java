@@ -23,6 +23,21 @@ public class Admin {
 		this.password = password;
 		this.email = email;
 	}
+	
+	public Admin( String username, String password, String email) {
+		//this.admin_id = admin_id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
+
+	 public Admin() {
+	      
+	        this.admin_id = 0;
+	        this.username = "null";
+	        this.password = "null";
+	        this.email = "null";
+	    }
 
 	public int getAdmin_id() {
 		return admin_id;

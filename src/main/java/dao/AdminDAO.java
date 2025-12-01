@@ -25,9 +25,6 @@ public class AdminDAO extends BaseDAO {
         }
     }
 
-    // -------------------------
-    // CRUD للأدمن
-    // -------------------------
     
     public void addAdmin(Admin admin) {
         String sql = "INSERT INTO public.admins (username, password, email) VALUES (?, ?, ?)";
@@ -40,8 +37,7 @@ public class AdminDAO extends BaseDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        	e.printStackTrace();   }
     }
 
 
@@ -68,10 +64,7 @@ public class AdminDAO extends BaseDAO {
         return null;
     }
 
-    // -------------------------
-    // عمليات المستخدمين
-    // -------------------------
-
+    
     public boolean addUser(User u) {
         String sql = "INSERT INTO public.users (full_name, email, phone, address, membership_date) VALUES (?, ?, ?, ?, ?)";
         try (Connection con = getConnection();
@@ -122,7 +115,7 @@ public class AdminDAO extends BaseDAO {
 
         return list;
     }
-    // حذف مستخدم حسب الـ ID
+  
     public boolean deleteUserById(int id) {
         String sql = "DELETE FROM public.users WHERE user_id = ?";
         try (Connection con = getConnection();
