@@ -3,54 +3,41 @@ package soft;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.*;
 import java.sql.SQLException;
 
 import modl.Cd;
 import service.CdService;
 
-public class AddCdTest{
+public class AddCdTest {
 
     private AddCd addCd;
     private CdService mockService;
 
     @BeforeAll
-    @DisplayName(" Runs once before ALL tests")
     static void beforeAllTests() {
-        System.out.println("Starting TestAddCd Test Suite...");
+        System.out.println("Starting AddCd Test Suite...");
     }
 
     @AfterAll
-    @DisplayName(" Runs once after ALL tests")
     static void afterAllTests() {
-        System.out.println("Finished TestAddCd Test Suite.");
+        System.out.println("Finished AddCd Test Suite.");
     }
 
     @BeforeEach
-    @DisplayName("Setup test environment")
     void setup() {
         addCd = new AddCd();
-        addCd.testingMode = true;   // ⬅️ يمنع JOptionPane من الظهور أثناء التست
-        
+        addCd.testingMode = true;
         mockService = mock(CdService.class);
         addCd.setCdServiceForTest(mockService);
     }
 
-
     @AfterEach
-    @DisplayName("Clean up after test")
     void teardown() {
         addCd = null;
         mockService = null;
     }
 
-    // ---------------------------------------------------------------------
     @Test
     @DisplayName("Test adding CD successfully")
     void testAddCdSuccessfully() throws Exception {
@@ -72,45 +59,40 @@ public class AddCdTest{
         assertEquals("", addCd.copies2.getText());
     }
 
-    // ---------------------------------------------------------------------
     @Test
     @DisplayName("Test invalid copies input (not a number)")
-    void testInvalidCopies() throws Exception {
+    void testInvalidCopies() {
 
         addCd.title2.setText("CD1");
         addCd.artist2.setText("Artist1");
         addCd.genre2.setText("Rock");
-        addCd.copies2.setText("abc"); // ❌ ليست رقم
+        addCd.copies2.setText("abc");
 
         addCd.handleAddCdForTest();
 
         verify(mockService, never()).addCd(any(Cd.class));
     }
 
-    // ---------------------------------------------------------------------
     @Test
     @DisplayName("Test SQLException thrown by service")
-    void testSQLException() throws Exception {
+    void testSQLException() {
 
-        when(mockService.addCd(any(Cd.class))).thenThrow(new SQLException("DB error"));
+        when(mockService.addCd(any(Cd.class)))
+                .thenThrow(new RuntimeException("DB error"));
 
-        addCd.testingMode = true;            
-        addCd.setCdServiceForTest(mockService);  
         addCd.title2.setText("CD1");
         addCd.artist2.setText("A1");
         addCd.genre2.setText("Rock");
         addCd.copies2.setText("5");
 
-        addCd.handleAddCdForTest();
+        assertDoesNotThrow(() -> addCd.handleAddCdForTest());
 
         verify(mockService, times(1)).addCd(any(Cd.class));
     }
 
-
-    // ---------------------------------------------------------------------
     @Test
-    @DisplayName("Test failure message returned — fields must NOT be cleared")
-    void testServiceFailureMessage() throws Exception {
+    @DisplayName("Test failure message — fields must NOT clear")
+    void testServiceFailureMessage() throws SQLException {
 
         when(mockService.addCd(any(Cd.class))).thenReturn("Error adding CD!");
 
@@ -129,13 +111,12 @@ public class AddCdTest{
         assertEquals("4", addCd.copies2.getText());
     }
 
-    // ---------------------------------------------------------------------
     @Test
     @DisplayName("Test empty fields — service must NOT be called")
-    void testEmptyFields() throws Exception {
+    void testEmptyFields() {
 
         addCd.title2.setText("");
-        addCd.artist2.setText("");
+        addCd.artist2.setText("Artist");
         addCd.genre2.setText("");
         addCd.copies2.setText("2");
 

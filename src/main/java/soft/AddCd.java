@@ -23,12 +23,8 @@ public class AddCd extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    // ------------------------------------------------------------
-    //          TESTING MODE (avoids JOptionPane hang)
-    // ------------------------------------------------------------
     public boolean testingMode = false;
 
-    // خدمة قابلة للحقن أثناء الاختبار
     private CdService cdServiceForTest = null;
 
     public void setCdServiceForTest(CdService mock) {
@@ -122,27 +118,27 @@ public class AddCd extends JFrame {
         });
     }
 
-    // يرجع الخدمة الحقيقية أو الـ mock
-    private CdService getCdService() throws SQLException {
+    private CdService getCdService() {
         if (cdServiceForTest != null)
             return cdServiceForTest;
-        return new CdService();
-    }
 
-    // للاختبار فقط
+        try {
+            return new CdService();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void handleAddCdForTest() {
         handleAddCd();
     }
 
     private void handleAddCd() {
+
         String title = title2.getText().trim();
         String artist = artist2.getText().trim();
         String genre = genre2.getText().trim();
         String copiesText = copies2.getText().trim();
 
-        // ---------------------------
-        // Validation (needed for tests)
-        // ---------------------------
         if (title.isEmpty() || artist.isEmpty() || genre.isEmpty() || copiesText.isEmpty()) {
             if (!testingMode)
                 JOptionPane.showMessageDialog(this, "All fields must be filled.");
@@ -174,13 +170,9 @@ public class AddCd extends JFrame {
                 copies2.setText("");
             }
 
-        } catch (SQLException e) {
-
-            if (!testingMode)   // ⬅️ أهم شيء
+        } catch (Exception e) {   // ← ← ← التعديل الوحيد هنا
+            if (!testingMode)
                 JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
         }
-
-
-       
-
-}}
+    }
+}
