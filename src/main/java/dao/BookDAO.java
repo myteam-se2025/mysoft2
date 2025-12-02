@@ -17,6 +17,7 @@ import modl.Book;
 public class BookDAO extends BaseDAO {
 
 
+	 private static final String COL_AUTHOR = "author";
 	 /**
      * Retrieves all books from the database.
      * 
@@ -26,14 +27,16 @@ public class BookDAO extends BaseDAO {
 
 		List<Book> books = new ArrayList<>();
 
-		String sql = "SELECT * FROM public.books ";
+		 String sql = "SELECT book_id, title, "+COL_AUTHOR+", isbn, category, available_copies " +
+                 "FROM public.books";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-
+ 
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				Book book = new Book(rs.getString("title"), rs.getString("author"), rs.getString("isbn"),
-						rs.getString("category"), rs.getInt("available_copies"));
+				Book book = new Book(
+				rs.getString("title"), rs.getString(COL_AUTHOR), rs.getString("isbn"),
+				rs.getString("category"), rs.getInt("available_copies"));
 				book.setBook_id(rs.getInt("book_id"));
 				if (book != null) {
 					books.add(book);
