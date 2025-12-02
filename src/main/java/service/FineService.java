@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author khadeja and masa
- * @class FineService
+ * 
  * 
  * Service class to handle all fine-related operations in the library system.
  * This includes adding fines, finding fines for users, and paying fines.
@@ -64,7 +64,7 @@ public class FineService {
     /**
      * Finds all fines for a given user ID.
      * 
-     * @param userId The ID of the user
+     * @param userid The ID of the user
      * @return List of Fine objects; returns empty list if none found or invalid input
      */
     public List<Fine> findeAlluserfines(String userid) {
@@ -102,8 +102,8 @@ public class FineService {
     /**
      * Pays a fine for a user and returns the book if the fine is active.
      * 
-     * @param userId The ID of the user
-     * @param fineId The ID of the fine
+     * @param userid The ID of the user
+     * @param fineid The ID of the fine
      * @return Message indicating success, failure, or if loan hasn't expired
      */
     public String payFine(String userid, String fineid) {

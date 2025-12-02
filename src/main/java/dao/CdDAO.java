@@ -7,7 +7,7 @@ import modl.Cd;
  * CdDAO handles database operations related to CDs.
  * Provides methods to insert new CDs and search for CDs by title and ID.
  * 
- * @author Library
+ * @author khadeja and masa
  * @version 1.0
  * @since 2025
  */

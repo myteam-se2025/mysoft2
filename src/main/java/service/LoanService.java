@@ -8,12 +8,14 @@ import dao.LoansDAO;
 import modl.Loan;
 
 /**
- * @author khadeja and masa
- * @class LoanService
  * 
- * Service class to handle all loan-related operations in the library system.
- * This includes adding loans, checking overdue loans, and retrieving user loans.
- */
+ * LoanService handles all loan-related operations in the system,
+ * such as adding loans, finding loans, and updating loan status.
+ * 
+ * @author khadeja and masa
+ * 
+ * 
+ * */
 public class LoanService {
 
 	 /**
@@ -52,7 +54,7 @@ public class LoanService {
 	/**
      * Retrieves all loans for a specific user.
      * 
-     * @param userId The ID of the user
+     * @param userid The ID of the user
      * @return List of Loan objects for the user; empty list if none found
      */
 	public List<Loan> findeAllUserLoans(int userid) {

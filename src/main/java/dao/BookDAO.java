@@ -10,7 +10,7 @@ import modl.Book;
  * Data Access Object (DAO) class for handling database operations related to Books.
  * Provides methods to find, insert, and retrieve Book objects from the database.
  * 
- * @author Khadeja
+ * @author Khadeja and masa
  * @version 1.0
  * @since 2025
  */ 

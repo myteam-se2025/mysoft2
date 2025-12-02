@@ -14,7 +14,7 @@ public class FindeBooks {
 	 /**
      * Searches for books using the current strategy.
      *
-     * @param searchBy The search term (title, author, etc.)
+     * @param searchby The search term (title, author, etc.)
      * @return List of books found
      * @throws IllegalStateException if the strategy is not set
      */
@@ -29,7 +29,7 @@ public class FindeBooks {
 	/**
      * Sets the search strategy.
      *
-     * @param strategy A SearchBook implementation
+     * @param stratgy A SearchBook implementation
      */
 	public void setStratgy(SearchBook stratgy) {
 		this.stratgy = stratgy;

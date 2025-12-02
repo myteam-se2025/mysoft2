@@ -12,7 +12,7 @@ import modl.Admin;
  * adding admins, and managing users.
  * Provides methods for admin login, retrieval, addition, and user management.
  * 
- * @author Library Management
+ * @author khadeja and masa
  * @version 1.0
  * @since 2025
  */

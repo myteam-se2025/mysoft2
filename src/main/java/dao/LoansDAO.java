@@ -17,7 +17,7 @@ import dao.*;
  * LoansDAO handles all database operations related to loans in the library system.
  * Provides methods to insert, retrieve, delete, and check overdue loans.
  * 
- * @author Library
+ * @author khadeja and masa 
  * @version 1.0
  * @since 2025
  */

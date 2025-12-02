@@ -11,7 +11,7 @@ import dao.*;
  * Provides common database utility methods such as obtaining a connection
  * and closing resources.
  *  
- * @author Library Management
+ * @author khadeja and masa
  * @version 1.0 
  * @since 2025
  */

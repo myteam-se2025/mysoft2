@@ -5,12 +5,13 @@ import javax.swing.JOptionPane;
 import modl.Fine;
 
 /**
- * @author khadeja and masa
- * @class PayFineService
- * 
  * Service class to handle paying fines.
  * Uses FineService to interact with the database.
- */
+
+ * @author khadeja and masa
+ * 
+ * 
+ *  */
 public class PayFineService {
 
 	/**

@@ -7,7 +7,7 @@ import modl.User;
  * UserDAO handles all database operations related to library users.
  * Provides methods to add new users and find users by ID and email.
  * 
- * @author Library
+ * @author khadeja and masa
  * @version 1.0
  * @since 2025
  */

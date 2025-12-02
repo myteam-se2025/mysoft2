@@ -15,7 +15,7 @@ import modl.Fine;
  * FineDAO handles all database operations related to fines in the library system.
  * Provides methods to insert, retrieve, and delete fines.
  * 
- * @author Library
+ * @author khadeja  and masa 
  * @version 1.0
  * @since 2025
  */

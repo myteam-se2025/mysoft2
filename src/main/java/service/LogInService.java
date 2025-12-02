@@ -6,12 +6,14 @@ import modl.Admin;
 import modl.User;
 
 /**
- * @author khadeja and masa
- * @class LogInService
  * 
- * Service class to handle login functionality for both Admins and Users.
+ *  Service class to handle login functionality for both Admins and Users.
  * Validates input, checks email format, and verifies credentials against the database.
- */
+ 
+ * @author khadeja and masa
+ * 
+ * 
+ **/
 public class LogInService {
 
 	 /**

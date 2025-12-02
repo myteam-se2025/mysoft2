@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * DbConnection handles the creation and management of the database connection.
  * Provides a method to obtain a Connection object to the PostgreSQL database.
  * 
- * @author Library
+ * @author khadeja and masa 
  * @version 1.0
  * @since 2025
  */
